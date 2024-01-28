@@ -19,12 +19,15 @@ export default function Navbar() {
       <NavLink to={authUser ? ".." : "login"} 
         className={({isActive}) => isActive ? 'navbar__button--active' : "navbar__button"}
         end
-        >
-        {authUser && `${capitalFirstLetter(authUser.firstName)}`}
-        </NavLink>
+      >
+        <p>{authUser ? `${capitalFirstLetter(authUser.firstName)}` : "Login"}</p>
+      </NavLink>
+      
       <NavLink to={"settings"} 
         className={({isActive}) => isActive ? 'navbar__button--active' : "navbar__button"}
-      ><IoSettingsOutline /></NavLink>
+      >
+        <p><IoSettingsOutline /></p>
+      </NavLink>
     </div>
   )
 }
