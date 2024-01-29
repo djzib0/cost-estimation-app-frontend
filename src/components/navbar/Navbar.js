@@ -1,28 +1,34 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import './Navbar.css'
 import '../switch/Switch.css'
 import '../../App.css'
 
-//components imports
+// components imports
 import Switch from '../switch/index';
 
-//icons imports
+// custom hooks imports
+import useApiChangeSettings from '../../customHooks/useApiChangeSettings'
+
+// icons imports
 import { RiAccountBoxLine } from "react-icons/ri";
 import { AiOutlineProject } from "react-icons/ai";
 import { SlSettings } from "react-icons/sl";
 import { IoMdSunny } from "react-icons/io";
 import { IoMdMoon } from "react-icons/io";
-//utility functions imports
+
+// utility functions imports
 import capitalFirstLetter from '../../utils/utils';
-//contexts
+// contexts imports
 import { AuthUserContext, ThemeContext } from '../../App';
 
 export default function Navbar() {
 
   const {authUser} = useContext(AuthUserContext);
-  const { themeMode } = useContext(ThemeContext)
+  const { settings, handleRefreshPage } = useContext(ThemeContext);
+  const { changeSettingsTheme } = useApiChangeSettings();
 
+  const themeMode = settings && `--${settings.theme}`
 
   console.log(`main-navbar__button${themeMode}--active`)
   return (
@@ -32,7 +38,10 @@ export default function Navbar() {
       </div>
       <div className='main-navbar__container--right'>
         <Switch>
-          <Switch.Button>
+          <Switch.Button apiFunc={changeSettingsTheme} 
+            arg={settings} 
+            refreshPage={handleRefreshPage}
+          >
             <Switch.Lever leverColor={"#7b7f83"} />
             <Switch.LeftIcon iconColor={"black"}>
               <IoMdSunny />

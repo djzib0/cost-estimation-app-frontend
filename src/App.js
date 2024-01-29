@@ -15,6 +15,15 @@ export default function App() {
 
   const [authUser, setAuthUser] = useState();
   const [settings, setSettings] = useState();
+  const [theme, setTheme] = useState("");
+
+  // refreshing page
+  const [refreshPage, setRefreshPage] = useState(false)
+
+  function handleRefreshPage() {
+    console.log("refreshing mutterpacker")
+    setRefreshPage(prevState => !prevState)
+  }
 
   // fetching data
   const [users, setUsers] = useState([]);
@@ -39,7 +48,7 @@ export default function App() {
     })
     .catch(err => setError(err))
     .finally(setLoading(false))
-  }, [])
+  }, [refreshPage])
   
   // fetch user settings data
   useEffect(() => {
@@ -52,20 +61,18 @@ export default function App() {
 
   // set styling to body element
   useEffect(() => {
-    if (settings) {
-      console.log("in body: " + settings.theme )
-      document.body.classList.add(`body--${settings.theme}`)
-    }
+      if (settings) {
+        // remove all other styles from classList
+        document.body.classList.remove(...document.body.classList)
+        // set new style
+        document.body.classList.add(`body--${settings.theme}`)
+      }
   }, [settings])
-  
-  // set default theme mode (light) if fetching goes wrong
-  // pass it in ThemContext Provider
-  const themeMode = settings ? `--${settings.theme}` : "--light";
 
   return (
     <div className="App">
       <AuthUserContext.Provider value={{authUser, loading, error}}>
-        <ThemeContext.Provider value={{themeMode}}>
+        <ThemeContext.Provider value={{settings, handleRefreshPage}}>
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<Main />} />
