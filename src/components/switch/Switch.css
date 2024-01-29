@@ -1,0 +1,44 @@
+.switch__button {
+    width: 40px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 2px 0;
+    margin: 0;
+    position: relative;
+}
+
+.switch__lever--right,
+.switch__lever--left {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    /* background-color: red; */
+    transition: margin-left, margin-right .2s linear;
+}
+
+.switch__lever--right {
+    margin-left: 16px;
+}
+.switch__lever--left {
+    margin-right: 16px;
+}
+
+.switch__left-icon,
+.switch__right-icon {
+    position: absolute;
+}
+
+.switch__left-icon {
+    left: 2px;
+    top: 1px;
+}
+
+.switch__right-icon {
+    right: 2px;
+    top: 1px;
+}

@@ -5,10 +5,11 @@ import { Link, Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
 import Main from './components/main/Main';
 import Settings from './components/settings/Settings';
-// import api
-import { getUserData, getSettingsData } from './api';
+// css import
+import './App.css'
 
 const AuthUserContext = createContext();
+const ThemeContext = createContext();
 
 export default function App() {
 
@@ -20,7 +21,7 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  
+  // fetch user data
   useEffect(() => {
     setLoading(true)
     fetch(`/data/users/${1}`)
@@ -34,13 +35,13 @@ export default function App() {
       }
       return res.json()})
     .then(data => {
-      console.log(data  + " data")
       setAuthUser(data)
     })
     .catch(err => setError(err))
     .finally(setLoading(false))
   }, [])
   
+  // fetch user settings data
   useEffect(() => {
     if (authUser) {
       fetch(`/data/settings/user/${authUser.appUserId}`)
@@ -48,20 +49,33 @@ export default function App() {
       .then(settingsData => setSettings(settingsData))
     }
   }, [authUser])
+
+  // set styling to body element
+  useEffect(() => {
+    if (settings) {
+      console.log("in body: " + settings.theme )
+      document.body.classList.add(`body--${settings.theme}`)
+    }
+  }, [settings])
   
-  console.log(settings)
+  // set default theme mode (light) if fetching goes wrong
+  // pass it in ThemContext Provider
+  const themeMode = settings ? `--${settings.theme}` : "--light";
+
   return (
     <div className="App">
       <AuthUserContext.Provider value={{authUser, loading, error}}>
-        <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Main />} />
-            <Route path='/settings' element={<Settings />} />
-          </Route>
-        </Routes>
+        <ThemeContext.Provider value={{themeMode}}>
+          <Routes>
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Main />} />
+              <Route path='/settings' element={<Settings />} />
+            </Route>
+          </Routes>
+        </ThemeContext.Provider>
       </AuthUserContext.Provider>
     </div>
   );
 }
 
-export { AuthUserContext } ;
+export { AuthUserContext, ThemeContext } ;
