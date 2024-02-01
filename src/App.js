@@ -15,7 +15,7 @@ export default function App() {
 
   const [authUser, setAuthUser] = useState();
   const [settings, setSettings] = useState();
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState("light");
 
   // refreshing page
   const [refreshPage, setRefreshPage] = useState(false)
@@ -65,14 +65,19 @@ export default function App() {
         // remove all other styles from classList
         document.body.classList.remove(...document.body.classList)
         // set new style
-        document.body.classList.add(`body--${settings.theme}`)
+        document.body.classList.add(`body--${theme}`)
       }
   }, [settings])
+
+  // function to switch theme
+  function switchTheme() {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light')
+  }
 
   return (
     <div className="App">
       <AuthUserContext.Provider value={{authUser, loading, error}}>
-        <ThemeContext.Provider value={{settings, handleRefreshPage}}>
+        <ThemeContext.Provider value={{settings, handleRefreshPage, theme, switchTheme}}>
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<Main />} />

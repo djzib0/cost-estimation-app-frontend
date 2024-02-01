@@ -1,11 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import './Navbar.css'
-import '../switch/Switch.css'
+import '../../headlessComponents/switch/Switch.css'
 import '../../App.css'
 
 // components imports
-import Switch from '../switch/index';
+import Switch from '../../headlessComponents/switch/index';
+
+// images imports
+import logoWhite from '../../images/costestimapplogo-white.png'
+import logoBlack from '../../images/costestimapplogo-black.png'
 
 // custom hooks imports
 import useApiChangeSettings from '../../customHooks/useApiChangeSettings'
@@ -25,22 +29,32 @@ import { AuthUserContext, ThemeContext } from '../../App';
 export default function Navbar() {
 
   const {authUser} = useContext(AuthUserContext);
-  const { settings, handleRefreshPage } = useContext(ThemeContext);
+  const { settings, handleRefreshPage, theme, switchTheme } = useContext(ThemeContext);
   const { changeSettingsTheme } = useApiChangeSettings();
 
-  const themeMode = settings && `--${settings.theme}`
+  const themeMode = `--${theme}`
 
-  console.log(`main-navbar__button${themeMode}--active`)
   return (
     <nav className={`container main-navbar${themeMode}`}>
       <div className='main-navbar__container--left'>
-        Logo
+        {/* set logo white when dark mode is on */}
+        {theme === 'dark' && <img 
+          src={logoWhite} 
+          alt="application logo"
+          className='main-navbar__logo' />}
+        {/* set logo dark when light mode is on */}
+        {theme === 'light' && <img 
+          src={logoBlack} 
+          alt="application logo"
+          className='main-navbar__logo' />}
       </div>
       <div className='main-navbar__container--right'>
+        {/* switch headless component */}
         <Switch>
-          <Switch.Button apiFunc={changeSettingsTheme} 
+          <Switch.Button apiFunc={switchTheme} 
             arg={settings} 
             refreshPage={handleRefreshPage}
+            theme={themeMode}
           >
             <Switch.Lever leverColor={"#7b7f83"} />
             <Switch.LeftIcon iconColor={"black"}>
@@ -51,6 +65,7 @@ export default function Navbar() {
             </Switch.RightIcon>
           </Switch.Button>
         </Switch>
+
         <NavLink to={authUser ? ".." : "login"} 
           className={({isActive}) => isActive ? `main-navbar__button${themeMode}--active` : `main-navbar__button${themeMode}`}
           end
@@ -60,7 +75,6 @@ export default function Navbar() {
             <p>{authUser ? `${authUser.firstName.toUpperCase()}` : "Login"}</p>
           </div>
         </NavLink>
-
         <NavLink to={"projects"} 
           className={({isActive}) => isActive ? `main-navbar__button${themeMode}--active` : `main-navbar__button${themeMode}`}
         >

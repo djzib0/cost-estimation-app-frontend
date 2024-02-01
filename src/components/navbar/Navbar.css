@@ -1,4 +1,4 @@
-.main-navbar-light,
+.main-navbar--light,
 .main-navbar--dark,
 .main-navbar__container--left,
 .main-navbar__container--right {
@@ -17,12 +17,21 @@
 }
 
 .main-navbar__container--left {
-    background-color: greenyellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1em;
+}
+
+.main-navbar__logo {
+    height: 30px;
+
 }
 
 .main-navbar__container--right {
     justify-content: space-around;
     align-items: center;
+    padding-right: 1em;
 }
 
 .main-navbar__link__container {
