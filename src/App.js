@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import './App.css';
 import { Link, Routes, Route } from 'react-router-dom';
 // components imports
-import MainLayout from './components/layouts/MainLayout';
+import MainLayout from './layouts/MainLayout'
 import Main from './components/main/Main';
 import Settings from './components/settings/Settings';
 // css import

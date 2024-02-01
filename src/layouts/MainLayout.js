@@ -1,8 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 // components imports
-import Navbar from '../navbar/Navbar'
-
+import Navbar from '../components/navbar/Navbar'
 export default function MainLayout() {
   return (
     <div>
