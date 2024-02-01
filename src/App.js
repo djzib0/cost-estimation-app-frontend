@@ -4,18 +4,23 @@ import { Link, Routes, Route } from 'react-router-dom';
 // components imports
 import MainLayout from './layouts/MainLayout'
 import Main from './components/main/Main';
+import SettingsLayout from './layouts/SettingsLayout';
 import Settings from './components/settings/Settings';
 // css import
 import './App.css'
+// utils imports
+import { getLocalStorageTheme } from './utils/utils';
+
 
 const AuthUserContext = createContext();
 const ThemeContext = createContext();
+
 
 export default function App() {
 
   const [authUser, setAuthUser] = useState();
   const [settings, setSettings] = useState();
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
 
   // refreshing page
   const [refreshPage, setRefreshPage] = useState(false)
@@ -54,25 +59,37 @@ export default function App() {
   useEffect(() => {
     if (authUser) {
       fetch(`/data/settings/user/${authUser.appUserId}`)
-      .then(res => res.json())
+      .then(res =>  {
+        if (!res.ok) {
+          throw {
+            message: "Failed to fetch settings",
+            statusText: res.statusText,
+            status: res.status
+          }
+        }
+        return res.json()})
       .then(settingsData => setSettings(settingsData))
+      .catch(err => console.log(err.message))
     }
   }, [authUser])
 
   // set styling to body element
   useEffect(() => {
-      if (settings) {
+        setTheme(prevTheme => localStorage.getItem("theme"))
         // remove all other styles from classList
         document.body.classList.remove(...document.body.classList)
-        // set new style
-        document.body.classList.add(`body--${theme}`)
-      }
-  }, [settings])
+        // set new style with theme from localStorage
+        document.body.classList.add(`body--${getLocalStorageTheme("theme")}`)
+  }, [theme])
 
   // function to switch theme
   function switchTheme() {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light')
+    const newTheme = getLocalStorageTheme("theme") === 'light' ? localStorage.setItem("theme", "dark") : localStorage.setItem("theme", "light")
+    setTheme(getLocalStorageTheme("theme"))
   }
+
+  console.log(authUser)
+  console.log("theme: " + JSON.stringify(theme))
 
   return (
     <div className="App">
@@ -81,7 +98,11 @@ export default function App() {
           <Routes>
             <Route element={<MainLayout />}>
               <Route path="/" element={<Main />} />
-              <Route path='/settings' element={<Settings />} />
+              <Route path='settings' element={<SettingsLayout />}>
+                <Route path="Item1" element={<Main />} />
+                <Route path="Item2" element={<Main />} />
+              </Route>
+
             </Route>
           </Routes>
         </ThemeContext.Provider>

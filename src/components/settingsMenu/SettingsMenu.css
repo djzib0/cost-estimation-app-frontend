@@ -1,0 +1,6 @@
+.settings-menu__container {
+    display: flex;
+    background-color: red ;
+    width: 200px;
+    position: fixed;
+}

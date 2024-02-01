@@ -3,10 +3,6 @@ import { getUserData } from '../../api';
 
 export default function Main() {
 
-
-
-  
-
   return (
     <div>Main</div>
   )
