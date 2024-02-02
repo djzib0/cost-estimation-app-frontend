@@ -8,8 +8,13 @@
     margin: 0;
 }
 
+.main-navbar--dark,
 .main-navbar--light {
-    background-color: #f5f5f5;
+    border-bottom: 1px solid #f8f2fc;
+}
+
+.main-navbar--light {
+    background-color: #ffffff;
 }
 
 .main-navbar--dark {
@@ -65,7 +70,7 @@
 }
 
 .main-navbar__button--dark {
-    color: #7b7f82;
+    color: #7b8083;
 }
 
 .main-navbar__button--dark--active {

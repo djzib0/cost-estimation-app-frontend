@@ -1,5 +1,5 @@
 .settings-menu__container {
     display: flex;
-    background-color: whitesmoke;
+    background-color: red;
     position: fixed;
 }
