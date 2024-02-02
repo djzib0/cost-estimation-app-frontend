@@ -6,6 +6,7 @@ import '../../App.css'
 
 // components imports
 import Switch from '../../headlessComponents/switch/index';
+import NavbarItem from '../NavbarItem/NavbarItem';
 
 // images imports
 import logoWhite from '../../images/costestimapplogo-white.png'
@@ -20,6 +21,9 @@ import { AiOutlineProject } from "react-icons/ai";
 import { SlSettings } from "react-icons/sl";
 import { IoMdSunny } from "react-icons/io";
 import { IoMdMoon } from "react-icons/io";
+import { BiSolidBook } from "react-icons/bi";
+
+
 
 // utility functions imports
 import capitalFirstLetter from '../../utils/utils';
@@ -65,33 +69,29 @@ export default function Navbar() {
             </Switch.RightIcon>
           </Switch.Button>
         </Switch>
-
+        {/* --== Navbar links ==-- */}
         <NavLink to={authUser ? ".." : "login"} 
           className={({isActive}) => isActive ? `main-navbar__button${themeMode}--active` : `main-navbar__button${themeMode}`}
-          end
-        >
-          <div className={`main-navbar__link__container`}>
-            <RiAccountBoxLine className='main-navbar__link__icon' />
-            <p>{authUser ? `${authUser.firstName.toUpperCase()}` : "Login"}</p>
-          </div>
+          end>
+          <NavbarItem title={authUser ? `${authUser.firstName.toUpperCase()}` : "LOGIN"} icon={<RiAccountBoxLine className='main-navbar__link__icon' />} />
         </NavLink>
+
         <NavLink to={"projects"} 
           className={({isActive}) => isActive ? `main-navbar__button${themeMode}--active` : `main-navbar__button${themeMode}`}
         >
-          <div className={`main-navbar__link__container`}>
-            <p><AiOutlineProject className='main-navbar__link__icon'/></p>
-            <p>PROJECTS</p>
-          </div>
+          <NavbarItem title={"PROJECTS"} icon={<AiOutlineProject className='main-navbar__link__icon' />} />
         </NavLink>
 
-        
+        <NavLink to={"dictionaries"} 
+          className={({isActive}) => isActive ? `main-navbar__button${themeMode}--active` : `main-navbar__button${themeMode}`}
+        >
+          <NavbarItem title={"DICTIONARIES"} icon={<BiSolidBook className='main-navbar__link__icon' />} />
+        </NavLink>
+
         <NavLink to={"settings"} 
           className={({isActive}) => isActive ? `main-navbar__button${themeMode}--active` : `main-navbar__button${themeMode}`}
         >
-          <div className={`main-navbar__link__container`}>
-            <p><SlSettings className='main-navbar__link__icon'/></p>
-            <p>SETTINGS</p>
-          </div>
+          <NavbarItem title={"SETTINGS"} icon={<SlSettings className='main-navbar__link__icon' />} />
         </NavLink>
       </div>
     </nav>

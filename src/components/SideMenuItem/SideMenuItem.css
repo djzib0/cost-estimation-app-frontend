@@ -1,0 +1,12 @@
+.side-menu-item__container {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+}
+.side-menu-item__container:hover {
+    border-right: 4px solid #7b28c0;
+    background-image: linear-gradient(to right, rgba(255,0,0,0), #e7cbff, #e7cbff, #e7cbff);
+}
