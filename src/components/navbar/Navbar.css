@@ -1,4 +1,11 @@
 .main-navbar--light,
+.main-navbar--dark {
+    position: fixed;
+    left: 0px;
+    width: 100vw;
+}
+
+.main-navbar--light,
 .main-navbar--dark,
 .main-navbar__container--left,
 .main-navbar__container--right {

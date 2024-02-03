@@ -6,6 +6,9 @@ import MainLayout from './layouts/MainLayout'
 import Main from './components/main/Main';
 import SettingsLayout from './layouts/SettingsLayout';
 import Settings from './components/settings/Settings';
+import Dictionaries from './components/dictionaries/Dictionaries';
+import DictionariesLayout from './layouts/DictionariesLayout';
+import GradesDictionary from './components/gradesDictionary/GradesDictionary';
 // css import
 import './App.css'
 // utils imports
@@ -101,6 +104,10 @@ export default function App() {
               <Route path='settings' element={<SettingsLayout />}>
                 <Route path="Item1" element={<Main />} />
                 <Route path="Item2" element={<Main />} />
+              </Route>
+              <Route path='dictionaries' element={<DictionariesLayout />}>
+                <Route index element={<Dictionaries />} />
+                <Route path="gradesdictionary" element={<GradesDictionary />} />
               </Route>
 
             </Route>
