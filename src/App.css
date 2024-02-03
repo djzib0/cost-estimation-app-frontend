@@ -9,11 +9,13 @@ body {
 }
 
 body.body--light {
-  background-color: #ffffff;
+  background-color: #fafaff;
+  color: #192c3b ;
 }
 
 body.body--dark {
-  background-color: #4c4c4c;
+  background-color: #353c42;
+  color: #fafaff
 }
 
 a {

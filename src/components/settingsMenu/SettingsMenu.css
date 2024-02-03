@@ -1,5 +1,64 @@
-.settings-menu__container {
+.side-menu__container--dark,
+.side-menu__container--light {
     display: flex;
-    background-color: red;
     position: fixed;
+    height: 100vh;
+}
+
+.side-menu__container--dark {
+    background-color: #444d55;
+    border-right: 1px solid #444d55;
+}
+
+.side-menu__container--light {
+    background-color: #f3f6fd;
+    border-right: 1px solid #dbdeeb;
+}
+
+.side-menu__header--dark,
+.side-menu__header--light,
+.side-menu__item--dark,
+.side-menu__item--light {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 30px;
+    cursor: default;
+    text-transform: uppercase;
+    margin-left: 1em;
+}
+
+.side-menu__header--dark,
+.side-menu__header--light {
+    font-weight: bolder;
+    margin-bottom: 1em;
+    width: 180px;
+}
+
+.side-menu__header--light {
+    border-bottom: 1px solid #dbdeeb;
+    margin-left: 1em;
+}
+
+.side-menu__header--dark {
+    border-bottom: 1px solid #7b8083;
+    margin-left: 1em;
+}
+
+.side-menu__item--dark,
+.side-menu__item--light {
+    cursor: pointer;
+    margin-left: 0;
+    padding-left: 1em;
+}
+
+.side-menu__item--light:hover {
+    border-right: 2px solid #7b28c0;
+    background-color: #dbdeeb;
+}
+
+.side-menu__item--dark:hover {
+    border-right: 2px solid #7b28c0;
+    background-color: #dbdeeb;
+    color: #444d55;
 }
