@@ -1,0 +1,4 @@
+.main-content-header__link--dark,
+.main-content-header__link--dark--active {
+    border-bottom: 1px solid red;
+}
