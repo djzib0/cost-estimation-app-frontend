@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 // css import
 import './DictionariesMenu.css'
 // contexts import
-import { ThemeContext } from '../../App'
+import { ThemeContext } from '../../../App'
 // components imports
-import SideMenu from '../../headlessComponents/sideMenu/index';
+import SideMenu from '../../../headlessComponents/sideMenu/index';
 
 export default function DictionariesMenu() {
 
@@ -24,12 +24,9 @@ export default function DictionariesMenu() {
 
           <NavLink to={"gradesdictionary"} 
             className={({isActive}) => isActive ? `side-menu__item${themeMode}--active` : `side-menu__item${themeMode}`}
-            end
           >
             MATERIAL GRADES
           </NavLink>
-
-
 
         </SideMenu.Item>
       </SideMenu>

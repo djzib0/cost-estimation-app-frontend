@@ -8,11 +8,15 @@ import SettingsLayout from './layouts/SettingsLayout';
 import Settings from './components/settings/Settings';
 import Dictionaries from './components/dictionaries/Dictionaries';
 import DictionariesLayout from './layouts/DictionariesLayout';
-import GradesDictionary from './components/gradesDictionary/GradesDictionary';
+import GradesDictionary from './components/dictionaries/gradesDictionaryDashboard/GradesDictionaryDashboard';
+import MaterialGradesLayout from './layouts/MaterialGradesLayout';
+import MaterialGrades from './components/dictionaries/materialGrades/MaterialGrades';
+import TestComponent from './components/testComponent/TestComponent';
 // css import
 import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
+import GradesDictionaryDashboard from './components/dictionaries/gradesDictionaryDashboard/GradesDictionaryDashboard';
 
 
 const AuthUserContext = createContext();
@@ -107,7 +111,10 @@ export default function App() {
               </Route>
               <Route path='dictionaries' element={<DictionariesLayout />}>
                 <Route index element={<Dictionaries />} />
-                <Route path="gradesdictionary" element={<GradesDictionary />} />
+                <Route path="gradesdictionary" element={<MaterialGradesLayout />}>
+                  <Route index element={<MaterialGrades />} />
+                  <Route path='testpath' element={<TestComponent />} />
+                </Route>
               </Route>
 
             </Route>

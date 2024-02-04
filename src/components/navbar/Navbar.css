@@ -1,7 +1,8 @@
 .main-navbar--light,
 .main-navbar--dark {
     position: fixed;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100vw;
 }
 
