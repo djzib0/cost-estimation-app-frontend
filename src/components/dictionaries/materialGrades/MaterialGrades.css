@@ -1,0 +1,47 @@
+.data__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.headers__container {
+    display: flex;
+    font-weight: bolder;
+}
+
+.row__container {
+    display: flex;
+}
+
+.header__container,
+.header__container--narrow {
+    border-bottom: 1px solid;
+    margin-bottom: 1em;
+}
+
+.header__container,
+.cell__container {
+    width: 200px;
+}
+
+.header__container--narrow,
+.cell__container--narrow {
+    width: 100px;
+}
+
+.header-cta__container {
+    width: fit-content;
+}
+
+.cell__container {
+    margin-bottom: .5em;
+}
+
+.header__container,
+.header__container--narrow,
+.cell__container,
+.cell__container--narrow {
+    margin-right: 1em;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+

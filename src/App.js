@@ -25,15 +25,15 @@ const ThemeContext = createContext();
 
 export default function App() {
 
+
   const [authUser, setAuthUser] = useState();
   const [settings, setSettings] = useState();
-  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  const [theme, setTheme] = useState(getLocalStorageTheme())
 
-  // refreshing page
+  // state variable to refresh page
   const [refreshPage, setRefreshPage] = useState(false)
 
   function handleRefreshPage() {
-    console.log("refreshing mutterpacker")
     setRefreshPage(prevState => !prevState)
   }
 

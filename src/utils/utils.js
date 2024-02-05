@@ -2,8 +2,8 @@ function capitalFirstLetter(text) {
     return text.slice(0, 1).toUpperCase() + text.slice(1);
 }
 
-function getLocalStorageTheme(key) {
-    const value = localStorage.getItem(key);
+function getLocalStorageTheme() {
+    const value = localStorage.getItem("theme");
     if (value) {
         return value
     } else {

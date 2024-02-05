@@ -4,7 +4,7 @@ export default function Dictionaries() {
 
   return (
     <div>
-    <div className='main-content__container'>Dictionaries</div>
+      <div className='main-content__container'>Dictionaries</div>
     </div>
   )
 }
