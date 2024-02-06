@@ -15,11 +15,10 @@ export default function Modal(props) {
     onClose,
     handleFunction,
     refreshPage,
-    form
+    form,
+    obj
   } = props
 
-  console.log(form, " value")
-  console.log(onClose)
 
   const [formData, setFormData] = useState({
     // property for an update or add

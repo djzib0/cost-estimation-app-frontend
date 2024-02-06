@@ -19,7 +19,7 @@ export default function MaterialGrades() {
   const themeMode = `--${theme}`
   const [materialGradesData, setMaterialGradesData] = useState()
 
-    const {
+  const {
     modalData,
     setModalData,
     closeModal,
@@ -39,33 +39,28 @@ export default function MaterialGrades() {
     }
   }, [])
 
-  function editItem(id) {
-    console.log("item edited", id)
-  }
-
-  function deleteItem(id) {
-    console.log("item deleted", id)
-  }
 
   const materialGradesArr = materialGradesData && materialGrades.map(item => {
+    console.log(item, " in mapping item")
     return (
         <MaterialGradeItem 
         key={item.materialGradeId}
-        item={item} 
+        item={item}
         editItem={() => setModalData(prevData => {
             //open new modal with new properties
             return {
               ...prevData,
               isActive: true,
-              modalType: "info",
-              messageTitle: "Enter new task title",
+              modalType: "edit",
+              messageTitle: "Enter new values",
               elementId: item.materialGradeId,
               value: "",
-              handleFunction: {editItem}
+              obj: {item}
             }})}
-        deleteItem={deleteItem}/>
+        />
     )
   })
+  
   return (
     <>
       <MainContentContainer>
@@ -91,13 +86,10 @@ export default function MaterialGrades() {
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
         elementId={modalData.elementId}
-        value={modalData.value}
         refreshPage={() => undefined}
         onClose={closeModal}
         //props with data to add in DB
-        leadId=""
-        clientId=""
-        form={<MaterialGradeEditForm />}
+        form={<MaterialGradeEditForm obj={modalData.obj} />}
         />}
     </>
   )

@@ -10,10 +10,11 @@ function useModal() {
     elementId: "",
     newValue: "",
     handleFunction: "",
-    form: ""
+    form: "",
+    obj: {},
   }
 
-  const [modalData, setModalData] = useState(initialModalData)
+  const [modalData, setModalData] = useState({initialModalData})
 
   function openModal() {
     setModalData(prevModalData => {
@@ -32,6 +33,8 @@ function useModal() {
     setModalData(initialModalData)
   }
 
+  console.log("jestem w modal", initialModalData.obj)
+
   return (
     {
         modalData,
@@ -42,5 +45,6 @@ function useModal() {
     }
   )
 }
+
 
 export default useModal
