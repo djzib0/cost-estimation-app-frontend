@@ -7,6 +7,7 @@ function useModal() {
     modalType: "",
     messageTitle: "",
     messageText: "",
+    errorText: "",
     elementId: "",
     newValue: "",
     handleFunction: "",
@@ -14,7 +15,18 @@ function useModal() {
     obj: {},
   }
 
-  const [modalData, setModalData] = useState({initialModalData})
+  const [modalData, setModalData] = useState({
+    isActive: false,
+    modalType: "",
+    messageTitle: "",
+    messageText: "",
+    errorText: "",
+    elementId: "",
+    newValue: "",
+    handleFunction: "",
+    form: "",
+    obj: {},
+  })
 
   function openModal() {
     setModalData(prevModalData => {
@@ -25,22 +37,34 @@ function useModal() {
     })
   }
 
+  function updateModalData(property, value) {
+    setModalData(prevData => {
+      return {
+        ...prevData,
+        [property]: value
+      }  
+    })
+  }
+
   function closeModal() {
-    resetModal()
+    setModalData(prevData => {
+      return {
+        ...prevData,
+        isActive: false,
+      }
+    })
   }
 
   function resetModal() {
     setModalData(initialModalData)
   }
-
-  console.log("jestem w modal", initialModalData.obj)
-
   return (
     {
         modalData,
         setModalData,
         closeModal,
         openModal,
+        updateModalData,
         resetModal
     }
   )

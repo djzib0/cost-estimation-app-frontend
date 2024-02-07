@@ -41,7 +41,6 @@ export default function MaterialGrades() {
 
 
   const materialGradesArr = materialGradesData && materialGrades.map(item => {
-    console.log(item, " in mapping item")
     return (
         <MaterialGradeItem 
         key={item.materialGradeId}
@@ -85,11 +84,9 @@ export default function MaterialGrades() {
         messageTitle={modalData.messageTitle}
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
-        elementId={modalData.elementId}
-        refreshPage={() => undefined}
         onClose={closeModal}
-        //props with data to add in DB
-        form={<MaterialGradeEditForm obj={modalData.obj} />}
+        errorText={modalData.errorText}
+        form={<MaterialGradeEditForm obj={modalData.obj} errorText={modalData.errorText}/>}
         />}
     </>
   )

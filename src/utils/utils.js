@@ -15,4 +15,8 @@ function setLocalStorageTheme(key, value) {
     localStorage.setItem(key, value)
 }
 
-export {getLocalStorageTheme}
+function isEmpty(input) {
+    return input.length === 0;
+}
+
+export {getLocalStorageTheme, isEmpty}

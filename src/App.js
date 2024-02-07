@@ -95,9 +95,6 @@ export default function App() {
     setTheme(getLocalStorageTheme("theme"))
   }
 
-  console.log(authUser)
-  console.log("theme: " + JSON.stringify(theme))
-
   return (
     <div className="App">
       <AuthUserContext.Provider value={{authUser, loading, error}}>

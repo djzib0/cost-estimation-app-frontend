@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
+//utils imports
+import { isEmpty } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
 
-  const {euSymbol, gerSymbol} = props.obj.item
+  const {materialGradeId, euSymbol, gerSymbol} = props.obj.item;
+  const [errorMessage, setErrorMessage] = useState("");
 
   const {
     modalData,
     setModalData,
     closeModal,
+    openModal,
+    updateModalData
   } = useModal()
 
   const [formData, setFormData] = useState(
@@ -18,7 +23,9 @@ export default function MaterialGradeEditForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log("Submitting")
+    if (isEmpty(formData.euSymbol)) {
+      setErrorMessage("cannot be empty")
+    }
   }
 
   function handleChange(e) {
@@ -33,7 +40,7 @@ export default function MaterialGradeEditForm(props) {
 
   return (
     <div>
-      <p></p>
+      <p>{errorMessage}</p>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
