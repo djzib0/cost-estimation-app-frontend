@@ -52,6 +52,7 @@ export default function MaterialGrades() {
               isActive: true,
               modalType: "edit",
               messageTitle: "Enter new values",
+              messageText: "Please enter the data in all input fields",
               elementId: item.materialGradeId,
               value: "",
               obj: {item}
@@ -85,8 +86,7 @@ export default function MaterialGrades() {
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
         onClose={closeModal}
-        errorText={modalData.errorText}
-        form={<MaterialGradeEditForm obj={modalData.obj} errorText={modalData.errorText}/>}
+        form={<MaterialGradeEditForm obj={modalData.obj} />}
         />}
     </>
   )

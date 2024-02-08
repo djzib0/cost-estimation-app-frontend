@@ -1,24 +1,31 @@
-import React, { useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import useModal from '../../customHooks/useModal';
+// components imports
+import ModalCloseButton from './ModalCloseButton';
+import ModalTitle from './ModalTitle';
+import ModalMessageText from './ModalMessageText'
 // styles imports
 import './Modal.css'
+// context imports
+import { ThemeContext } from '../../App';
+import ModalIcon from './ModalIcon';
 
 export default function Modal(props) {
 
+  const {theme} = useContext(ThemeContext)
+  const themeMode = `--${theme}`
+
   const {
-    isActive,
     modalType,
-    messageTitle, 
+    messageTitle,
     messageText,
-    errorText,
-    elementId,
-    value,
-    onClose,
     handleFunction,
-    refreshPage,
+    onClose,
     form,
-    obj
+    errorText,
   } = props
+
+
 
   const {
     modalData,
@@ -26,16 +33,17 @@ export default function Modal(props) {
     closeModal,
   } = useModal()
 
-  const [isDisabled, setIsDisabled] = useState(true)
-  const [showInputError, setShowInputError] = useState(false)
-  const [showDateError, setShowDateError] = useState(false)
-
   return (
-    <div className='modal__container'>
-      <button onClick={onClose}>Close modal window</button>
+    <div className={`modal__container${themeMode}`}>
+      <ModalCloseButton onClose={onClose} />
+      <ModalIcon type={modalType} />
+      <ModalTitle title={messageTitle} />
+      <ModalMessageText messageText={messageText} />
       <p>{modalData.messageTitle}</p>
       <p>{errorText}</p>
-      <div>{form}</div>
+
+      {modalType === 'edit' && <div>{form}</div>}
+
     </div>
   )
 }

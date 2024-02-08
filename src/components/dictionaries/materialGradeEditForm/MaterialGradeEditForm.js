@@ -9,14 +9,6 @@ export default function MaterialGradeEditForm(props) {
   const {materialGradeId, euSymbol, gerSymbol} = props.obj.item;
   const [errorMessage, setErrorMessage] = useState("");
 
-  const {
-    modalData,
-    setModalData,
-    closeModal,
-    openModal,
-    updateModalData
-  } = useModal()
-
   const [formData, setFormData] = useState(
     {euSymbol: euSymbol, gerSymbol: gerSymbol}
   )

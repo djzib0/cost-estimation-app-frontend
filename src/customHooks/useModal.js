@@ -8,8 +8,6 @@ function useModal() {
     messageTitle: "",
     messageText: "",
     errorText: "",
-    elementId: "",
-    newValue: "",
     handleFunction: "",
     form: "",
     obj: {},
@@ -21,8 +19,6 @@ function useModal() {
     messageTitle: "",
     messageText: "",
     errorText: "",
-    elementId: "",
-    newValue: "",
     handleFunction: "",
     form: "",
     obj: {},
@@ -34,15 +30,6 @@ function useModal() {
         ...prevModalData,
         isActive: true
       }
-    })
-  }
-
-  function updateModalData(property, value) {
-    setModalData(prevData => {
-      return {
-        ...prevData,
-        [property]: value
-      }  
     })
   }
 
@@ -64,7 +51,6 @@ function useModal() {
         setModalData,
         closeModal,
         openModal,
-        updateModalData,
         resetModal
     }
   )
