@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
 import MainSectionContainer from '../../mainSectionContainer/MainSectionContainer'
-import MaterialGradeItem from './MaterialGradeItem'
-import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
 // contexts imports
 import { ThemeContext } from '../../../App';
@@ -11,14 +9,14 @@ import { ThemeContext } from '../../../App';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
 // styles import
-import './MaterialGrades.css'
 
-export default function MaterialGrades() {
+
+export default function Pipes() {
 
   const {theme} = useContext(ThemeContext)
   const themeMode = `--${theme}`
-  
-  const [materialGradesData, setMaterialGradesData] = useState()
+
+  const [pipesData, setPipesData] = useState();
 
   const {
     modalData,
@@ -27,40 +25,40 @@ export default function MaterialGrades() {
   } = useModal()
 
 
-  const {
-    getMaterialGradesData,
-    editMaterialGradesData,
-    materialGrades
-  } = useDictionariesApi()
+//   const {
+//     getMaterialGradesData,
+//     editMaterialGradesData,
+//     materialGrades
+//   } = useDictionariesApi()
 
-  useEffect(() => {
-    getMaterialGradesData();
-    if (materialGrades) {
-      setMaterialGradesData(materialGrades)
-    }
-  }, [])
+//   useEffect(() => {
+//     getMaterialGradesData();
+//     if (pipes) {
+//       setPipesData(pipesData)
+//     }
+//   }, [])
 
 
-  const materialGradesArr = materialGradesData && materialGrades.map(item => {
-    return (
-        <MaterialGradeItem 
-        key={item.materialGradeId}
-        item={item}
-        editItem={() => setModalData(prevData => {
-            //open new modal with new properties
-            return {
-              ...prevData,
-              isActive: true,
-              modalType: "edit",
-              messageTitle: "Enter new values",
-              messageText: "Please enter the data in all input fields",
-              elementId: item.materialGradeId,
-              value: "",
-              obj: {item}
-            }})}
-        />
-    )
-  })
+//   const materialGradesArr = pipesData && pipesData.map(item => {
+//     return (
+//         <MaterialGradeItem 
+//         key={item.materialGradeId}
+//         item={item}
+//         editItem={() => setModalData(prevData => {
+//             //open new modal with new properties
+//             return {
+//               ...prevData,
+//               isActive: true,
+//               modalType: "edit",
+//               messageTitle: "Enter new values",
+//               messageText: "Please enter the data in all input fields",
+//               elementId: item.materialGradeId,
+//               value: "",
+//               obj: {item}
+//             }})}
+//         />
+//     )
+//   })
   
   return (
     <>
@@ -74,7 +72,7 @@ export default function MaterialGrades() {
               <div className='header-cta__container'></div>
             </div>
             <div className='rows__container'>
-              {materialGradesArr}
+              {/* {materialGradesArr} */}
             </div>
           </div>
         </MainSectionContainer>
@@ -87,7 +85,7 @@ export default function MaterialGrades() {
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
         onClose={closeModal}
-        form={<MaterialGradeEditForm obj={modalData.obj} />}
+        // form={<MaterialGradeEditForm obj={modalData.obj} />}
         />}
     </>
   )

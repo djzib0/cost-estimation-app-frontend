@@ -1,6 +1,6 @@
 import React from 'react';
 //styles imports
-import '../materialGradeItem/MaterialGradeItem.css'
+import './MaterialGradeItem.css'
 
 export default function MaterialGradeItem(props) {
   

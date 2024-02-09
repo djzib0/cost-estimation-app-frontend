@@ -8,15 +8,21 @@ import SettingsLayout from './layouts/SettingsLayout';
 import Settings from './components/settings/Settings';
 import Dictionaries from './components/dictionaries/Dictionaries';
 import DictionariesLayout from './layouts/DictionariesLayout';
-import GradesDictionary from './components/dictionaries/gradesDictionaryDashboard/GradesDictionaryDashboard';
+import GradesDictionary from './components/dictionaries/materialGrades/MaterialGradesDashboard';
 import MaterialGradesLayout from './layouts/MaterialGradesLayout';
 import MaterialGrades from './components/dictionaries/materialGrades/MaterialGrades';
+import MaterialGradesStSt from './components/dictionaries/materialGrades/MaterialGradesStSt';
+import MaterialGradesAluminum from './components/dictionaries/materialGrades/MaterialGradesAluminum';
+import MaterialGradesOther from './components/dictionaries/materialGrades/MaterialGradesOther';
 import TestComponent from './components/testComponent/TestComponent';
+import PipesLayout from './layouts/PipesLayout';
+import Pipes from './components/dictionaries/pipes/Pipes';
+
 // css import
 import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
-import GradesDictionaryDashboard from './components/dictionaries/gradesDictionaryDashboard/GradesDictionaryDashboard';
+import GradesDictionaryDashboard from './components/dictionaries/materialGrades/MaterialGradesDashboard';
 
 
 const AuthUserContext = createContext();
@@ -108,12 +114,16 @@ export default function App() {
               </Route>
               <Route path='dictionaries' element={<DictionariesLayout />}>
                 <Route index element={<Dictionaries />} />
-                <Route path="gradesdictionary" element={<MaterialGradesLayout />}>
-                  <Route index element={<MaterialGrades />} />
-                  <Route path='testpath' element={<TestComponent />} />
+                <Route path="gradesDictionary" element={<MaterialGradesLayout />}>
+                  <Route index path='steel' element={<MaterialGrades />} />
+                  <Route path='stst' element={<MaterialGradesStSt />} />
+                  <Route path='aluminum' element={<MaterialGradesAluminum />} />
+                  <Route path='other' element={<MaterialGradesOther />} />
+                </Route>
+                <Route path="pipes" element={<PipesLayout />}>
+                  <Route index element={<Pipes />} />
                 </Route>
               </Route>
-
             </Route>
           </Routes>
         </ThemeContext.Provider>

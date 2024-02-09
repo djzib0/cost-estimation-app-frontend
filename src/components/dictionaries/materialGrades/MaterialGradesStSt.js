@@ -10,15 +10,11 @@ import { ThemeContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
-// styles import
-import './MaterialGrades.css'
 
-export default function MaterialGrades() {
+export default function MaterialGradesStSt() {
 
   const {theme} = useContext(ThemeContext)
   const themeMode = `--${theme}`
-  
-  const [materialGradesData, setMaterialGradesData] = useState()
 
   const {
     modalData,
@@ -26,42 +22,6 @@ export default function MaterialGrades() {
     closeModal,
   } = useModal()
 
-
-  const {
-    getMaterialGradesData,
-    editMaterialGradesData,
-    materialGrades
-  } = useDictionariesApi()
-
-  useEffect(() => {
-    getMaterialGradesData();
-    if (materialGrades) {
-      setMaterialGradesData(materialGrades)
-    }
-  }, [])
-
-
-  const materialGradesArr = materialGradesData && materialGrades.map(item => {
-    return (
-        <MaterialGradeItem 
-        key={item.materialGradeId}
-        item={item}
-        editItem={() => setModalData(prevData => {
-            //open new modal with new properties
-            return {
-              ...prevData,
-              isActive: true,
-              modalType: "edit",
-              messageTitle: "Enter new values",
-              messageText: "Please enter the data in all input fields",
-              elementId: item.materialGradeId,
-              value: "",
-              obj: {item}
-            }})}
-        />
-    )
-  })
-  
   return (
     <>
       <MainContentContainer>
@@ -74,7 +34,7 @@ export default function MaterialGrades() {
               <div className='header-cta__container'></div>
             </div>
             <div className='rows__container'>
-              {materialGradesArr}
+              Tutaj będzie lista materiałów nierdzewnych
             </div>
           </div>
         </MainSectionContainer>
