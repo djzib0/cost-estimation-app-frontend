@@ -10,8 +10,6 @@ export default function MaterialGradeItem(props) {
     gerSymbol,
   } = props.item;
 
-  
-
 
   return (
     <div className='row__container'>

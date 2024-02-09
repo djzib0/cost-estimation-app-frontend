@@ -1,67 +1,49 @@
-import React, { useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import useModal from '../../customHooks/useModal';
+// components imports
+import ModalCloseButton from './ModalCloseButton';
+import ModalTitle from './ModalTitle';
+import ModalMessageText from './ModalMessageText'
 // styles imports
 import './Modal.css'
+// context imports
+import { ThemeContext } from '../../App';
+import ModalIcon from './ModalIcon';
 
 export default function Modal(props) {
 
+  const {theme} = useContext(ThemeContext)
+  const themeMode = `--${theme}`
+
   const {
-    isActive,
     modalType,
-    messageTitle, 
+    messageTitle,
     messageText,
-    elementId,
-    value,
-    onClose,
     handleFunction,
-    refreshPage,
-    form
+    onClose,
+    form,
+    errorText,
   } = props
 
-  console.log(form, " value")
-  console.log(onClose)
-
-  const [formData, setFormData] = useState({
-    // property for an update or add
-    newValue: value,
-    date: ""
-  })
-
-  const [isDisabled, setIsDisabled] = useState(true)
-  const [showInputError, setShowInputError] = useState(false)
-  const [showDateError, setShowDateError] = useState(false)
-
-  useEffect(() => {
-    // if input for newValue is empty or contains only white
-    // spaces, the button remains disabled
-    // checks date input, if it's not chosen
-    // the button remains disabled
-
-    // checks input after "trimming" white spaces
-    if (formData.newValue && formData.newValue.trim() && formData.date) {
-      setIsDisabled(false)
-    } else {
-      setIsDisabled(true)
-    }
-  }, [formData])
 
 
-  function handleFormChange(e) {
-    const {name, value} = e.target
-    setFormData(prevData => {
-      return {
-        ...prevData,
-        [name]: value
-      }
-    })
-  }
-
+  const {
+    modalData,
+    setModalData,
+    closeModal,
+  } = useModal()
 
   return (
-    <div className='modal__container'>
-      <button onClick={onClose}>Close modal window</button>
-      Expect the modal here my mate.
-      <div>{form}</div>
+    <div className={`modal__container${themeMode}`}>
+      <ModalCloseButton onClose={onClose} />
+      <ModalIcon type={modalType} />
+      <ModalTitle title={messageTitle} />
+      <ModalMessageText messageText={messageText} />
+      <p>{modalData.messageTitle}</p>
+      <p>{errorText}</p>
+
+      {modalType === 'edit' && <div>{form}</div>}
+
     </div>
   )
 }

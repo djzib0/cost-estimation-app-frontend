@@ -7,13 +7,22 @@ function useModal() {
     modalType: "",
     messageTitle: "",
     messageText: "",
-    elementId: "",
-    newValue: "",
+    errorText: "",
     handleFunction: "",
-    form: ""
+    form: "",
+    obj: {},
   }
 
-  const [modalData, setModalData] = useState(initialModalData)
+  const [modalData, setModalData] = useState({
+    isActive: false,
+    modalType: "",
+    messageTitle: "",
+    messageText: "",
+    errorText: "",
+    handleFunction: "",
+    form: "",
+    obj: {},
+  })
 
   function openModal() {
     setModalData(prevModalData => {
@@ -25,13 +34,17 @@ function useModal() {
   }
 
   function closeModal() {
-    resetModal()
+    setModalData(prevData => {
+      return {
+        ...prevData,
+        isActive: false,
+      }
+    })
   }
 
   function resetModal() {
     setModalData(initialModalData)
   }
-
   return (
     {
         modalData,
@@ -42,5 +55,6 @@ function useModal() {
     }
   )
 }
+
 
 export default useModal

@@ -1,0 +1,24 @@
+.modal__close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    right: .2em;
+    top: .2em;
+    color: #353c42;
+    font-weight: bolder;
+    width: 16px;
+    height: 16px;
+    border-radius: 13px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color .3s, color .3s;
+}
+
+.modal__close-button:hover {
+    background-color: #7b8083;
+    color: #dbdeeb;
+}
