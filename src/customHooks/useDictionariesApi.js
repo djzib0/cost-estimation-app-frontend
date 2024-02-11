@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 function useDictionariesApi() {
 
   const [materialGrades, setMaterialGrades] = useState([]);
+  const [materialGroupTypes, setMaterialGroupTypes] = useState([]);
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -24,17 +25,41 @@ function useDictionariesApi() {
     .finally(setLoading(false))
   }
 
-  async function addMaterialGrade(newMaterialGradeObj) {
-    console.log(" adding in useDictionary")
+  async function getMaterialGroupTypes() {
     setLoading(true)
+    fetch(`/data/materialgroups`)
+    .then(res => {
+      if (!res.ok) {
+        throw {
+          message: "Failed to fetch material group types.",
+          statusText: res.statusText,
+          status: res.status
+        }
+      }
+      return res.json()})
+    .then(data => setMaterialGroupTypes(data))
+    .catch(err => setError(err))
+    .finally(setLoading(false))
+  }
+
+  async function addMaterialGrade(newMaterialGradeObj) {
     fetch(`/data/materialgrades/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(
         {
-          euSymbol: "Test euSymbol",
-          gerSymbol: "Test GerSymbol",
-          materialGroup: "st. st."   
+          ...newMaterialGradeObj 
+        })
+    })
+  }
+
+  async function editMaterialGrade(editedMaterialGrade) {
+    fetch(`/data/materialgrades/edit`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(
+        {
+          ...editedMaterialGrade 
         })
     })
   }
@@ -43,6 +68,9 @@ function useDictionariesApi() {
     materialGrades,
     getMaterialGradesData,
     addMaterialGrade,
+    editMaterialGrade,
+    getMaterialGroupTypes,
+    materialGroupTypes,
     loading,
     error
   }

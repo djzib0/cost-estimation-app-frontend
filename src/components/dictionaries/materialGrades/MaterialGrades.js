@@ -19,7 +19,8 @@ export default function MaterialGrades() {
   const {theme} = useContext(ThemeContext)
   const themeMode = `--${theme}`
   
-  const [materialGradesData, setMaterialGradesData] = useState()
+  const [materialGradesData, setMaterialGradesData] = useState();
+  const [refreshedPage, setRefreshedPage] = useState(false);
 
   const {
     modalData,
@@ -32,6 +33,7 @@ export default function MaterialGrades() {
   const {
     getMaterialGradesData,
     addMaterialGrade,
+    editMaterialGrade,
     editMaterialGradesData,
     materialGrades
   } = useDictionariesApi()
@@ -41,7 +43,16 @@ export default function MaterialGrades() {
     if (materialGrades) {
       setMaterialGradesData(materialGrades)
     }
-  }, [])
+  }, [materialGradesData])
+
+
+  function refreshPage() {
+    // fetch new data and trigger useEffect to re render
+    getMaterialGradesData("steel");
+    if (materialGrades) {
+      setMaterialGradesData(materialGrades)
+    }
+  }
 
   function setModal() {
     setModalData(prevData => {
@@ -58,7 +69,7 @@ export default function MaterialGrades() {
           materialGradeId: "",
           euSymbol: "",
           gerSymbol: "",
-          gradeGroup: "steel"
+          gradeGroup: ""
         }
       }})
     openModal();
@@ -113,7 +124,12 @@ export default function MaterialGrades() {
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
         onClose={closeModal}
-        form={<MaterialGradeEditForm obj={modalData.obj} type={modalData.modalType}/>}
+        form={<MaterialGradeEditForm 
+          obj={modalData.obj} 
+          type={modalData.modalType}
+          refreshPage={refreshPage}
+          closeModal={closeModal}
+          />}
         />}
     </>
   )

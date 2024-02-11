@@ -1,36 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 //utils imports
-import { isEmpty } from '../../../utils/utils';
+import { isEmpty, capitalFirstLetter } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
 
-  const {materialGradeId, euSymbol, gerSymbol} = props.obj;
+  const {materialGradeId, euSymbol, gerSymbol, gradeGroup} = props.obj;
   const [errorMessage, setErrorMessage] = useState("");
 
   const [formData, setFormData] = useState(
-    {euSymbol: euSymbol, gerSymbol: gerSymbol}
+    {
+      euSymbol: euSymbol,
+      gerSymbol: gerSymbol,
+      gradeGroup: gradeGroup === "" ? "steel" : gradeGroup
+    }
   )
+
+  console.log(formData)
 
   const {
     addMaterialGrade,
+    getMaterialGroupTypes,
+    editMaterialGrade,
+    materialGroupTypes
   } = useDictionariesApi();
-
-  const {
-    closeModal
-  } = useModal();
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log(props.type)
     if (isEmpty(formData.euSymbol)) {
       setErrorMessage("cannot be empty")
     }
     if (props.type === "add") {
-      addMaterialGrade(props.obj)
-      closeModal()
+      addMaterialGrade(formData);
+      props.closeModal();
+      props.refreshPage();
+    }
+    if (props.type === "edit") {
+      editMaterialGrade({
+        materialGradeId: props.obj.materialGradeId,  
+        ...formData
+      });
+      props.closeModal();
+      props.refreshPage();
     }
   }
 
@@ -43,6 +56,24 @@ export default function MaterialGradeEditForm(props) {
       }
     })
   }
+
+  //fetch material group types
+  useEffect(() => {
+    getMaterialGroupTypes();
+  }, [])
+
+  // if data is fetched
+  const materialGroupsArr = materialGroupTypes && materialGroupTypes.map(item => {
+    const {materialGroupId, groupName} = item
+    return (
+      <option 
+        key={materialGroupId}
+        value={groupName}
+      >
+        {capitalFirstLetter(groupName)}
+      </option>
+    )
+  })
 
   return (
     <div>
@@ -62,6 +93,13 @@ export default function MaterialGradeEditForm(props) {
           onChange={handleChange} 
           value={formData.gerSymbol}
         />
+        <select 
+          value={formData.gradeGroup}
+          onChange={handleChange}
+          name="gradeGroup"
+        >
+          {materialGroupsArr}
+      </select>
       <button>Submit</button>
       </form>
       </div>

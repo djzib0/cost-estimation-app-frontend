@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function useModal() {
 
@@ -24,8 +24,11 @@ function useModal() {
     obj: {},
   })
 
+  useEffect(() => {
+    console.log("refreshing useModal")
+  }, [modalData])
+
   function openModal() {
-    console.log("opening modal")
     setModalData(prevData => {
       return {
         ...prevData,
@@ -34,13 +37,8 @@ function useModal() {
     })
   }
 
-  function closeModal() {
-    setModalData(prevData => {
-      return {
-        ...prevData,
-        isActive: false,
-      }
-    })
+  async function closeModal() {
+    resetModal();
   }
 
   function resetModal() {

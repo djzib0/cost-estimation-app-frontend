@@ -21,10 +21,6 @@ export default function ModalIcon(props) {
     }
   }, [])
 
-
-
-  console.log(iconStyle, " icon style")
-  
   return (
     <div className={iconStyle}>
       {type ==='edit' && <BsFillInfoCircleFill />}
