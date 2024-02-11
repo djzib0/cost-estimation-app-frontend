@@ -14,6 +14,8 @@ export default function ModalIcon(props) {
     switch(type) {
       case "edit": 
         setIconStyle("modal__icon--info"); break
+      case "add": 
+      setIconStyle("modal__icon--info"); break
       case "error": 
         setIconStyle("modal__icon--warning"); break
     }
@@ -26,6 +28,7 @@ export default function ModalIcon(props) {
   return (
     <div className={iconStyle}>
       {type ==='edit' && <BsFillInfoCircleFill />}
+      {type ==='add' && <BsFillInfoCircleFill />}
       {type === 'error' && <BsExclamationOctagonFill />}
     </div>
   )

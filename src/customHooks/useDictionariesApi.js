@@ -7,9 +7,9 @@ function useDictionariesApi() {
   const [error, setError] = useState(null)
 
   // fetching data from API
-  async function getMaterialGradesData() {
+  async function getMaterialGradesData(materialGroup) {
     setLoading(true)
-    fetch(`/data/materialgrades`)
+    fetch(`/data/materialgrades?group=${materialGroup}`)
     .then(res => {
       if (!res.ok) {
         throw {
@@ -24,9 +24,25 @@ function useDictionariesApi() {
     .finally(setLoading(false))
   }
 
+  async function addMaterialGrade(newMaterialGradeObj) {
+    console.log(" adding in useDictionary")
+    setLoading(true)
+    fetch(`/data/materialgrades/add`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(
+        {
+          euSymbol: "Test euSymbol",
+          gerSymbol: "Test GerSymbol",
+          materialGroup: "st. st."   
+        })
+    })
+  }
+
   return {
     materialGrades,
     getMaterialGradesData,
+    addMaterialGrade,
     loading,
     error
   }

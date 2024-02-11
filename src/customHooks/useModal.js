@@ -25,10 +25,11 @@ function useModal() {
   })
 
   function openModal() {
-    setModalData(prevModalData => {
+    console.log("opening modal")
+    setModalData(prevData => {
       return {
-        ...prevModalData,
-        isActive: true
+        ...prevData,
+        isActive: true,
       }
     })
   }

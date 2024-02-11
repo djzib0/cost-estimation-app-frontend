@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
 import MainSectionContainer from '../../mainSectionContainer/MainSectionContainer'
+import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
@@ -10,11 +11,15 @@ import { ThemeContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
+// styles import
+import './MaterialGrades.css'
 
-export default function MaterialGradesAluminum() {
+export default function MaterialGradesSAluminum() {
 
   const {theme} = useContext(ThemeContext)
   const themeMode = `--${theme}`
+  
+  const [materialGradesData, setMaterialGradesData] = useState()
 
   const {
     modalData,
@@ -22,19 +27,51 @@ export default function MaterialGradesAluminum() {
     closeModal,
   } = useModal()
 
+
+  const {
+    getMaterialGradesData,
+    editMaterialGradesData,
+    materialGrades
+  } = useDictionariesApi()
+
+  useEffect(() => {
+    getMaterialGradesData("aluminum");
+    if (materialGrades) {
+      setMaterialGradesData(materialGrades)
+    }
+  }, [])
+
+
+  const materialGradesArr = materialGradesData && materialGrades.map(item => {
+    return (
+        <MaterialGradeItem 
+        key={item.materialGradeId}
+        item={item}
+        editItem={() => setModalData(prevData => {
+            //open new modal with new properties
+            return {
+              ...prevData,
+              isActive: true,
+              modalType: "edit",
+              messageTitle: "Enter new values",
+              messageText: "Please enter the data in all input fields",
+              elementId: item.materialGradeId,
+              value: "",
+              obj: {item}
+            }})}
+        />
+    )
+  })
+  
   return (
     <>
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-            <div className='headers__container'> 
-              <div className='header__container--narrow'>Id</div>
-              <div className='header__container'>European</div>
-              <div className='header__container'>German</div>
-              <div className='header-cta__container'></div>
-            </div>
+            <MaterialGradeHeadersContainer />
             <div className='rows__container'>
-              Tutaj będzie lista materiałów aluminiowych
+              {materialGrades.length === 0 && <p>No data</p>}
+              {materialGrades && materialGradesArr}
             </div>
           </div>
         </MainSectionContainer>

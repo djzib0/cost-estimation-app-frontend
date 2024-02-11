@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
 import MainSectionContainer from '../../mainSectionContainer/MainSectionContainer'
+import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
@@ -24,21 +25,44 @@ export default function MaterialGrades() {
     modalData,
     setModalData,
     closeModal,
+    openModal,
   } = useModal()
 
 
   const {
     getMaterialGradesData,
+    addMaterialGrade,
     editMaterialGradesData,
     materialGrades
   } = useDictionariesApi()
 
   useEffect(() => {
-    getMaterialGradesData();
+    getMaterialGradesData("steel");
     if (materialGrades) {
       setMaterialGradesData(materialGrades)
     }
   }, [])
+
+  function setModal() {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "add",
+        messageTitle: "Enter values",
+        messageText: "Please enter the data in all input fields",
+        elementId: "",
+        value: "",
+        obj: {
+          materialGradeId: "",
+          euSymbol: "",
+          gerSymbol: "",
+          gradeGroup: "steel"
+        }
+      }})
+    openModal();
+  }
 
 
   const materialGradesArr = materialGradesData && materialGrades.map(item => {
@@ -56,8 +80,9 @@ export default function MaterialGrades() {
               messageText: "Please enter the data in all input fields",
               elementId: item.materialGradeId,
               value: "",
-              obj: {item}
-            }})}
+              obj: {...item}
+            }})
+          }
         />
     )
   })
@@ -67,14 +92,15 @@ export default function MaterialGrades() {
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-            <div className='headers__container'> 
-              <div className='header__container--narrow'>Id</div>
-              <div className='header__container'>European</div>
-              <div className='header__container'>German</div>
-              <div className='header-cta__container'></div>
+            <div>
+              <button onClick={setModal}>
+                Add new material - test
+              </button>
             </div>
+            <MaterialGradeHeadersContainer />
             <div className='rows__container'>
-              {materialGradesArr}
+              {materialGrades.length === 0 && <p>No data</p>}
+              {materialGrades && materialGradesArr}
             </div>
           </div>
         </MainSectionContainer>
@@ -87,7 +113,7 @@ export default function MaterialGrades() {
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
         onClose={closeModal}
-        form={<MaterialGradeEditForm obj={modalData.obj} />}
+        form={<MaterialGradeEditForm obj={modalData.obj} type={modalData.modalType}/>}
         />}
     </>
   )

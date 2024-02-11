@@ -43,6 +43,7 @@ export default function Modal(props) {
       <p>{errorText}</p>
 
       {modalType === 'edit' && <div>{form}</div>}
+      {modalType === 'add' && <div>{form}</div>}
 
     </div>
   )

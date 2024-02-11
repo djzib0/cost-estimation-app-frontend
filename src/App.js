@@ -86,6 +86,8 @@ export default function App() {
     }
   }, [authUser])
 
+  console.log("fetched user", authUser)
+
   // set styling to body element
   useEffect(() => {
         setTheme(prevTheme => localStorage.getItem("theme"))
