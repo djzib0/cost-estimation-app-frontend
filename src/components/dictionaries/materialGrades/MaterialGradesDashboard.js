@@ -23,7 +23,7 @@ export default function GradesDictionaryDashboard() {
         <HorizontalDashboard.Tabs>
 
           <NavLink 
-            to={"steel"}
+            to={"."}
             end
             className={({isActive}) => isActive ? `main-content-header__link${themeMode}--active`
             :`main-content-header__link${themeMode}`}

@@ -6,6 +6,7 @@ import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
+import CtaButton from '../../buttons/CtaButton'
 // contexts imports
 import { ThemeContext } from '../../../App';
 // custom hooks imports
@@ -104,9 +105,12 @@ export default function MaterialGrades() {
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
             <div>
-              <button onClick={setModal}>
-                Add new material - test
-              </button>
+              <CtaButton 
+                title="Add new material"
+                type="add"
+                variant="btn-medium"
+                handlingFunction={setModal}
+                />  
             </div>
             <MaterialGradeHeadersContainer />
             <div className='rows__container'>

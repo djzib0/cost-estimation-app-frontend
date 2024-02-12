@@ -5,25 +5,24 @@ import { Link, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout'
 import Main from './components/main/Main';
 import SettingsLayout from './layouts/SettingsLayout';
-import Settings from './components/settings/Settings';
 import Dictionaries from './components/dictionaries/Dictionaries';
 import DictionariesLayout from './layouts/DictionariesLayout';
-import GradesDictionary from './components/dictionaries/materialGrades/MaterialGradesDashboard';
 import MaterialGradesLayout from './layouts/MaterialGradesLayout';
 import MaterialGrades from './components/dictionaries/materialGrades/MaterialGrades';
 import MaterialGradesStSt from './components/dictionaries/materialGrades/MaterialGradesStSt';
 import MaterialGradesAluminum from './components/dictionaries/materialGrades/MaterialGradesAluminum';
 import MaterialGradesOther from './components/dictionaries/materialGrades/MaterialGradesOther';
-import TestComponent from './components/testComponent/TestComponent';
-import PipesLayout from './layouts/PipesLayout';
-import Pipes from './components/dictionaries/pipes/Pipes';
+import OperationsAssembly from './components/dictionaries/operations/OperationsAssembly';
+import OperationsWelding from './components/dictionaries/operations/OperationsWelding';
+import OperationsMachining from './components/dictionaries/operations/OperationsMachining';
+import OperationsSurfaceConservation from './components/dictionaries/operations/OperationsSurfaceConservation';
+import OperationsOther from './components/dictionaries/operations/OperationsOther';
+import OperationsLayout from './layouts/OperationsLayout'
 
 // css import
 import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
-import GradesDictionaryDashboard from './components/dictionaries/materialGrades/MaterialGradesDashboard';
-
 
 const AuthUserContext = createContext();
 const ThemeContext = createContext();
@@ -115,13 +114,17 @@ export default function App() {
               <Route path='dictionaries' element={<DictionariesLayout />}>
                 <Route index element={<Dictionaries />} />
                 <Route path="gradesDictionary" element={<MaterialGradesLayout />}>
-                  <Route index path='steel' element={<MaterialGrades />} />
+                  <Route index element={<MaterialGrades />} />
                   <Route path='stst' element={<MaterialGradesStSt />} />
                   <Route path='aluminum' element={<MaterialGradesAluminum />} />
                   <Route path='other' element={<MaterialGradesOther />} />
                 </Route>
-                <Route path="pipes" element={<PipesLayout />}>
-                  <Route index element={<Pipes />} />
+                <Route path="operations" element={<OperationsLayout />}>
+                  <Route index element={<OperationsAssembly />} />
+                  <Route path='welding' element={<OperationsWelding />} />
+                  <Route path='machining' element={<OperationsMachining />} />
+                  <Route path='surfaceConservation' element={<OperationsSurfaceConservation />} />
+                  <Route path='other' element={<OperationsOther />} />
                 </Route>
               </Route>
             </Route>
