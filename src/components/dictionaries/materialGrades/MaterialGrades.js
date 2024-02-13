@@ -106,11 +106,23 @@ export default function MaterialGrades() {
           <div className='data__container'>
             <div>
               <CtaButton 
-                title="Add new material"
-                type="add"
-                variant="btn-medium"
+                title="Delete"
+                type="warning"
+                variant="small"
                 handlingFunction={setModal}
                 />  
+              <CtaButton 
+                title="Edit"
+                type="warning"
+                variant="medium"
+                handlingFunction={setModal}
+                /> 
+              <CtaButton 
+                title="Add new material"
+                type="warning"
+                variant="large"
+                handlingFunction={setModal}
+                /> 
             </div>
             <MaterialGradeHeadersContainer />
             <div className='rows__container'>
