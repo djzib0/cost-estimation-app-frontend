@@ -36,6 +36,12 @@
     margin-bottom: .5em;
 }
 
+.cell-cta__container {
+    display: flex;
+    width: 200px;
+    justify-content: space-around;
+}
+
 .header__container,
 .header__container--narrow,
 .cell__container,
