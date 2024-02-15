@@ -10,6 +10,7 @@ function useModal() {
     errorText: "",
     handleFunction: "",
     form: "",
+    refreshFunc: "",
     obj: {},
   }
 
@@ -21,6 +22,7 @@ function useModal() {
     errorText: "",
     handleFunction: "",
     form: "",
+    refreshFunc: "",
     obj: {},
   })
 

@@ -4,6 +4,7 @@ import useModal from '../../customHooks/useModal';
 import ModalCloseButton from './ModalCloseButton';
 import ModalTitle from './ModalTitle';
 import ModalMessageText from './ModalMessageText'
+import ModalYesNoButtons from './ModalYesNoButtons';
 // styles imports
 import './Modal.css'
 // context imports
@@ -23,6 +24,9 @@ export default function Modal(props) {
     onClose,
     form,
     errorText,
+    elementId,
+    refreshPage,
+    obj,
   } = props
 
 
@@ -33,6 +37,8 @@ export default function Modal(props) {
     closeModal,
   } = useModal()
 
+  console.log(obj.materialGradeId)
+
   return (
     <div className={`modal__container${themeMode}`}>
       <ModalCloseButton onClose={onClose} />
@@ -41,10 +47,17 @@ export default function Modal(props) {
       <ModalMessageText messageText={messageText} />
       <p>{modalData.messageTitle}</p>
       <p>{errorText}</p>
-
       {modalType === 'edit' && <div>{form}</div>}
       {modalType === 'add' && <div>{form}</div>}
-
+      {modalType === 'delete' && 
+      <ModalYesNoButtons 
+        itemId={obj.materialGradeId} 
+        confirmFunc={handleFunction.deleteMaterialGrade} 
+        cancelFunc={onClose} 
+        onClose={onClose} 
+        refreshPage={refreshPage}
+        />
+      }
     </div>
   )
 }

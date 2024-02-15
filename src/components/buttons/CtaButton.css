@@ -15,7 +15,7 @@
 
 .cta__button--dark:hover,
 .cta__button--light:hover {
-    opacity: 90%;
+    opacity: 70%;
 }
 
 .button__title--dark,
@@ -140,6 +140,33 @@
 
 .cta-btn__icon--warning--light {
     background-color: #e0726b;
+    color: #192c3b;
+}
+
+/* WARNING */
+.cta-btn__title--cancel--dark {
+    background-color: transparent;
+    border: 1px solid #192c3b;
+    color: #192c3b;
+}
+
+.cta-btn__icon--cancel--dark {
+    background-color: transparent;
+    border: 1px solid #192c3b;
+    border-left: none;
+    color: #192c3b;
+}
+
+.cta-btn__title--cancel--light {
+    background-color: transparent;
+    border: 1px solid #192c3b;
+    color: #192c3b;
+}
+
+.cta-btn__icon--cancel--light {
+    background-color: transparent;
+    border: 1px solid #192c3b;
+    border-left: none;
     color: #192c3b;
 }
 

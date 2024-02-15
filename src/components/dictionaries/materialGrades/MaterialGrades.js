@@ -14,6 +14,7 @@ import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
 // styles import
 import './MaterialGrades.css'
+import ModalYesNoButtons from '../../modal/ModalYesNoButtons'
 
 export default function MaterialGrades() {
 
@@ -35,6 +36,7 @@ export default function MaterialGrades() {
     getMaterialGradesData,
     addMaterialGrade,
     editMaterialGrade,
+    deleteMaterialGrade,
     editMaterialGradesData,
     materialGrades
   } = useDictionariesApi()
@@ -49,6 +51,7 @@ export default function MaterialGrades() {
 
   function refreshPage() {
     // fetch new data and trigger useEffect to re render
+    console.log("refreshing page")
     getMaterialGradesData("steel");
     if (materialGrades) {
       setMaterialGradesData(materialGrades)
@@ -84,17 +87,33 @@ export default function MaterialGrades() {
         item={item}
         editItem={() => setModalData(prevData => {
             //open new modal with new properties
-            return {
-              ...prevData,
-              isActive: true,
-              modalType: "edit",
-              messageTitle: "Enter new values",
-              messageText: "Please enter the data in all input fields",
-              elementId: item.materialGradeId,
-              value: "",
-              obj: {...item}
-            }})
-          }
+          return {
+            ...prevData,
+            isActive: true,
+            modalType: "edit",
+            messageTitle: "Enter new values",
+            messageText: "Please enter the data in all input fields",
+            elementId: item.materialGradeId,
+            value: "",
+            obj: {...item}
+          }})
+        }
+        deleteItem={() => setModalData(prevData => {
+          //open new modal with new properties
+          return {
+            ...prevData,
+            isActive: true,
+            modalType: "delete",
+            messageTitle: "Do you want to delete this material grade?",
+            messageText: "If you press OK, it will be permanently removed from the database.",
+            elementId: item.materialGradeId,
+            value: "",
+            refreshFunc: {refreshPage},
+            handleFunction: {deleteMaterialGrade},
+            obj: {...item}
+
+          }})
+        }
         />
     )
   })
@@ -106,20 +125,8 @@ export default function MaterialGrades() {
           <div className='data__container'>
             <div>
               <CtaButton 
-                title="Delete"
-                type="warning"
-                variant="small"
-                handlingFunction={setModal}
-                />  
-              <CtaButton 
-                title="Edit"
-                type="warning"
-                variant="medium"
-                handlingFunction={setModal}
-                /> 
-              <CtaButton 
                 title="Add new material"
-                type="warning"
+                type="add"
                 variant="large"
                 handlingFunction={setModal}
                 /> 
@@ -140,6 +147,8 @@ export default function MaterialGrades() {
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
         onClose={closeModal}
+        obj={modalData.obj}
+        refreshPage={refreshPage}
         form={<MaterialGradeEditForm 
           obj={modalData.obj} 
           type={modalData.modalType}

@@ -7,6 +7,8 @@ import { CiEdit } from "react-icons/ci"; // edit icon
 import { FiTrash2 } from "react-icons/fi"; // delete icon
 import { FaCheck } from "react-icons/fa6"; // check icon
 import { IoWarningOutline } from "react-icons/io5"; // warning
+import { MdOutlineCancel } from "react-icons/md"; // cancel icon
+
 
 
 // styles imports
@@ -31,11 +33,13 @@ export default function CtaButton({ title, type, variant, handlingFunction = () 
     icon = <FaCheck />
   } else if (type === 'warning') {
     icon = <IoWarningOutline />
+  } else if (type === 'cancel') {
+    icon = <MdOutlineCancel />
   }
 
 
   return (
-    <button className={`cta__button${themeMode}`} onClick={() => handlingFunction()}>
+    <button className={`cta__button${themeMode}`} onClick={handlingFunction}>
         <div className={`button__title${themeMode} cta-btn__title${typeStyle}${themeMode} title__${variantStyle}`}>{title}</div>
         <div className={`button__icon${themeMode} cta-btn__icon${typeStyle}${themeMode} icon__${variantStyle}`}>{icon}</div>
     </button>

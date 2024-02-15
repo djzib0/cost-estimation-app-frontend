@@ -99,9 +99,9 @@ export default function MaterialGradeEditForm(props) {
           name="gradeGroup"
         >
           {materialGroupsArr}
-      </select>
+        </select>
       <button>Submit</button>
       </form>
-      </div>
+    </div>
   )
 }

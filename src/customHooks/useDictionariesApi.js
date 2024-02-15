@@ -64,11 +64,20 @@ function useDictionariesApi() {
     })
   }
 
+  async function deleteMaterialGrade(materialGradeId) {
+    console.log("item deleted, id", materialGradeId)
+    fetch(`/data/materialgrades/delete/${materialGradeId}`, {
+      method: 'DELETE'
+    })
+    // .then(() => console.log("item deleted succesfully"))
+  }
+
   return {
     materialGrades,
     getMaterialGradesData,
     addMaterialGrade,
     editMaterialGrade,
+    deleteMaterialGrade,
     getMaterialGroupTypes,
     materialGroupTypes,
     loading,
