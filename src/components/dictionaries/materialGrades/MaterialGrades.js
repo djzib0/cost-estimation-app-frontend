@@ -7,6 +7,7 @@ import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
+import TestCalculatingKgsByGradeAndThickness from './TestCalculatingKgsByGradeAndThickness'
 // contexts imports
 import { ThemeContext } from '../../../App';
 // custom hooks imports
@@ -14,7 +15,6 @@ import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
 // styles import
 import './MaterialGrades.css'
-import ModalYesNoButtons from '../../modal/ModalYesNoButtons'
 
 export default function MaterialGrades() {
 
@@ -136,6 +136,7 @@ export default function MaterialGrades() {
               {materialGrades.length === 0 && <p>No data</p>}
               {materialGrades && materialGradesArr}
             </div>
+            <TestCalculatingKgsByGradeAndThickness />
           </div>
         </MainSectionContainer>
       </MainContentContainer>
