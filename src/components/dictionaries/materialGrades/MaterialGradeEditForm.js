@@ -7,19 +7,27 @@ import { isEmpty, capitalFirstLetter } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
 
-  const {materialGradeId, euSymbol, gerSymbol, gradeGroup} = props.obj;
+  const {materialGradeId, euSymbol, gerSymbol, gradeGroup, density} = props.obj;
   const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [allowSubmit, setAllowSubmit] = useState(false)
 
   const [formData, setFormData] = useState(
     {
       euSymbol: euSymbol,
       gerSymbol: gerSymbol,
-      gradeGroup: gradeGroup === "" ? "steel" : gradeGroup
+      gradeGroup: gradeGroup === "" ? "steel" : gradeGroup,
+      density: density
     }
   )
 
-  console.log(formData)
-
+  useEffect(() => {
+    // prevent submit if there are errors
+    if (!isError) {
+      setAllowSubmit(true)
+    }
+  }, [isError, errorMessage])
+  
   const {
     addMaterialGrade,
     getMaterialGroupTypes,
@@ -29,9 +37,25 @@ export default function MaterialGradeEditForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
+
+    // Check for errors
     if (isEmpty(formData.euSymbol)) {
-      setErrorMessage("cannot be empty")
+      setErrorMessage("European symbol can't be empty")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
     }
+
+    if (isEmpty(formData.gerSymbol)) {
+      setErrorMessage("German symbol can't be empty")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    //if there are not errors call requested method function
     if (props.type === "add") {
       addMaterialGrade(formData);
       props.closeModal();
@@ -40,7 +64,7 @@ export default function MaterialGradeEditForm(props) {
     if (props.type === "edit") {
       editMaterialGrade({
         materialGradeId: props.obj.materialGradeId,  
-        ...formData
+        ...formData        
       });
       props.closeModal();
       props.refreshPage();
@@ -92,6 +116,13 @@ export default function MaterialGradeEditForm(props) {
           name="gerSymbol"
           onChange={handleChange} 
           value={formData.gerSymbol}
+        />
+        <input
+          type="text"
+          placeholder="Density"
+          name="density"
+          onChange={handleChange} 
+          value={formData.density}
         />
         <select 
           value={formData.gradeGroup}

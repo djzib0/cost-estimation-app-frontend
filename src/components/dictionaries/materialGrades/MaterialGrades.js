@@ -73,6 +73,7 @@ export default function MaterialGrades() {
           materialGradeId: "",
           euSymbol: "",
           gerSymbol: "",
+          density: "",
           gradeGroup: ""
         }
       }})

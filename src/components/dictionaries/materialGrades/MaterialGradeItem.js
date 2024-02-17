@@ -10,6 +10,7 @@ export default function MaterialGradeItem(props) {
     materialGradeId,
     euSymbol,
     gerSymbol,
+    density
   } = props.item;
 
 
@@ -18,6 +19,7 @@ export default function MaterialGradeItem(props) {
         <div className='cell__container--narrow'>{materialGradeId}</div>
         <div className='cell__container'>{euSymbol}</div>
         <div className='cell__container'>{gerSymbol}</div>
+        <div className='cell__container'>{density}</div>
         <div className='cell-cta__container'>
           <CtaButton 
                   title="edit"

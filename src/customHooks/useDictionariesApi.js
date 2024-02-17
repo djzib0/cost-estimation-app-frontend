@@ -54,12 +54,13 @@ function useDictionariesApi() {
   }
 
   async function editMaterialGrade(editedMaterialGrade) {
+
     fetch(`/data/materialgrades/edit`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(
         {
-          ...editedMaterialGrade 
+          ...editedMaterialGrade
         })
     })
   }
