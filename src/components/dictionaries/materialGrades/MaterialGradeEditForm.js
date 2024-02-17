@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 //utils imports
-import { isEmpty, capitalFirstLetter } from '../../../utils/utils';
+import { isEmpty, isNumber, capitalFirstLetter } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
 
@@ -17,7 +17,7 @@ export default function MaterialGradeEditForm(props) {
       euSymbol: euSymbol,
       gerSymbol: gerSymbol,
       gradeGroup: gradeGroup === "" ? "steel" : gradeGroup,
-      density: density
+      density: Number(density)
     }
   )
 
@@ -40,7 +40,7 @@ export default function MaterialGradeEditForm(props) {
 
     // Check for errors
     if (isEmpty(formData.euSymbol)) {
-      setErrorMessage("European symbol can't be empty")
+      setErrorMessage("European symbol cannot be empty")
       setIsError(true);
       return
     } else {
@@ -48,16 +48,35 @@ export default function MaterialGradeEditForm(props) {
     }
 
     if (isEmpty(formData.gerSymbol)) {
-      setErrorMessage("German symbol can't be empty")
+      setErrorMessage("German symbol cannot be empty")
       setIsError(true);
       return
     } else {
       setIsError(false)
     }
 
-    //if there are not errors call requested method function
+    if (isEmpty(formData.density)) {
+      setErrorMessage("Density cannot be empty")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    // if (isNumber(Number(formData.density))) {
+    //   setErrorMessage("Please enter number in Density field")
+    //   setIsError(true);
+    //   return
+    // } else {
+    //   setIsError(false)
+    // }
+
+    console.log(formData);
+
+    //if there are no errors call requested method function
     if (props.type === "add") {
-      addMaterialGrade(formData);
+      console.log(addMaterialGrade(formData))
+      // addMaterialGrade(formData);
       props.closeModal();
       props.refreshPage();
     }
@@ -118,7 +137,7 @@ export default function MaterialGradeEditForm(props) {
           value={formData.gerSymbol}
         />
         <input
-          type="text"
+          type="number"
           placeholder="Density"
           name="density"
           onChange={handleChange} 

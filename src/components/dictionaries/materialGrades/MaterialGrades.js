@@ -117,7 +117,7 @@ export default function MaterialGrades() {
         }
         />
     )
-  })
+  }).sort((a, b) => b - a)
   
   return (
     <>
