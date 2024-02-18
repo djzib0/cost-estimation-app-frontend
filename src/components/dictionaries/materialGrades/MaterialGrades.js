@@ -12,6 +12,7 @@ import { ThemeContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
+import useFetch from '../../../customHooks/useFetch'
 // styles import
 import './MaterialGrades.css'
 import ModalYesNoButtons from '../../modal/ModalYesNoButtons'
@@ -31,6 +32,9 @@ export default function MaterialGrades() {
     openModal,
   } = useModal()
 
+  const {data, updateUrl, error} = useFetch();
+
+  
 
   const {
     getMaterialGradesData,
@@ -38,8 +42,10 @@ export default function MaterialGrades() {
     editMaterialGrade,
     deleteMaterialGrade,
     editMaterialGradesData,
-    materialGrades
+    materialGrades,
+    fetchError,
   } = useDictionariesApi()
+
 
   useEffect(() => {
     getMaterialGradesData("steel");

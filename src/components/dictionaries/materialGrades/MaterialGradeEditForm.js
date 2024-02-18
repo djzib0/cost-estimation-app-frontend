@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
+import useFetch from '../../../customHooks/useFetch';
 //utils imports
 import { isEmpty, isNumber, capitalFirstLetter } from '../../../utils/utils';
 
@@ -10,7 +11,6 @@ export default function MaterialGradeEditForm(props) {
   const {materialGradeId, euSymbol, gerSymbol, gradeGroup, density} = props.obj;
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
-  const [allowSubmit, setAllowSubmit] = useState(false)
 
   const [formData, setFormData] = useState(
     {
@@ -21,19 +21,20 @@ export default function MaterialGradeEditForm(props) {
     }
   )
 
-  useEffect(() => {
-    // prevent submit if there are errors
-    if (!isError) {
-      setAllowSubmit(true)
-    }
-  }, [isError, errorMessage])
-  
   const {
     addMaterialGrade,
     getMaterialGroupTypes,
     editMaterialGrade,
+    fetchError,
     materialGroupTypes
   } = useDictionariesApi();
+
+  const {
+    data,
+    error,
+    isLoading,
+    updateUrl,
+  } = useFetch();
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -63,14 +64,6 @@ export default function MaterialGradeEditForm(props) {
       setIsError(false)
     }
 
-    // if (isNumber(Number(formData.density))) {
-    //   setErrorMessage("Please enter number in Density field")
-    //   setIsError(true);
-    //   return
-    // } else {
-    //   setIsError(false)
-    // }
-
     console.log(formData);
 
     //if there are no errors call requested method function
@@ -79,14 +72,20 @@ export default function MaterialGradeEditForm(props) {
       // addMaterialGrade(formData);
       props.closeModal();
       props.refreshPage();
+      return
     }
+
+    console.log("chwila przed tragedią")
     if (props.type === "edit") {
-      editMaterialGrade({
-        materialGradeId: props.obj.materialGradeId,  
-        ...formData        
-      });
-      props.closeModal();
-      props.refreshPage();
+      // editMaterialGrade({
+      //   materialGradeId: props.obj.materialGradeId,  
+      //   ...formData        
+      // });
+      // props.closeModal();
+      // props.refreshPage();
+      updateUrl("new url")
+      setErrorMessage(error.message)
+      return
     }
   }
 

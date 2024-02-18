@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function useDictionariesApi() {
 
   const [materialGrades, setMaterialGrades] = useState([]);
   const [materialGroupTypes, setMaterialGroupTypes] = useState([]);
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [fetchError, setFetchError] = useState(null)
 
   // fetching data from API
   async function getMaterialGradesData(materialGroup) {
@@ -21,7 +21,7 @@ function useDictionariesApi() {
       }
       return res.json()})
     .then(data => setMaterialGrades(data))
-    .catch(err => setError(err))
+    .catch(err => setFetchError(err))
     .finally(setLoading(false))
   }
 
@@ -38,7 +38,7 @@ function useDictionariesApi() {
       }
       return res.json()})
     .then(data => setMaterialGroupTypes(data))
-    .catch(err => setError(err))
+    .catch(err => setFetchError(err))
     .finally(setLoading(false))
   }
 
@@ -63,7 +63,23 @@ function useDictionariesApi() {
           ...editedMaterialGrade
         })
     })
+    .then(res => {
+      if (!res.ok) {
+        throw {
+          message: "Failed to destroy the METAL",
+          statusText: res.statusText,
+          status: res.status
+        }
+      }
+    })
+    .catch(error => {
+      setFetchError({error})
+    })
   }
+
+  // editMaterialGrade("some stuff")
+  // console.log(fetchError)
+  
 
   async function deleteMaterialGrade(materialGradeId) {
     console.log("item deleted, id", materialGradeId)
@@ -80,9 +96,9 @@ function useDictionariesApi() {
     editMaterialGrade,
     deleteMaterialGrade,
     getMaterialGroupTypes,
+    fetchError,
     materialGroupTypes,
-    loading,
-    error
+    loading
   }
   
 }
