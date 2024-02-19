@@ -5,8 +5,9 @@ import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useFetch from '../../../customHooks/useFetch';
 //components imports
 import CtaButton from '../../buttons/CtaButton';
+import FormError from '../../form/FormError';
 //utils imports
-import { isEmpty, isNumber, capitalFirstLetter } from '../../../utils/utils';
+import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
 
@@ -43,7 +44,7 @@ export default function MaterialGradeEditForm(props) {
 
     // Check for errors
     if (isEmpty(formData.euSymbol)) {
-      setErrorMessage("European symbol cannot be empty")
+      setErrorMessage("European symbol cannot be empty.")
       setIsError(true);
       return
     } else {
@@ -51,7 +52,7 @@ export default function MaterialGradeEditForm(props) {
     }
 
     if (isEmpty(formData.gerSymbol)) {
-      setErrorMessage("German symbol cannot be empty")
+      setErrorMessage("German symbol cannot be empty.")
       setIsError(true);
       return
     } else {
@@ -59,7 +60,15 @@ export default function MaterialGradeEditForm(props) {
     }
 
     if (isEmpty(formData.density)) {
-      setErrorMessage("Density cannot be empty")
+      setErrorMessage("Density cannot be empty.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEqualZero(formData.density)) {
+      setErrorMessage("Density cannot have zero value.")
       setIsError(true);
       return
     } else {
@@ -121,7 +130,7 @@ export default function MaterialGradeEditForm(props) {
 
   return (
     <div>
-      <p>{errorMessage}</p>
+      {isError && <FormError errorMessage={errorMessage} />}
       <form className='form--2xfr'>
         <div className='input-label__container'>
           <label htmlFor='euSymbol'>

@@ -19,4 +19,8 @@ function isEmpty(input) {
     return input.length === 0;
 }
 
-export {capitalFirstLetter, getLocalStorageTheme, isEmpty}
+function isEqualZero(input) {
+    return input === 0;
+}
+
+export {capitalFirstLetter, getLocalStorageTheme, isEmpty, isEqualZero}
