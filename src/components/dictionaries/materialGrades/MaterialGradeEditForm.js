@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useFetch from '../../../customHooks/useFetch';
+//components imports
+import CtaButton from '../../buttons/CtaButton';
 //utils imports
 import { isEmpty, isNumber, capitalFirstLetter } from '../../../utils/utils';
 
@@ -120,37 +122,74 @@ export default function MaterialGradeEditForm(props) {
   return (
     <div>
       <p>{errorMessage}</p>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="EU Symbol"
-          name="euSymbol"
-          onChange={handleChange} 
-          value={formData.euSymbol}
-        />
-        <input
-          type="text"
-          placeholder="German Symbol"
-          name="gerSymbol"
-          onChange={handleChange} 
-          value={formData.gerSymbol}
-        />
-        <input
-          type="number"
-          placeholder="Density"
-          name="density"
-          onChange={handleChange} 
-          value={formData.density}
-        />
-        <select 
-          value={formData.gradeGroup}
-          onChange={handleChange}
-          name="gradeGroup"
-        >
-          {materialGroupsArr}
-        </select>
-      <button>Submit</button>
+      <form className='form--2xfr'>
+        <div className='input-label__container'>
+          <label htmlFor='euSymbol'>
+            Eu symbol:
+          </label>
+          <input
+            type="text"
+            placeholder="EU Symbol"
+            name="euSymbol"
+            id="euSymbol"
+            onChange={handleChange} 
+            value={formData.euSymbol}
+          />
+        </div>
+        <div className='input-label__container'>
+          <label htmlFor='gerSymbol'>
+            German symbol:
+          </label>
+          <input
+            type="text"
+            placeholder="German Symbol"
+            name="gerSymbol"
+            id="gerSymbol"
+            onChange={handleChange} 
+            value={formData.gerSymbol}
+          />
+        </div>
+        <div className='input-label__container'>
+          <label htmlFor='density'>
+            Density:
+          </label>
+          <input
+            type="number"
+            placeholder="Density"
+            name="density"
+            id="density"
+            onChange={handleChange} 
+            value={formData.density}
+          />
+        </div>
+        <div className='input-label__container'>
+          <label htmlFor='gradeGroup' >
+            Material group:
+          </label>
+          <select
+            value={formData.gradeGroup}
+            onChange={handleChange}
+            name="gradeGroup"
+            id="gradeGroup"
+          >
+            {materialGroupsArr}
+          </select>
+        </div>
       </form>
+      <div className='form-buttons__container'>
+        <CtaButton 
+          title="Save"
+          type="add"
+          variant="large"
+          handlingFunction={handleSubmit}
+        />
+        <CtaButton 
+          title="Cancel"
+          type="cancel"
+          variant="large"
+          handlingFunction={() => props.closeModal()}
+        />
+       </div>
     </div>
   )
 }

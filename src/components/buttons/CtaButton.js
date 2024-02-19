@@ -8,11 +8,19 @@ import { FiTrash2 } from "react-icons/fi"; // delete icon
 import { FaCheck } from "react-icons/fa6"; // check icon
 import { IoWarningOutline } from "react-icons/io5"; // warning
 import { MdOutlineCancel } from "react-icons/md"; // cancel icon
-
-
-
 // styles imports
 import './CtaButton.css'
+
+// INSTRUCTION: HOW TO USE THIS COMPONENT 
+// import this component in another component
+// pass props like in example below
+{/* <CtaButton 
+    title="Add new material"
+    type="add"
+    variant="large"
+    handlingFunction={setModal}
+/>  */}
+
 
 export default function CtaButton({ title, type, variant, handlingFunction = () => {} }) {
 
