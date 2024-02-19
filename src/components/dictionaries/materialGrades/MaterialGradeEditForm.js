@@ -37,7 +37,12 @@ export default function MaterialGradeEditForm(props) {
     error,
     isLoading,
     updateUrl,
+    setUrl,
   } = useFetch();
+
+  useEffect(() => {
+    
+  }, [isError])
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -67,14 +72,13 @@ export default function MaterialGradeEditForm(props) {
       setIsError(false)
     }
 
-    console.log(formData);
 
-    //if there are no errors call requested method function
+    //if there are no input errors call requested method function
     if (props.type === "add") {
-      console.log(addMaterialGrade(formData))
-      // addMaterialGrade(formData);
-      props.closeModal();
-      props.refreshPage();
+      updateUrl("any")
+      error && console.log(error.message)
+      // props.closeModal();
+      // props.refreshPage();
       return
     }
 
@@ -86,7 +90,7 @@ export default function MaterialGradeEditForm(props) {
       // });
       // props.closeModal();
       // props.refreshPage();
-      updateUrl("new url")
+      setUrl("https://swapi.dev/api/people/1")
       setErrorMessage(error.message)
       return
     }
