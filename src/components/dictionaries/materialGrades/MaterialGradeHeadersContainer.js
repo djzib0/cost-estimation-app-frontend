@@ -6,6 +6,7 @@ export default function MaterialGradeHeadersContainer() {
       <div className='header__container--narrow'>Id</div>
       <div className='header__container'>European</div>
       <div className='header__container'>German</div>
+      <div className='header__container'>Density {`[`}g/cm<sup>3</sup>{`]`}</div>
       <div className='header-cta__container'></div>
     </div>
   )

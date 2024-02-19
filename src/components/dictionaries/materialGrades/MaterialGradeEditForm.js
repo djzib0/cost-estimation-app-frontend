@@ -2,48 +2,90 @@ import React, { useEffect, useState } from 'react'
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
+import useFetch from '../../../customHooks/useFetch';
 //utils imports
-import { isEmpty, capitalFirstLetter } from '../../../utils/utils';
+import { isEmpty, isNumber, capitalFirstLetter } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
 
-  const {materialGradeId, euSymbol, gerSymbol, gradeGroup} = props.obj;
+  const {materialGradeId, euSymbol, gerSymbol, gradeGroup, density} = props.obj;
   const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const [formData, setFormData] = useState(
     {
       euSymbol: euSymbol,
       gerSymbol: gerSymbol,
-      gradeGroup: gradeGroup === "" ? "steel" : gradeGroup
+      gradeGroup: gradeGroup === "" ? "steel" : gradeGroup,
+      density: Number(density)
     }
   )
-
-  console.log(formData)
 
   const {
     addMaterialGrade,
     getMaterialGroupTypes,
     editMaterialGrade,
+    fetchError,
     materialGroupTypes
   } = useDictionariesApi();
 
+  const {
+    data,
+    error,
+    isLoading,
+    updateUrl,
+  } = useFetch();
+
   function handleSubmit(e) {
     e.preventDefault()
+
+    // Check for errors
     if (isEmpty(formData.euSymbol)) {
-      setErrorMessage("cannot be empty")
+      setErrorMessage("European symbol cannot be empty")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
     }
+
+    if (isEmpty(formData.gerSymbol)) {
+      setErrorMessage("German symbol cannot be empty")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.density)) {
+      setErrorMessage("Density cannot be empty")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    console.log(formData);
+
+    //if there are no errors call requested method function
     if (props.type === "add") {
-      addMaterialGrade(formData);
+      console.log(addMaterialGrade(formData))
+      // addMaterialGrade(formData);
       props.closeModal();
       props.refreshPage();
+      return
     }
+
+    console.log("chwila przed tragedią")
     if (props.type === "edit") {
-      editMaterialGrade({
-        materialGradeId: props.obj.materialGradeId,  
-        ...formData
-      });
-      props.closeModal();
-      props.refreshPage();
+      // editMaterialGrade({
+      //   materialGradeId: props.obj.materialGradeId,  
+      //   ...formData        
+      // });
+      // props.closeModal();
+      // props.refreshPage();
+      updateUrl("new url")
+      setErrorMessage(error.message)
+      return
     }
   }
 
@@ -92,6 +134,13 @@ export default function MaterialGradeEditForm(props) {
           name="gerSymbol"
           onChange={handleChange} 
           value={formData.gerSymbol}
+        />
+        <input
+          type="number"
+          placeholder="Density"
+          name="density"
+          onChange={handleChange} 
+          value={formData.density}
         />
         <select 
           value={formData.gradeGroup}

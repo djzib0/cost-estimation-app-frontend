@@ -9,7 +9,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1em;
     background-color: transparent;
 }
 
@@ -39,23 +38,24 @@
 /* COLORS DETERMINED BY TYPE OF BUTTON */
 
 /* ADD */
+
 .cta-btn__title--add--dark {
-    background-color: #7b28c0;
+    background-color: #489c6a;
     color: #fafaff;
 }
 
 .cta-btn__icon--add--dark {
-    background-color: #7024ad;
+    background-color: #3f8a5d;
     color: #fafaff;
 }
 
 .cta-btn__title--add--light {
-    background-color: #bdb1ff;
+    background-color: #91da9d;
     color: #192c3b;
 }
 
 .cta-btn__icon--add--light {
-    background-color: #a99aff;
+    background-color: #7ebe89;
     color: #192c3b;
 }
 
