@@ -1,9 +1,11 @@
 .form-error__container {
     font-size: .8em;
-    padding: .8em;
+    padding: 1em;
     margin-bottom: 1em; 
+    margin: 0 auto 1em auto;
     background-color: #f8d7da;
     border:1px solid #721c24;
     border-radius: 3px;
     color: #721c24;
+    width: 80%;
 }

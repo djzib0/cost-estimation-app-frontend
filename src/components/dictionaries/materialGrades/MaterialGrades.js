@@ -143,7 +143,6 @@ export default function MaterialGrades() {
               {materialGrades.length === 0 && <p>No data</p>}
               {materialGrades && materialGradesArr}
             </div>
-            <TestCalculatingKgsByGradeAndThickness />
           </div>
         </MainSectionContainer>
       </MainContentContainer>

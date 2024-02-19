@@ -51,14 +51,6 @@ export default function MaterialGradeEditForm(props) {
       setIsError(false)
     }
 
-    if (isEmpty(formData.gerSymbol)) {
-      setErrorMessage("German symbol cannot be empty.")
-      setIsError(true);
-      return
-    } else {
-      setIsError(false)
-    }
-
     if (isEmpty(formData.density)) {
       setErrorMessage("Density cannot be empty.")
       setIsError(true);
@@ -68,7 +60,7 @@ export default function MaterialGradeEditForm(props) {
     }
 
     if (isEqualZero(formData.density)) {
-      setErrorMessage("Density cannot have zero value.")
+      setErrorMessage("Density cannot have value zero.")
       setIsError(true);
       return
     } else {
