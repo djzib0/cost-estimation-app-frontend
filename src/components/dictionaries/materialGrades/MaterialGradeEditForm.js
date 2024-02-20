@@ -41,7 +41,7 @@ export default function MaterialGradeEditForm(props) {
   } = useFetch();
 
   useEffect(() => {
-    
+    console.log("refreshing form")
   }, [isError])
 
   function handleSubmit(e) {
@@ -72,14 +72,16 @@ export default function MaterialGradeEditForm(props) {
       setIsError(false)
     }
 
-
+    updateUrl("any url, goddamit")
     //if there are no input errors call requested method function
-    if (props.type === "add") {
+    if (props.type === "add" && !error) {
       updateUrl("any")
-      error && console.log(error.message)
       // props.closeModal();
       // props.refreshPage();
       return
+    } else {
+      error && setIsError(true);
+      error && setErrorMessage(error.message, "error there")
     }
 
     console.log("chwila przed tragedią")

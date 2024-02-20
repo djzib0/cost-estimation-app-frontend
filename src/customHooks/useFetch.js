@@ -37,7 +37,7 @@ function useFetch() {
     newUrl && setFetchUrl(newUrl);
     
     console.log(fetchUrl, "fetchUrl")
-    console.log(error && error.status, "error here")
+    console.log(fetchUrl && error, "error here")
   }
 
   return (
