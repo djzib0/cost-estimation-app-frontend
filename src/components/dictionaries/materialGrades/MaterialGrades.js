@@ -13,7 +13,6 @@ import { ThemeContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
-import useFetch from '../../../customHooks/useFetch'
 // styles import
 import './MaterialGrades.css'
 
@@ -31,10 +30,6 @@ export default function MaterialGrades() {
     closeModal,
     openModal,
   } = useModal()
-
-  const {data, updateUrl, error} = useFetch();
-
-  
 
   const {
     getMaterialGradesData,

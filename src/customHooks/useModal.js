@@ -40,10 +40,11 @@ function useModal() {
   }
 
   async function closeModal() {
+    console.log("closing useModal")
     resetModal();
   }
 
-  function resetModal() {
+  async function resetModal() {
     setModalData(initialModalData)
   }
   return (

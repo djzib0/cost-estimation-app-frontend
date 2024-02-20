@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
-import useFetch from '../../../customHooks/useFetch';
 //components imports
 import CtaButton from '../../buttons/CtaButton';
 import FormError from '../../form/FormError';
@@ -29,16 +28,10 @@ export default function MaterialGradeEditForm(props) {
     getMaterialGroupTypes,
     editMaterialGrade,
     fetchError,
-    materialGroupTypes
+    materialGroupTypes,
+    loading,
+    setLoading,
   } = useDictionariesApi();
-
-  const {
-    data,
-    error,
-    isLoading,
-    updateUrl,
-    setUrl,
-  } = useFetch();
 
   useEffect(() => {
     console.log("refreshing form")
@@ -72,30 +65,27 @@ export default function MaterialGradeEditForm(props) {
       setIsError(false)
     }
 
-    updateUrl("any url, goddamit")
     //if there are no input errors call requested method function
-    if (props.type === "add" && !error) {
-      updateUrl("any")
-      // props.closeModal();
-      // props.refreshPage();
+    if (props.type === "add" && !fetchError) {
+      addMaterialGrade({
+        materialGradeId: props.obj.materialGradeId,  
+        ...formData        
+      });
+      props.closeModal();
+      props.refreshPage();
       return
-    } else {
-      error && setIsError(true);
-      error && setErrorMessage(error.message, "error there")
+    } 
+
+
+    if (props.type === "edit") {
+      editMaterialGrade({
+        materialGradeId: props.obj.materialGradeId,  
+        ...formData        
+      });
     }
 
-    console.log("chwila przed tragedią")
-    if (props.type === "edit") {
-      // editMaterialGrade({
-      //   materialGradeId: props.obj.materialGradeId,  
-      //   ...formData        
-      // });
-      // props.closeModal();
-      // props.refreshPage();
-      setUrl("https://swapi.dev/api/people/1")
-      setErrorMessage(error.message)
-      return
-    }
+    !loading && props.closeModal();
+    !loading && props.refreshPage();
   }
 
   function handleChange(e) {
@@ -107,6 +97,7 @@ export default function MaterialGradeEditForm(props) {
       }
     })
   }
+
 
   //fetch material group types
   useEffect(() => {
@@ -129,6 +120,7 @@ export default function MaterialGradeEditForm(props) {
   return (
     <div>
       {isError && <FormError errorMessage={errorMessage} />}
+      {fetchError !== null && <FormError errorMessage={fetchError.message} />}
       <form className='form--2xfr'>
         <div className='input-label__container'>
           <label htmlFor='euSymbol'>

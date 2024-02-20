@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
+// custom hooks imports
+import useModal from './useModal';
 
 function useDictionariesApi() {
 
+  const {
+    closeModal,
+  } = useModal();
+
   const [materialGrades, setMaterialGrades] = useState([]);
   const [materialGroupTypes, setMaterialGroupTypes] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(null)
   const [fetchError, setFetchError] = useState(null)
 
   // fetching data from API
@@ -43,6 +49,7 @@ function useDictionariesApi() {
   }
 
   async function addMaterialGrade(newMaterialGradeObj) {
+    console.log(loading, "loading in addMaterialGrade")
     fetch(`/data/materialgrades/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -50,6 +57,19 @@ function useDictionariesApi() {
         {
           ...newMaterialGradeObj 
         })
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw {
+          message: "Failed to add material",
+          statusText: res.statusText,
+          status: res.status
+        }
+      }
+      return setLoading(false);
+    })
+    .catch(err => {
+      setFetchError(err);
     })
   }
 
@@ -82,7 +102,6 @@ function useDictionariesApi() {
   
 
   async function deleteMaterialGrade(materialGradeId) {
-    console.log("item deleted, id", materialGradeId)
     fetch(`/data/materialgrades/delete/${materialGradeId}`, {
       method: 'DELETE'
     })
@@ -98,7 +117,8 @@ function useDictionariesApi() {
     getMaterialGroupTypes,
     fetchError,
     materialGroupTypes,
-    loading
+    loading,
+    setLoading,
   }
   
 }
