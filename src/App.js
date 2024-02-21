@@ -18,7 +18,6 @@ import OperationsMachining from './components/dictionaries/operations/Operations
 import OperationsSurfaceConservation from './components/dictionaries/operations/OperationsSurfaceConservation';
 import OperationsOther from './components/dictionaries/operations/OperationsOther';
 import OperationsLayout from './layouts/OperationsLayout'
-
 // css import
 import './App.css'
 // utils imports
@@ -26,6 +25,7 @@ import { getLocalStorageTheme } from './utils/utils';
 
 const AuthUserContext = createContext();
 const ThemeContext = createContext();
+const ModalContext = createContext();
 
 
 export default function App() {
@@ -34,12 +34,22 @@ export default function App() {
   const [authUser, setAuthUser] = useState();
   const [settings, setSettings] = useState();
   const [theme, setTheme] = useState(getLocalStorageTheme())
+  const [isModalOn, setIsModalOn] = useState(false)
 
   // state variable to refresh page
   const [refreshPage, setRefreshPage] = useState(false)
 
   function handleRefreshPage() {
     setRefreshPage(prevState => !prevState)
+  }
+
+  // change Modal state
+  function toggleModalOn() {
+    setIsModalOn(true);
+  }
+
+  function toggleModalOff() {
+    setIsModalOn(false);
   }
 
   // fetching data
@@ -104,35 +114,37 @@ export default function App() {
     <div className="App">
       <AuthUserContext.Provider value={{authUser, loading, error}}>
         <ThemeContext.Provider value={{settings, handleRefreshPage, theme, switchTheme}}>
-          <Routes>
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<Main />} />
-              <Route path='settings' element={<SettingsLayout />}>
-                <Route path="Item1" element={<Main />} />
-                <Route path="Item2" element={<Main />} />
-              </Route>
-              <Route path='dictionaries' element={<DictionariesLayout />}>
-                <Route index element={<Dictionaries />} />
-                <Route path="gradesDictionary" element={<MaterialGradesLayout />}>
-                  <Route index element={<MaterialGrades />} />
-                  <Route path='stst' element={<MaterialGradesStSt />} />
-                  <Route path='aluminum' element={<MaterialGradesAluminum />} />
-                  <Route path='other' element={<MaterialGradesOther />} />
+          <ModalContext.Provider value={{isModalOn, toggleModalOn, toggleModalOff}}>
+            <Routes>
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<Main />} />
+                <Route path='settings' element={<SettingsLayout />}>
+                  <Route path="Item1" element={<Main />} />
+                  <Route path="Item2" element={<Main />} />
                 </Route>
-                <Route path="operations" element={<OperationsLayout />}>
-                  <Route index element={<OperationsAssembly />} />
-                  <Route path='welding' element={<OperationsWelding />} />
-                  <Route path='machining' element={<OperationsMachining />} />
-                  <Route path='surfaceConservation' element={<OperationsSurfaceConservation />} />
-                  <Route path='other' element={<OperationsOther />} />
+                <Route path='dictionaries' element={<DictionariesLayout />}>
+                  <Route index element={<Dictionaries />} />
+                  <Route path="gradesDictionary" element={<MaterialGradesLayout />}>
+                    <Route index element={<MaterialGrades />} />
+                    <Route path='stst' element={<MaterialGradesStSt />} />
+                    <Route path='aluminum' element={<MaterialGradesAluminum />} />
+                    <Route path='other' element={<MaterialGradesOther />} />
+                  </Route>
+                  <Route path="operations" element={<OperationsLayout />}>
+                    <Route index element={<OperationsAssembly />} />
+                    <Route path='welding' element={<OperationsWelding />} />
+                    <Route path='machining' element={<OperationsMachining />} />
+                    <Route path='surfaceConservation' element={<OperationsSurfaceConservation />} />
+                    <Route path='other' element={<OperationsOther />} />
+                  </Route>
                 </Route>
               </Route>
-            </Route>
-          </Routes>
+            </Routes>
+          </ModalContext.Provider>
         </ThemeContext.Provider>
       </AuthUserContext.Provider>
     </div>
   );
 }
 
-export { AuthUserContext, ThemeContext } ;
+export { AuthUserContext, ThemeContext, ModalContext} ;

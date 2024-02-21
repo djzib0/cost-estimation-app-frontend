@@ -10,6 +10,7 @@ import CtaButton from '../../buttons/CtaButton'
 import TestCalculatingKgsByGradeAndThickness from './TestCalculatingKgsByGradeAndThickness'
 // contexts imports
 import { ThemeContext } from '../../../App';
+import { ModalContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
@@ -18,9 +19,14 @@ import './MaterialGrades.css'
 
 export default function MaterialGrades() {
 
+  // utilize ThemeContext
   const {theme} = useContext(ThemeContext)
   const themeMode = `--${theme}`
+
+  // utilize ModalContext
+  const {isModalOn, toggleModalOn, toggleModalOff} = useContext(ModalContext);
   
+
   const [materialGradesData, setMaterialGradesData] = useState();
   const [refreshedPage, setRefreshedPage] = useState(false);
 
@@ -49,7 +55,6 @@ export default function MaterialGrades() {
     }
   }, [materialGradesData])
 
-
   function refreshPage() {
     // fetch new data and trigger useEffect to re render
     console.log("refreshing page")
@@ -59,7 +64,7 @@ export default function MaterialGrades() {
     }
   }
 
-  function setModal() {
+  function setAddModal() {
     setModalData(prevData => {
       //open new modal with new properties
       return {
@@ -78,7 +83,42 @@ export default function MaterialGrades() {
           gradeGroup: ""
         }
       }})
-    openModal();
+    toggleModalOn();
+  }
+
+  function setEditModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "edit",
+        messageTitle: "Enter new values",
+        messageText: "Please enter the data in all input fields",
+        elementId: item.materialGradeId,
+        value: "",
+        obj: {...item}
+      }})
+    toggleModalOn();
+  }
+
+  function setDeleteModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "delete",
+        messageTitle: "Do you want to delete this material grade?",
+        messageText: "If you press OK, it will be permanently removed from the database.",
+        elementId: item.materialGradeId,
+        value: "",
+        refreshFunc: {refreshPage},
+        handleFunction: {deleteMaterialGrade},
+        closeFunc: {toggleModalOff},
+        obj: {...item}
+      }})
+      toggleModalOn();
   }
 
 
@@ -87,35 +127,8 @@ export default function MaterialGrades() {
         <MaterialGradeItem 
         key={item.materialGradeId}
         item={item}
-        editItem={() => setModalData(prevData => {
-            //open new modal with new properties
-          return {
-            ...prevData,
-            isActive: true,
-            modalType: "edit",
-            messageTitle: "Enter new values",
-            messageText: "Please enter the data in all input fields",
-            elementId: item.materialGradeId,
-            value: "",
-            obj: {...item}
-          }})
-        }
-        deleteItem={() => setModalData(prevData => {
-          //open new modal with new properties
-          return {
-            ...prevData,
-            isActive: true,
-            modalType: "delete",
-            messageTitle: "Do you want to delete this material grade?",
-            messageText: "If you press OK, it will be permanently removed from the database.",
-            elementId: item.materialGradeId,
-            value: "",
-            refreshFunc: {refreshPage},
-            handleFunction: {deleteMaterialGrade},
-            obj: {...item}
-
-          }})
-        }
+        editItem={() => setEditModal(item)}
+        deleteItem={() => setDeleteModal(item)}
         />
     )
   }).sort((a, b) => b - a)
@@ -130,7 +143,7 @@ export default function MaterialGrades() {
                 title="Add new material"
                 type="add"
                 variant="large"
-                handlingFunction={setModal}
+                handlingFunction={setAddModal}
                 /> 
             </div>
             <MaterialGradeHeadersContainer />
@@ -141,21 +154,22 @@ export default function MaterialGrades() {
           </div>
         </MainSectionContainer>
       </MainContentContainer>
-      {modalData.isActive && 
+      {isModalOn && 
+      // {modalData.isActive && 
       <Modal
         isActive={modalData.isActive}
         modalType={modalData.modalType}
         messageTitle={modalData.messageTitle}
         messageText={modalData.messageText}
         handleFunction={modalData.handleFunction}
-        onClose={closeModal}
+        onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
         form={<MaterialGradeEditForm 
           obj={modalData.obj} 
           type={modalData.modalType}
           refreshPage={refreshPage}
-          closeModal={closeModal}
+          closeModal={toggleModalOff}
           />}
         />}
     </>

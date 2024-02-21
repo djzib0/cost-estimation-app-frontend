@@ -27,7 +27,6 @@ function useModal() {
   })
 
   useEffect(() => {
-    console.log("refreshing useModal")
   }, [modalData])
 
   function openModal() {
@@ -40,7 +39,6 @@ function useModal() {
   }
 
   async function closeModal() {
-    console.log("closing useModal")
     resetModal();
   }
 

@@ -36,6 +36,7 @@ export default function Modal(props) {
     setModalData,
     closeModal,
   } = useModal()
+  
 
   console.log(obj.materialGradeId)
 

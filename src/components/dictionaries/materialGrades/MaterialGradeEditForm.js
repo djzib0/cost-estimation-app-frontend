@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 //components imports
 import CtaButton from '../../buttons/CtaButton';
 import FormError from '../../form/FormError';
+//contexts imports
+import { ModalContext } from '../../../App';
 //utils imports
 import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
+
+  // utilize ModalContext
+  const {isModalOn, toggleModalOn, toggleModalOff} = useContext(ModalContext)
 
   const {materialGradeId, euSymbol, gerSymbol, gradeGroup, density} = props.obj;
   const [errorMessage, setErrorMessage] = useState("");
@@ -31,11 +36,7 @@ export default function MaterialGradeEditForm(props) {
     materialGroupTypes,
     loading,
     setLoading,
-  } = useDictionariesApi();
-
-  useEffect(() => {
-    console.log("refreshing form")
-  }, [isError])
+  } = useDictionariesApi(toggleModalOn, toggleModalOff);
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -65,17 +66,18 @@ export default function MaterialGradeEditForm(props) {
       setIsError(false)
     }
 
+
+
     //if there are no input errors call requested method function
-    if (props.type === "add" && !fetchError) {
+    if (props.type === "add" && !isError) {
       addMaterialGrade({
         materialGradeId: props.obj.materialGradeId,  
         ...formData        
       });
-      props.closeModal();
-      props.refreshPage();
+      console.log(fetchError, "isError")
+      !isError && props.refreshPage();
       return
-    } 
-
+    }
 
     if (props.type === "edit") {
       editMaterialGrade({
@@ -83,9 +85,9 @@ export default function MaterialGradeEditForm(props) {
         ...formData        
       });
     }
-
-    !loading && props.closeModal();
-    !loading && props.refreshPage();
+    !isError && props.closeModal();
+    !isError && props.refreshPage();
+    return
   }
 
   function handleChange(e) {
@@ -120,7 +122,7 @@ export default function MaterialGradeEditForm(props) {
   return (
     <div>
       {isError && <FormError errorMessage={errorMessage} />}
-      {fetchError !== null && <FormError errorMessage={fetchError.message} />}
+      {fetchError && <FormError errorMessage={fetchError.message} />}
       <form className='form--2xfr'>
         <div className='input-label__container'>
           <label htmlFor='euSymbol'>

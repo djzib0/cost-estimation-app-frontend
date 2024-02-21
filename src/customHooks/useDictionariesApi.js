@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react'
 // custom hooks imports
 import useModal from './useModal';
 
-function useDictionariesApi() {
+function useDictionariesApi(toggleModalOn, toggleModalOff) {
 
   const {
     closeModal,
+    resetModal,
+    openModal
   } = useModal();
 
   const [materialGrades, setMaterialGrades] = useState([]);
   const [materialGroupTypes, setMaterialGroupTypes] = useState([]);
-  const [loading, setLoading] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [fetchError, setFetchError] = useState(null)
 
   // fetching data from API
@@ -49,7 +51,7 @@ function useDictionariesApi() {
   }
 
   async function addMaterialGrade(newMaterialGradeObj) {
-    console.log(loading, "loading in addMaterialGrade")
+    setLoading(true)
     fetch(`/data/materialgrades/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -60,13 +62,15 @@ function useDictionariesApi() {
     })
     .then(res => {
       if (!res.ok) {
+        console.log("res is not OK")
         throw {
           message: "Failed to add material",
           statusText: res.statusText,
           status: res.status
         }
+      } else {
+        toggleModalOff();
       }
-      return setLoading(false);
     })
     .catch(err => {
       setFetchError(err);
