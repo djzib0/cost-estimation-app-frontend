@@ -74,7 +74,6 @@ export default function MaterialGradeEditForm(props) {
         materialGradeId: props.obj.materialGradeId,  
         ...formData        
       });
-      console.log(fetchError, "isError")
       !isError && props.refreshPage();
       return
     }
@@ -85,7 +84,6 @@ export default function MaterialGradeEditForm(props) {
         ...formData        
       });
     }
-    !isError && props.closeModal();
     !isError && props.refreshPage();
     return
   }

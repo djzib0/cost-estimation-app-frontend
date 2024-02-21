@@ -51,7 +51,6 @@ function useDictionariesApi(toggleModalOn, toggleModalOff) {
   }
 
   async function addMaterialGrade(newMaterialGradeObj) {
-    setLoading(true)
     fetch(`/data/materialgrades/add`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -78,7 +77,7 @@ function useDictionariesApi(toggleModalOn, toggleModalOff) {
   }
 
   async function editMaterialGrade(editedMaterialGrade) {
-
+    setLoading(true)
     fetch(`/data/materialgrades/edit`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
@@ -94,16 +93,14 @@ function useDictionariesApi(toggleModalOn, toggleModalOff) {
           statusText: res.statusText,
           status: res.status
         }
+      } else {
+        toggleModalOff();
       }
     })
-    .catch(error => {
-      setFetchError({error})
+    .catch(err => {
+      setFetchError(err)
     })
   }
-
-  // editMaterialGrade("some stuff")
-  // console.log(fetchError)
-  
 
   async function deleteMaterialGrade(materialGradeId) {
     fetch(`/data/materialgrades/delete/${materialGradeId}`, {
