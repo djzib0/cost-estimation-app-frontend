@@ -23,7 +23,6 @@ export default function MaterialGradeEditForm(props) {
     {
       euSymbol: euSymbol,
       gerSymbol: gerSymbol,
-      // gradeGroup: gradeGroup === "" ? "steel" : gradeGroup,
       gradeGroup: gradeGroup,
       density: Number(density)
     }

@@ -5,7 +5,6 @@ import CtaButton from '../../buttons/CtaButton';
 import { ThemeContext } from '../../../App';
 import { ModalContext } from '../../../App';
 //styles imports
-import './MaterialGradeItem.css'
 
 export default function MaterialGradeItem(props) {
 

@@ -4,7 +4,10 @@ import { Link, Routes, Route } from 'react-router-dom';
 // components imports
 import MainLayout from './layouts/MainLayout'
 import Main from './components/main/Main';
+import ProjectsLayout from './layouts/ProjectsLayout';
 import SettingsLayout from './layouts/SettingsLayout';
+import Projects from './components/projects/Projects'
+import AllProjects from './components/projects/allProjects/AllProjects';
 import Dictionaries from './components/dictionaries/Dictionaries';
 import DictionariesLayout from './layouts/DictionariesLayout';
 import MaterialGradesLayout from './layouts/MaterialGradesLayout';
@@ -121,6 +124,10 @@ export default function App() {
                 <Route path='settings' element={<SettingsLayout />}>
                   <Route path="Item1" element={<Main />} />
                   <Route path="Item2" element={<Main />} />
+                </Route>
+                <Route path='projects' element={<ProjectsLayout />}>
+                  <Route index element={<Projects />} />
+                  <Route path='allProjects' element={<AllProjects />} />
                 </Route>
                 <Route path='dictionaries' element={<DictionariesLayout />}>
                   <Route index element={<Dictionaries />} />

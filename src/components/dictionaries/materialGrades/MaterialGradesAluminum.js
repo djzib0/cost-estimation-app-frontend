@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainSectionContainer/MainSectionContainer'
+import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
 import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
@@ -14,8 +14,6 @@ import { ModalContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
-// styles import
-import './MaterialGrades.css'
 
 export default function MaterialGrades() {
 
@@ -157,7 +155,6 @@ export default function MaterialGrades() {
         </MainSectionContainer>
       </MainContentContainer>
       {isModalOn && 
-      // {modalData.isActive && 
       <Modal
         isActive={modalData.isActive}
         modalType={modalData.modalType}

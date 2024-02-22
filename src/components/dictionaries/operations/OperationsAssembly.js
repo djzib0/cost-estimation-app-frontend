@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainSectionContainer/MainSectionContainer'
+import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
 import Modal from '../../modal/Modal';
 // contexts imports
 import { ThemeContext } from '../../../App';

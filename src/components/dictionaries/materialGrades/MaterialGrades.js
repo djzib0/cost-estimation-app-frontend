@@ -1,21 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainSectionContainer/MainSectionContainer'
-import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
+import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
+import MainContentHeaderContainer from '../../mainContentContainer/MainContentHeaderContainer'
+import MainContentHeaderContainerItem from '../../mainContentContainer/MainContentHeaderContainerItem'
+import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/MainContentHeaderContainerItemNarrow'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
-import TestCalculatingKgsByGradeAndThickness from './TestCalculatingKgsByGradeAndThickness'
 // contexts imports
 import { ThemeContext } from '../../../App';
 import { ModalContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
-// styles import
-import './MaterialGrades.css'
 
 export default function MaterialGrades() {
 
@@ -148,7 +147,13 @@ export default function MaterialGrades() {
                 handlingFunction={setAddModal}
                 /> 
             </div>
-            <MaterialGradeHeadersContainer />
+            <MainContentHeaderContainer>
+              <MainContentHeaderContainerItemNarrow>Id</MainContentHeaderContainerItemNarrow>
+              <MainContentHeaderContainerItem>European</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItem>German</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItem>Density {`[`}g/cm<sup>3</sup>{`]`}</MainContentHeaderContainerItem>
+              <div className='header-cta__container'></div>
+            </MainContentHeaderContainer>
             <div className='rows__container'>
               {materialGrades.length === 0 && <p>No data</p>}
               {materialGrades && materialGradesArr}
@@ -157,7 +162,6 @@ export default function MaterialGrades() {
         </MainSectionContainer>
       </MainContentContainer>
       {isModalOn && 
-      // {modalData.isActive && 
       <Modal
         isActive={modalData.isActive}
         modalType={modalData.modalType}
