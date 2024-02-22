@@ -40,7 +40,7 @@ export default function MaterialGradeEditForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-
+    console.log("submitting")
     // Check for errors
     if (isEmpty(formData.euSymbol)) {
       setErrorMessage("European symbol cannot be empty.")
@@ -67,14 +67,13 @@ export default function MaterialGradeEditForm(props) {
     }
 
 
-
     //if there are no input errors call requested method function
-    if (props.type === "add" && !isError) {
+    if (props.type === "add") {
       addMaterialGrade({
         materialGradeId: props.obj.materialGradeId,  
         ...formData        
       });
-      !isError && props.refreshPage();
+      props.refreshPage();
       return
     }
 
@@ -84,7 +83,7 @@ export default function MaterialGradeEditForm(props) {
         ...formData        
       });
     }
-    !isError && props.refreshPage();
+    props.refreshPage();
     return
   }
 

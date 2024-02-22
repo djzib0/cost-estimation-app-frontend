@@ -37,9 +37,6 @@ export default function Modal(props) {
     closeModal,
   } = useModal()
   
-
-  console.log(obj.materialGradeId)
-
   return (
     <div className={`modal__container${themeMode}`}>
       <ModalCloseButton onClose={onClose} />
