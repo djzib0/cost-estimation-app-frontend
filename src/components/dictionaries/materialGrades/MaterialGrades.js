@@ -19,6 +19,9 @@ import './MaterialGrades.css'
 
 export default function MaterialGrades() {
 
+  // constant variables
+  const gradeGroupName = "steel"
+
   // utilize ThemeContext
   const {theme} = useContext(ThemeContext)
   const themeMode = `--${theme}`
@@ -49,7 +52,7 @@ export default function MaterialGrades() {
 
 
   useEffect(() => {
-    getMaterialGradesData("steel");
+    getMaterialGradesData(gradeGroupName);
     if (materialGrades) {
       setMaterialGradesData(materialGrades)
     }
@@ -57,8 +60,7 @@ export default function MaterialGrades() {
 
   function refreshPage() {
     // fetch new data and trigger useEffect to re render
-    console.log("refreshing page")
-    getMaterialGradesData("steel");
+    getMaterialGradesData(gradeGroupName);
     if (materialGrades) {
       setMaterialGradesData(materialGrades)
     }
@@ -80,7 +82,7 @@ export default function MaterialGrades() {
           euSymbol: "",
           gerSymbol: "",
           density: "",
-          gradeGroup: ""
+          gradeGroup: gradeGroupName,
         }
       }})
     toggleModalOn();

@@ -23,7 +23,8 @@ export default function MaterialGradeEditForm(props) {
     {
       euSymbol: euSymbol,
       gerSymbol: gerSymbol,
-      gradeGroup: gradeGroup === "" ? "steel" : gradeGroup,
+      // gradeGroup: gradeGroup === "" ? "steel" : gradeGroup,
+      gradeGroup: gradeGroup,
       density: Number(density)
     }
   )
@@ -40,7 +41,6 @@ export default function MaterialGradeEditForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log("submitting")
     // Check for errors
     if (isEmpty(formData.euSymbol)) {
       setErrorMessage("European symbol cannot be empty.")
@@ -70,7 +70,8 @@ export default function MaterialGradeEditForm(props) {
     //if there are no input errors call requested method function
     if (props.type === "add") {
       addMaterialGrade({
-        materialGradeId: props.obj.materialGradeId,  
+        materialGradeId: props.obj.materialGradeId,
+        gradeGroup: gradeGroup,
         ...formData        
       });
       props.refreshPage();
