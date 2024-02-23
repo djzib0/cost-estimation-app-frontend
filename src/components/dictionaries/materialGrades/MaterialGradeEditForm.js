@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
-import useFetch from '../../../customHooks/useFetch';
 //components imports
 import CtaButton from '../../buttons/CtaButton';
 import FormError from '../../form/FormError';
+//contexts imports
+import { ModalContext } from '../../../App';
 //utils imports
 import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../../utils/utils';
 
 export default function MaterialGradeEditForm(props) {
+
+  // utilize ModalContext
+  const {isModalOn, toggleModalOn, toggleModalOff} = useContext(ModalContext)
 
   const {materialGradeId, euSymbol, gerSymbol, gradeGroup, density} = props.obj;
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,7 +23,7 @@ export default function MaterialGradeEditForm(props) {
     {
       euSymbol: euSymbol,
       gerSymbol: gerSymbol,
-      gradeGroup: gradeGroup === "" ? "steel" : gradeGroup,
+      gradeGroup: gradeGroup,
       density: Number(density)
     }
   )
@@ -29,24 +33,13 @@ export default function MaterialGradeEditForm(props) {
     getMaterialGroupTypes,
     editMaterialGrade,
     fetchError,
-    materialGroupTypes
-  } = useDictionariesApi();
-
-  const {
-    data,
-    error,
-    isLoading,
-    updateUrl,
-    setUrl,
-  } = useFetch();
-
-  useEffect(() => {
-    
-  }, [isError])
+    materialGroupTypes,
+    loading,
+    setLoading,
+  } = useDictionariesApi(toggleModalOn, toggleModalOff);
 
   function handleSubmit(e) {
     e.preventDefault()
-
     // Check for errors
     if (isEmpty(formData.euSymbol)) {
       setErrorMessage("European symbol cannot be empty.")
@@ -75,25 +68,23 @@ export default function MaterialGradeEditForm(props) {
 
     //if there are no input errors call requested method function
     if (props.type === "add") {
-      updateUrl("any")
-      error && console.log(error.message)
-      // props.closeModal();
-      // props.refreshPage();
+      addMaterialGrade({
+        materialGradeId: props.obj.materialGradeId,
+        gradeGroup: gradeGroup,
+        ...formData        
+      });
+      props.refreshPage();
       return
     }
 
-    console.log("chwila przed tragedią")
     if (props.type === "edit") {
-      // editMaterialGrade({
-      //   materialGradeId: props.obj.materialGradeId,  
-      //   ...formData        
-      // });
-      // props.closeModal();
-      // props.refreshPage();
-      setUrl("https://swapi.dev/api/people/1")
-      setErrorMessage(error.message)
-      return
+      editMaterialGrade({
+        materialGradeId: props.obj.materialGradeId,  
+        ...formData        
+      });
     }
+    props.refreshPage();
+    return
   }
 
   function handleChange(e) {
@@ -105,6 +96,7 @@ export default function MaterialGradeEditForm(props) {
       }
     })
   }
+
 
   //fetch material group types
   useEffect(() => {
@@ -127,6 +119,7 @@ export default function MaterialGradeEditForm(props) {
   return (
     <div>
       {isError && <FormError errorMessage={errorMessage} />}
+      {fetchError && <FormError errorMessage={fetchError.message} />}
       <form className='form--2xfr'>
         <div className='input-label__container'>
           <label htmlFor='euSymbol'>

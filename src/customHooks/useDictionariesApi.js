@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react'
+// custom hooks imports
+import useModal from './useModal';
 
-function useDictionariesApi() {
+function useDictionariesApi(toggleModalOn, toggleModalOff) {
+
+  const {
+    closeModal,
+    resetModal,
+    openModal
+  } = useModal();
 
   const [materialGrades, setMaterialGrades] = useState([]);
   const [materialGroupTypes, setMaterialGroupTypes] = useState([]);
@@ -51,10 +59,25 @@ function useDictionariesApi() {
           ...newMaterialGradeObj 
         })
     })
+    .then(res => {
+      if (!res.ok) {
+        console.log("res is not OK")
+        throw {
+          message: "Failed to add material",
+          statusText: res.statusText,
+          status: res.status
+        }
+      } else {
+        toggleModalOff();
+      }
+    })
+    .catch(err => {
+      setFetchError(err);
+    })
   }
 
   async function editMaterialGrade(editedMaterialGrade) {
-
+    setLoading(true)
     fetch(`/data/materialgrades/edit`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
@@ -70,19 +93,16 @@ function useDictionariesApi() {
           statusText: res.statusText,
           status: res.status
         }
+      } else {
+        toggleModalOff();
       }
     })
-    .catch(error => {
-      setFetchError({error})
+    .catch(err => {
+      setFetchError(err)
     })
   }
 
-  // editMaterialGrade("some stuff")
-  // console.log(fetchError)
-  
-
   async function deleteMaterialGrade(materialGradeId) {
-    console.log("item deleted, id", materialGradeId)
     fetch(`/data/materialgrades/delete/${materialGradeId}`, {
       method: 'DELETE'
     })
@@ -98,7 +118,8 @@ function useDictionariesApi() {
     getMaterialGroupTypes,
     fetchError,
     materialGroupTypes,
-    loading
+    loading,
+    setLoading,
   }
   
 }

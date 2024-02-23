@@ -20,7 +20,7 @@ function isEmpty(input) {
 }
 
 function isEqualZero(input) {
-    return input === 0;
+    return Number(input) === 0;
 }
 
 export {capitalFirstLetter, getLocalStorageTheme, isEmpty, isEqualZero}
