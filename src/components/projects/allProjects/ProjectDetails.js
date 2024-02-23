@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
 import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
@@ -11,13 +10,28 @@ import CtaButton from '../../buttons/CtaButton'
 // contexts imports
 import { ThemeContext } from '../../../App';
 import { ModalContext } from '../../../App';
+import { useParams } from 'react-router-dom';
 
-export default function AllProjects() {
+export default function ProjectDetails() {
 
   // utilize ThemeContext
   const {theme} = useContext(ThemeContext)
   const themeMode = `--${theme}`
-  
+
+  const params = useParams()
+
+  const testData = [
+    {
+      id: 1,
+      projectNumber: "32485",
+      projectClientNumber: "WO34503",
+    },
+    {
+      id: 2,
+      projectNumber: "32486",
+      projectClientNumber: "NOZ14243824",
+    },
+  ]
 
   return (
     <div className='main-content__container'>
@@ -29,15 +43,12 @@ export default function AllProjects() {
               <MainContentHeaderContainerItem>Project Number</MainContentHeaderContainerItem>
               <MainContentHeaderContainerItem>Project Client Number</MainContentHeaderContainerItem>
             </MainContentHeaderContainer>
-            <div className='rows__container'>
-              <NavLink to={`details/${2}`}>Test data</NavLink>
-              {/* {materialGrades.length === 0 && <p>No data</p>}
-              {materialGrades && materialGradesArr} */}
+              <div className='rows__container'>
+                Project details will be here - id of project is {params.id}
             </div>
           </div>
         </MainSectionContainer>
       </MainContentContainer>
-      <Outlet />
     </div>
   )
 }

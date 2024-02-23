@@ -8,6 +8,7 @@ import ProjectsLayout from './layouts/ProjectsLayout';
 import SettingsLayout from './layouts/SettingsLayout';
 import Projects from './components/projects/Projects'
 import AllProjects from './components/projects/allProjects/AllProjects';
+import ProjectDetails from './components/projects/allProjects/ProjectDetails';
 import Dictionaries from './components/dictionaries/Dictionaries';
 import DictionariesLayout from './layouts/DictionariesLayout';
 import MaterialGradesLayout from './layouts/MaterialGradesLayout';
@@ -25,6 +26,9 @@ import OperationsLayout from './layouts/OperationsLayout'
 import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
+import ProjectDetailsDashboard from './components/projects/allProjects/ProjectDetailsDashboard';
+import ProjectDetailsMaterials from './components/projects/allProjects/ProjectDetailsMaterials';
+import ProjectDetailsLayout from './layouts/ProjectDetailsLayout';
 
 const AuthUserContext = createContext();
 const ThemeContext = createContext();
@@ -126,8 +130,8 @@ export default function App() {
                   <Route path="Item2" element={<Main />} />
                 </Route>
                 <Route path='projects' element={<ProjectsLayout />}>
-                  <Route index element={<Projects />} />
-                  <Route path='allProjects' element={<AllProjects />} />
+                  <Route path='allProjects' element={<AllProjects />} /> 
+                  <Route path='details/{:id}' element={<ProjectDetailsDashboard />} />
                 </Route>
                 <Route path='dictionaries' element={<DictionariesLayout />}>
                   <Route index element={<Dictionaries />} />
