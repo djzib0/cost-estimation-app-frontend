@@ -6,6 +6,7 @@ function useApi() {
 
   const [fetchedData, setFetchedData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
   const [fetchError, setFetchError] = useState(null);
 
   async function getData(url) {
@@ -20,7 +21,10 @@ function useApi() {
         }
       }
       return res.json()})
-    .then(data => setFetchedData(data))
+    .then(data => {
+      setFetchedData(data)
+      setIsFetched(true)
+    })
     .catch(err => setFetchError(err))
     .finally(setLoading(false))
   }

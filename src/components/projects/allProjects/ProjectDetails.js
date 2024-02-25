@@ -25,31 +25,38 @@ export default function ProjectDetails() {
   const {
     fetchedData,
     fetchError,
+    isFetched,
     getData
   } = useApi()
 
   // state variables
   const [projectData, setProjectData] = useState();
-  const [isFetched, setIsFetched] = useState(false)
   
 
   useEffect(() => {
     getData(`/data/projects/${params.id}`)
-  }, [])
+    if (fetchedData) {
+      setProjectData(fetchedData)
+    }
+  }, [projectData])
 
-  useEffect(() => {
-    setProjectData(fetchedData)
-  }, [fetchedData])
-
-  const plateMaterialsArr = fetchedData && projectData.map(item => {
+  fetchedData.length > 0 && console.log("dupa")
+  fetchedData && console.log(fetchedData, "dupa")
+  
+  
+  const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
     console.log(item, "item")
       return (
-        <div>{item}kjkj</div>
+        <div>{item.dimensionA}</div>
       )
     })
 
-  console.log(projectData && projectData.plateMaterials, " dupa")
-  
+  // const projectDataArr = fetchedData && projectData.map(item => {
+  //   console.log(item, "item")
+  //     return (
+  //       <div>{item}kjkj</div>
+  //     )
+  //   })
 
   return (
     <div className='main-content__container'>
@@ -61,7 +68,8 @@ export default function ProjectDetails() {
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 Project details will be here - id of project is {params.id}
-                {/* {plateMaterialsArr} */}
+                {projectDataArr}
+
             </div>
           </div>
         </MainSectionContainer>
