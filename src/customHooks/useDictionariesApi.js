@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react'
 // custom hooks imports
-import useModal from './useModal';
 
 function useDictionariesApi(toggleModalOn, toggleModalOff) {
-
-  const {
-    closeModal,
-    resetModal,
-    openModal
-  } = useModal();
 
   const [materialGrades, setMaterialGrades] = useState([]);
   const [materialGroupTypes, setMaterialGroupTypes] = useState([]);

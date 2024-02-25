@@ -129,10 +129,15 @@ export default function App() {
                   <Route path="Item1" element={<Main />} />
                   <Route path="Item2" element={<Main />} />
                 </Route>
-                <Route path='projects' element={<ProjectsLayout />}>
+
+                <Route path='projects' element={<ProjectsLayout />} >
                   <Route path='allProjects' element={<AllProjects />} /> 
-                  <Route path='details/{:id}' element={<ProjectDetailsDashboard />} />
+                  <Route path='details/:id' element={<ProjectDetailsDashboard />}>
+                    <Route index element={<ProjectDetails />} />
+                  </Route>
+                  
                 </Route>
+
                 <Route path='dictionaries' element={<DictionariesLayout />}>
                   <Route index element={<Dictionaries />} />
                   <Route path="gradesDictionary" element={<MaterialGradesLayout />}>

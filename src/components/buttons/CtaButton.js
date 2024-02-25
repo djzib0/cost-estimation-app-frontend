@@ -8,6 +8,8 @@ import { FiTrash2 } from "react-icons/fi"; // delete icon
 import { FaCheck } from "react-icons/fa6"; // check icon
 import { IoWarningOutline } from "react-icons/io5"; // warning
 import { MdOutlineCancel } from "react-icons/md"; // cancel icon
+import { IoFolderOpenOutline } from "react-icons/io5"; // open icon
+
 // styles imports
 import './CtaButton.css'
 
@@ -43,7 +45,10 @@ export default function CtaButton({ title, type, variant, handlingFunction = () 
     icon = <IoWarningOutline />
   } else if (type === 'cancel') {
     icon = <MdOutlineCancel />
+  } else if (type === 'open') {
+    icon = <IoFolderOpenOutline />
   }
+
 
 
   return (

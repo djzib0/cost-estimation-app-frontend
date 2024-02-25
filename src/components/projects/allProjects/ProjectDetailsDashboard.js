@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 // contexts imports
 import { ThemeContext } from '../../../App';
 // components import
@@ -37,9 +37,9 @@ export default function ProjectDetailsDashboard() {
           >
               Materials
           </NavLink>
-
         </HorizontalDashboard.Tabs>
       </HorizontalDashboard>
+      <Outlet />
     </div>
   )
 }
