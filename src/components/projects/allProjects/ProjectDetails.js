@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 // components imports
 import MainContentContainer from '../../mainContentContainer/MainContentContainer'
+import MainContentContainerTitle from '../../mainContentContainer/MainContentContainerTitle';
 import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
 import MainContentHeaderContainer from '../../mainContentContainer/MainContentHeaderContainer'
 import MainContentHeaderContainerItem from '../../mainContentContainer/MainContentHeaderContainerItem'
 import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/MainContentHeaderContainerItemNarrow'
 import Modal from '../../modal/Modal';
-import CtaButton from '../../buttons/CtaButton'
+import CtaButton from '../../buttons/CtaButton';
+import PlateMaterialItem from '../../plateMaterial/PlateMaterialItem';
 // contexts imports
 import { ThemeContext } from '../../../App';
 import { ModalContext } from '../../../App';
@@ -40,34 +42,37 @@ export default function ProjectDetails() {
     }
   }, [projectData])
 
-  fetchedData.length > 0 && console.log("dupa")
-  fetchedData && console.log(fetchedData, "dupa")
-  
-  
+  // mapping plate materials (move to project Materials component!!)
   const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
-    console.log(item, "item")
+      console.log(item)
       return (
-        <div>{item.dimensionA}</div>
+        <PlateMaterialItem 
+          key={item.plateMaterialId} 
+          item={item} 
+          position={1}
+          />
       )
     })
 
-  // const projectDataArr = fetchedData && projectData.map(item => {
-  //   console.log(item, "item")
-  //     return (
-  //       <div>{item}kjkj</div>
-  //     )
-  //   })
 
   return (
     <div className='main-content__container'>
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
+          <MainContentContainerTitle title={"Plates"} />
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow>Materials</MainContentHeaderContainerItemNarrow>
+              <MainContentHeaderContainerItemNarrow title={"Pos."} />
+              <MainContentHeaderContainerItemNarrow title={"Dim. A [mm]"} />
+              <MainContentHeaderContainerItemNarrow title={"Dim. B [mm]"} />
+              <MainContentHeaderContainerItemNarrow title={"Thick. [mm]"} />
+              <MainContentHeaderContainerItemNarrow title={"Weight [kg]"} />
+              <MainContentHeaderContainerItemNarrow title={"Grade"} />
+              <MainContentHeaderContainerItemNarrow title={"Painted?"} />
+              <MainContentHeaderContainerItemNarrow title={"Both sides?"} />
+              <MainContentHeaderContainerItemNarrow title={"Area [m2]"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
-                Project details will be here - id of project is {params.id}
                 {projectDataArr}
 
             </div>
