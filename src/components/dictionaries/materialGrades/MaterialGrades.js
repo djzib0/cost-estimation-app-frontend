@@ -47,6 +47,7 @@ export default function MaterialGrades() {
     editMaterialGradesData,
     materialGrades,
     fetchError,
+    loading
   } = useDictionariesApi()
 
 
@@ -148,9 +149,9 @@ export default function MaterialGrades() {
                 /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow>Id</MainContentHeaderContainerItemNarrow>
-              <MainContentHeaderContainerItem>European</MainContentHeaderContainerItem>
-              <MainContentHeaderContainerItem>German</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItemNarrow title={"Id"}>Id</MainContentHeaderContainerItemNarrow>
+              <MainContentHeaderContainerItem title={"European"} />
+              <MainContentHeaderContainerItem title={"German"} />
               <MainContentHeaderContainerItem>Density {`[`}g/cm<sup>3</sup>{`]`}</MainContentHeaderContainerItem>
               <div className='header-cta__container'></div>
             </MainContentHeaderContainer>

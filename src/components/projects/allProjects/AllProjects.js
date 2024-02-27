@@ -9,7 +9,7 @@ import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/Mai
 import ProjectDetailsItem from './ProjectDetailsItem';
 import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
-import MaterialGradeEditForm from '../../dictionaries/materialGrades/MaterialGradeEditForm';
+import AllProjectsForm from './AllProjectsForm';
 // contexts imports
 import { ThemeContext } from '../../../App';
 import { ModalContext } from '../../../App';
@@ -73,7 +73,7 @@ export default function AllProjects() {
         modalType: "edit",
         messageTitle: "Enter new values",
         messageText: "Please enter the data in all input fields",
-        elementId: item.materialGradeId,
+        elementId: item.projectId,
         value: "",
         obj: {...item}
       }})
@@ -96,9 +96,9 @@ export default function AllProjects() {
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow>Id</MainContentHeaderContainerItemNarrow>
-              <MainContentHeaderContainerItem>Project Number</MainContentHeaderContainerItem>
-              <MainContentHeaderContainerItem>Project Client Number</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItemNarrow title={"Id"} />
+              <MainContentHeaderContainerItem title={"Project number"} />
+              <MainContentHeaderContainerItem title={"Project client number"} />
             </MainContentHeaderContainer>
             <div className='rows__container'>
               {projectsDataArr}
@@ -116,7 +116,7 @@ export default function AllProjects() {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        form={<MaterialGradeEditForm 
+        form={<AllProjectsForm 
           obj={modalData.obj} 
           type={modalData.modalType}
           refreshPage={refreshPage}
