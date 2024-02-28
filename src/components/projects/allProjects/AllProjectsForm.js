@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // custom hooks imports
 import useApi from '../../../customHooks/useApi';
 //components imports
@@ -6,25 +6,67 @@ import CtaButton from '../../buttons/CtaButton';
 import FormError from '../../form/FormError';
 //contexts imports
 import { ModalContext } from '../../../App';
+// utils imports
+import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../../utils/utils';
+
 
 export default function AllProjectsForm(props) {
 
   // utilize ModalContext
   const {isModalOn, toggleModalOn, toggleModalOff} = useContext(ModalContext);
 
-  const {projectNumber, projectClientNumber, title} = props.obj
+  // state variables
+  const {projectNumber, projectClientNumber, title, projectType} = props.obj
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const [projectTypes, setProjectTypes] = useState([]);
+  const [refreshPage, setRefreshPage] = useState(false);
+
 
   const [formData, setFormData] = useState(
     {
       projectNumber: projectNumber,
       projectClientNumber: projectClientNumber,
       title: title,
+      projectType: projectType.typeName,
     }
   )
 
-  console.log(props.obj, "props item")
+  // utilize useApi custom hook
+  const {
+    getData,
+    fetchedData
+  } = useApi();
+
+  // fetching data
+  useEffect(() => {
+    async function getProjectTypesData() {
+      getData("../data/projectTypes")
+    }
+    getProjectTypesData()
+  }, [])
+
+  // set new state of project types when fetched data change
+  useEffect(() => {
+    setProjectTypes(fetchedData)
+  }, [fetchedData])
+
+
+  // if data is fetched
+  const projectTypesArr = fetchedData && projectTypes.map(item => {
+    const {projectTypeId, typeName} = item
+    return (
+      <option 
+        key={projectTypeId}
+        value={typeName}
+      >
+        {capitalFirstLetter(typeName)}
+      </option>
+    )
+  })
+
+  fetchedData && console.log(projectTypes, " projectTypes")
+  console.log(projectTypesArr, "arrr")
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -88,18 +130,19 @@ export default function AllProjectsForm(props) {
         </div>
 
         <div className='input-label__container'>
-          <label htmlFor='title'>
-            Title:
+          <label htmlFor='projectType' >
+            Material group:
           </label>
-          <textarea 
-            name="title"
-            id="title"
-            placeholder="Title"
+          <select
+            value={formData.projectType}
             onChange={handleChange}
-            value={formData.title}
-          />
+            name="projectType"
+            id="projectType"
+          >
+            {projectTypesArr}
+          </select>
         </div>
-      
+        
       </form>
       <div className='form-buttons__container'>
         <CtaButton 

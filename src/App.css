@@ -146,9 +146,18 @@ input[type=number] {
   align-items: center;
 }
 
+.input-label__container--row {
+  display: grid;
+  grid-template-columns: 150px 3fr;
+  grid-column: 1/4;
+  align-items: center;
+}
+
 .label--small {
   font-size: .8em;
 }
+
+
 
 .form-buttons__container {
   display: flex;
