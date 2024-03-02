@@ -6,17 +6,29 @@ import CtaButton from '../../buttons/CtaButton';
 import FormError from '../../form/FormError';
 //contexts imports
 import { ModalContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 // utils imports
 import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../../utils/utils';
 
 
 export default function AllProjectsForm(props) {
 
-  // utilize ModalContext
+  // utilize contexts
   const {isModalOn, toggleModalOn, toggleModalOff} = useContext(ModalContext);
+  const {settings} = useContext(DefaultSettingsContext);
 
   // state variables
-  const {projectNumber, projectClientNumber, title, projectType} = props.obj
+  const {
+    projectNumber,
+    projectClientNumber,
+    title,
+    projectType,
+    drawingNumber,
+    materialMargin,
+    outsourcingMargin,
+    salesMargin,
+  } = props.obj
+
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [projectTypes, setProjectTypes] = useState([]);
@@ -29,13 +41,19 @@ export default function AllProjectsForm(props) {
       projectClientNumber: projectClientNumber,
       title: title,
       projectType: projectType ? projectType.typeName : "",
+      drawingNumber: drawingNumber ? drawingNumber : "",
+      materialMargin: settings.defaultMaterialMargin,
+      outsourcingMargin: settings.defaultOutsourcingMargin,
+      salesMargin: settings.defaultSalesMargin,
     }
   )
 
   // utilize useApi custom hook
   const {
     getData,
-    fetchedData
+    addData,
+    fetchedData,
+    fetchError,
   } = useApi();
 
   // fetching data
@@ -51,11 +69,6 @@ export default function AllProjectsForm(props) {
     setProjectTypes(fetchedData)
   }, [fetchedData])
 
-  // fetch settings data
-  useEffect(() => {
-
-  })
-
 
   // if data is fetched
   const projectTypesArr = fetchedData && projectTypes.map(item => {
@@ -63,7 +76,7 @@ export default function AllProjectsForm(props) {
     return (
       <option 
         key={typeId}
-        value={typeName}
+        value={typeId}
       >
         {capitalFirstLetter(typeName)}
       </option>
@@ -72,15 +85,77 @@ export default function AllProjectsForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log("handling submit")
+    // check for errors
+    if (isEmpty(formData.projectNumber)) {
+      setErrorMessage("Project number cannot be empty.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.projectClientNumber)) {
+      setErrorMessage("Project client number cannot be empty.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.title)) {
+      setErrorMessage("Project title cannot be empty.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.materialMargin)) {
+      setErrorMessage(
+        "Material margin cannot be empty. Please enter \"0\" if there is no extra margin.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.outsourcingMargin)) {
+      setErrorMessage(
+        "Outsourcing margin cannot be empty. Please enter \"0\" if there is no extra margin.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.salesMargin)) {
+      setErrorMessage(
+        "Sales margin cannot be empty. Please enter \"0\" if there is no extra margin.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    console.log("i'm here")
+    //if there are no input errors call requested method function
+    if (props.type === "add") {
+      console.log(formData)
+      addData('/data/projects/add', formData);
+      props.refreshPage();
+      return
+    }
   }
+
+    
 
   function handleChange(e) {
     const {name, value, type, checked} = e.target
+    console.log("name", type)
     setFormData(prevFormData => {
       return {
         ...prevFormData,
-        [name]: type === "checkbox" ? checked : value
+        [name]: type === "checkbox" ? checked : value,
       }
     })
   }
@@ -88,8 +163,9 @@ export default function AllProjectsForm(props) {
   return (
     <div>
       {isError && <FormError errorMessage={errorMessage} />}
-      {/* {fetchError && <FormError errorMessage={fetchError.message} />} */}
+      {fetchError && <FormError errorMessage={fetchError.message} />}
       <form className='form--3xfr'>
+
         <div className='input-label__container'>
           <label htmlFor='projectNumber'>
             Project number
@@ -97,7 +173,7 @@ export default function AllProjectsForm(props) {
           <input
             type="text"
             placeholder="Project number"
-            name="euSymprojectNumberbol"
+            name="projectNumber"
             id="projectNumber"
             onChange={handleChange} 
             value={formData.projectNumber}
@@ -132,7 +208,7 @@ export default function AllProjectsForm(props) {
           </select>
         </div>
 
-        <div className='input-label__container'>
+        <div className='input-label__container--row--2-3'>
           <label htmlFor='projectTitle'>
             Project title:
           </label>
@@ -143,6 +219,62 @@ export default function AllProjectsForm(props) {
             id="projectTitle"
             onChange={handleChange} 
             value={formData.title}
+          />
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='drawingNumber'>
+            Drawing number
+          </label>
+          <input
+            type="text"
+            placeholder="Drawing number"
+            name="drawingNumber"
+            id="drawingNumber"
+            onChange={handleChange} 
+            value={formData.drawingNumber}
+          />
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='materialMargin'>
+           Material margin [%]
+          </label>
+          <input
+            type="number"
+            placeholder="Material margin"
+            name="materialMargin"
+            id="materialMargin"
+            onChange={handleChange} 
+            value={formData.materialMargin}
+          />
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='outsourcingMargin'>
+            Outsource margin [%]
+          </label>
+          <input
+            type="number"
+            placeholder="Outsourcing margin"
+            name="outsourcingMargin"
+            id="outsourcingMargin"
+            onChange={handleChange} 
+            value={formData.outsourcingMargin}
+          />
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='salesMargin'>
+            Sales margin [%]
+          </label>
+          <input
+            type="number"
+            placeholder="Sales margin"
+            name="salesMargin"
+            id="salesMargin"
+            onChange={handleChange} 
+            value={formData.salesMargin}
           />
         </div>
         

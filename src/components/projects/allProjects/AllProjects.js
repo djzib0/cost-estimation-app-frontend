@@ -46,10 +46,6 @@ export default function AllProjects() {
   const [refreshedPage, setRefreshedPage] = useState(false);
   
   useEffect(() => {
-    // async function fetchProjectData() {
-    //   getData("/data/projects")
-    // }
-    // fetchProjectData()
     getData("/data/projects");
     if (fetchedData) {
       setProjectsData(fetchedData)
@@ -57,24 +53,31 @@ export default function AllProjects() {
   }, [projectsData])
 
   function refreshPage() {
-    getData("/data/projects");
-    if (fetchedData) {
-      setProjectsData(fetchedData)
-    }
+    setRefreshedPage(prevState => !prevState)
   }
 
-  function setAddModal(item) {
+
+  function setAddModal() {
     setModalData(prevData => {
       //open new modal with new properties
       return {
         ...prevData,
         isActive: true,
-        modalType: "edit",
-        messageTitle: "Enter new values",
+        modalType: "add",
+        messageTitle: "Enter values",
         messageText: "Please enter the data in all input fields",
-        elementId: item.projectId,
+        elementId: "",
         value: "",
-        obj: {...item}
+        obj: {
+          projectNumber: "",
+          projectClientNumber: "",
+          title: "title",
+          projectType:  "",
+          drawingNumber: "",
+          materialMargin: "",
+          outsourcingMargin: "",
+          salesMargin: "",
+        }
       }})
     toggleModalOn();
   }

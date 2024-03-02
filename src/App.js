@@ -116,7 +116,7 @@ export default function App() {
     const newTheme = getLocalStorageTheme("theme") === 'light' ? localStorage.setItem("theme", "dark") : localStorage.setItem("theme", "light")
     setTheme(getLocalStorageTheme("theme"))
   }
-
+  
   return (
     <div className="App">
       <AuthUserContext.Provider value={{authUser, loading, error}}>
