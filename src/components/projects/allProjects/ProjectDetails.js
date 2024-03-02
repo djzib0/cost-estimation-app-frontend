@@ -8,14 +8,14 @@ import MainSectionContainer from '../../mainContentContainer/MainSectionContaine
 import PlateMaterialItem from '../../plateMaterial/PlateMaterialItem';
 // contexts imports
 import { useParams } from 'react-router-dom';
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 // custom hooks imports
 import useApi from '../../../customHooks/useApi';
 
 export default function ProjectDetails() {
 
-  // utilize ThemeContext
-  const {theme} = useContext(ThemeContext)
+  // utilize DefaultSettingsContext
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
   
   const params = useParams()
@@ -40,7 +40,6 @@ export default function ProjectDetails() {
 
   // mapping plate materials (move to project Materials component!!)
   const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
-      console.log(item)
       return (
         <PlateMaterialItem 
           key={item.plateMaterialId} 

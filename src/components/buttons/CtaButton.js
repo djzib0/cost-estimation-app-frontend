@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 // context imports
-import { ThemeContext } from '../../App';
+import { DefaultSettingsContext } from '../../App';
 // icons imports
 import { IoAdd } from "react-icons/io5"; // add icon
 import { CiEdit } from "react-icons/ci"; // edit icon
@@ -26,7 +26,7 @@ import './CtaButton.css'
 
 export default function CtaButton({ title, type, variant, handlingFunction = () => {} }) {
 
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`;
   const typeStyle = type !== undefined ? `--${type}` : ""
   const variantStyle = variant !== undefined ? `cta-btn--${variant}` : ""

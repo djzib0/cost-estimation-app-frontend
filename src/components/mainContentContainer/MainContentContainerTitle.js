@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 // contexts imports
-import { ThemeContext } from '../../App';
+import { DefaultSettingsContext } from '../../App';
 // styles imports
 import './MainContentContainerTitle.css';
 
 export default function MainContentContainerTitle({children, title}) {
 
-  const {theme} =  useContext(ThemeContext);
+  const {theme} =  useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`;
 
   return (

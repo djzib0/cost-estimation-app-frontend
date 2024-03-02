@@ -31,7 +31,7 @@ import ProjectDetailsMaterials from './components/projects/allProjects/ProjectDe
 import ProjectDetailsLayout from './layouts/ProjectDetailsLayout';
 
 const AuthUserContext = createContext();
-const ThemeContext = createContext();
+const DefaultSettingsContext = createContext();
 const ModalContext = createContext();
 
 
@@ -120,7 +120,7 @@ export default function App() {
   return (
     <div className="App">
       <AuthUserContext.Provider value={{authUser, loading, error}}>
-        <ThemeContext.Provider value={{settings, handleRefreshPage, theme, switchTheme}}>
+        <DefaultSettingsContext.Provider value={{settings, handleRefreshPage, theme, switchTheme}}>
           <ModalContext.Provider value={{isModalOn, toggleModalOn, toggleModalOff}}>
             <Routes>
               <Route element={<MainLayout />}>
@@ -157,10 +157,10 @@ export default function App() {
               </Route>
             </Routes>
           </ModalContext.Provider>
-        </ThemeContext.Provider>
+        </DefaultSettingsContext.Provider>
       </AuthUserContext.Provider>
     </div>
   );
 }
 
-export { AuthUserContext, ThemeContext, ModalContext} ;
+export { AuthUserContext, DefaultSettingsContext, ModalContext} ;

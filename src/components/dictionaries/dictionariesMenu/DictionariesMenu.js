@@ -3,13 +3,13 @@ import { NavLink } from 'react-router-dom';
 // css import
 import './DictionariesMenu.css'
 // contexts import
-import { ThemeContext } from '../../../App'
+import { DefaultSettingsContext } from '../../../App'
 // components imports
 import SideMenu from '../../../headlessComponents/sideMenu/index';
 
 export default function DictionariesMenu() {
 
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(DefaultSettingsContext)
 
   const themeMode = `--${theme}`
 

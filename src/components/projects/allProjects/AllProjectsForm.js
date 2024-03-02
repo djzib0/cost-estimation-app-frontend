@@ -28,7 +28,7 @@ export default function AllProjectsForm(props) {
       projectNumber: projectNumber,
       projectClientNumber: projectClientNumber,
       title: title,
-      projectType: projectType.typeName,
+      projectType: projectType ? projectType.typeName : "",
     }
   )
 
@@ -51,22 +51,24 @@ export default function AllProjectsForm(props) {
     setProjectTypes(fetchedData)
   }, [fetchedData])
 
+  // fetch settings data
+  useEffect(() => {
+
+  })
+
 
   // if data is fetched
   const projectTypesArr = fetchedData && projectTypes.map(item => {
-    const {projectTypeId, typeName} = item
+    const {typeId, typeName} = item
     return (
       <option 
-        key={projectTypeId}
+        key={typeId}
         value={typeName}
       >
         {capitalFirstLetter(typeName)}
       </option>
     )
   })
-
-  fetchedData && console.log(projectTypes, " projectTypes")
-  console.log(projectTypesArr, "arrr")
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -103,20 +105,7 @@ export default function AllProjectsForm(props) {
         </div>
 
         <div className='input-label__container'>
-          <label htmlFor='projectClientNumber' className='label--small'>
-            Project client number:
-          </label>
-          <input
-            type="text"
-            placeholder="Project client number"
-            name="projectClientNumber"
-            id="projectClientNumber"
-            onChange={handleChange} 
-            value={formData.projectClientNumber}
-          />
-        </div>
-        <div className='input-label__container'>
-          <label htmlFor='projectClientNumber' className='label--small'>
+          <label htmlFor='projectClientNumber'>
             Project client number:
           </label>
           <input
@@ -141,6 +130,20 @@ export default function AllProjectsForm(props) {
           >
             {projectTypesArr}
           </select>
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='projectTitle'>
+            Project title:
+          </label>
+          <input
+            type="text"
+            placeholder="Project title"
+            name="title"
+            id="projectTitle"
+            onChange={handleChange} 
+            value={formData.title}
+          />
         </div>
         
       </form>

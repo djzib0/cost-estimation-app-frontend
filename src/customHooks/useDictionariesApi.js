@@ -54,7 +54,6 @@ function useDictionariesApi(toggleModalOn, toggleModalOff) {
     })
     .then(res => {
       if (!res.ok) {
-        console.log("res is not OK")
         throw {
           message: "Failed to add material",
           statusText: res.statusText,
@@ -99,7 +98,6 @@ function useDictionariesApi(toggleModalOn, toggleModalOff) {
     fetch(`/data/materialgrades/delete/${materialGradeId}`, {
       method: 'DELETE'
     })
-    // .then(() => console.log("item deleted succesfully"))
   }
 
   return {

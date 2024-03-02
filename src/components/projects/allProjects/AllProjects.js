@@ -11,7 +11,7 @@ import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
 import AllProjectsForm from './AllProjectsForm';
 // contexts imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
 // custom hooks imports
 import useApi from '../../../customHooks/useApi';
@@ -19,8 +19,8 @@ import useModal from '../../../customHooks/useModal';
 
 export default function AllProjects() {
 
-  // utilize ThemeContext
-  const {theme} = useContext(ThemeContext)
+  // utilize DefaultSettingsContext
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
    // utilize ModalContext
@@ -63,6 +63,21 @@ export default function AllProjects() {
     }
   }
 
+  function setAddModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "edit",
+        messageTitle: "Enter new values",
+        messageText: "Please enter the data in all input fields",
+        elementId: item.projectId,
+        value: "",
+        obj: {...item}
+      }})
+    toggleModalOn();
+  }
 
   function setEditModal(item) {
     setModalData(prevData => {
@@ -95,6 +110,14 @@ export default function AllProjects() {
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
+          <div>
+              <CtaButton 
+                title="Add new project"
+                type="add"
+                variant="large"
+                handlingFunction={setAddModal}
+                /> 
+            </div>
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItemNarrow title={"Id"} />
               <MainContentHeaderContainerItem title={"Project number"} />

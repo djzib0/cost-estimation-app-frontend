@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 // contexts imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 // components import
 import HorizontalDashboard from '../../../headlessComponents/horizontalDashboard/index'
 import MainContentHeader from '../../mainContentContainer/MainContentHeader'
@@ -9,7 +9,7 @@ import MainContentHeaderLink from '../../mainContentContainer/MainContentHeaderL
 
 export default function ProjectDetailsDashboard() {
 
-  const {theme} = useContext(ThemeContext);
+  const {theme} = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`
   
   return (
