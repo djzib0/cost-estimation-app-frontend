@@ -29,8 +29,6 @@ export default function Modal(props) {
     obj,
   } = props
 
-
-
   const {
     modalData,
     setModalData,
@@ -50,7 +48,7 @@ export default function Modal(props) {
       {modalType === 'delete' && 
       <ModalYesNoButtons 
         itemId={obj.materialGradeId} 
-        confirmFunc={handleFunction.deleteMaterialGrade} 
+        confirmFunc={handleFunction} 
         cancelFunc={onClose} 
         onClose={onClose} 
         refreshPage={refreshPage}

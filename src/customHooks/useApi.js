@@ -60,6 +60,37 @@ function useApi() {
     })
   }
 
+  async function editData(url, obj) {
+    fetch(url, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(
+        {
+          ...obj 
+        })
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw {
+          message: "Failed to add project",
+          statusText: res.statusText,
+          status: res.status
+        }
+      } else {
+        toggleModalOff();
+      }
+    })
+    .catch(err => {
+      setFetchError(err);
+    })
+  }
+
+  async function deleteData(url) {
+    fetch(url , {
+      method: 'DELETE'
+    })
+  }
+
 
   return {
     fetchedData,
@@ -67,6 +98,8 @@ function useApi() {
     fetchError,
     getData,
     addData,
+    editData,
+    deleteData
   }
 }
 

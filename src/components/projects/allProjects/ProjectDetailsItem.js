@@ -52,7 +52,7 @@ export default function ProjectDetailItem(props) {
                   title="delete"
                   type="delete"
                   variant="medium"
-                  // handlingFunction={() => props.deleteItem(materialGradeId)}
+                  handlingFunction={() => props.deleteItem(projectId)}
           />
         </div>
     </div>

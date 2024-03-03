@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 // custom hooks imports
 import useApi from '../../../customHooks/useApi';
+import useModal from '../../../customHooks/useModal';
 //components imports
 import CtaButton from '../../buttons/CtaButton';
 import FormError from '../../form/FormError';
@@ -40,7 +41,7 @@ export default function AllProjectsForm(props) {
       projectNumber: projectNumber,
       projectClientNumber: projectClientNumber,
       title: title,
-      projectType: projectType ? projectType.typeName : "",
+      projectType: props.obj.projectType.typeId ? props.obj.projectType.typeId : "1",
       drawingNumber: drawingNumber ? drawingNumber : "",
       materialMargin: settings.defaultMaterialMargin,
       outsourcingMargin: settings.defaultOutsourcingMargin,
@@ -52,9 +53,13 @@ export default function AllProjectsForm(props) {
   const {
     getData,
     addData,
+    editData,
     fetchedData,
     fetchError,
   } = useApi();
+
+  console.log(props.obj.projectType.typeId, " props id")
+
 
   // fetching data
   useEffect(() => {
@@ -137,27 +142,50 @@ export default function AllProjectsForm(props) {
       setIsError(false)
     }
 
-    console.log("i'm here")
     //if there are no input errors call requested method function
     if (props.type === "add") {
-      console.log(formData)
-      addData('/data/projects/add', formData);
+      console.log(formData.projectType, "number of project type")
+      addData(`/data/projects/add?projectTypeId=${formData.projectType}`, 
+      {
+        projectNumber: formData.projectNumber,
+        projectClientNumber: formData.projectClientNumber,
+        title: formData.title,
+        drawingNumber: formData.drawingNumber,
+        materialMargin: formData.materialMargin,
+        outsourcingMargin: formData.outsourcingMargin,
+        salesMargin: formData.salesMargin
+      });
+      props.refreshPage();
+      return
+    }
+
+    if (props.type === "edit") {
+      editData(`/data/projects/edit?projectTypeId=${formData.projectType}`, 
+      {
+        projectId: props.obj.projectId,
+        projectNumber: formData.projectNumber,
+        projectClientNumber: formData.projectClientNumber,
+        title: formData.title,
+        drawingNumber: formData.drawingNumber,
+        materialMargin: formData.materialMargin,
+        outsourcingMargin: formData.outsourcingMargin,
+        salesMargin: formData.salesMargin
+      });
       props.refreshPage();
       return
     }
   }
 
-    
 
   function handleChange(e) {
     const {name, value, type, checked} = e.target
-    console.log("name", type)
     setFormData(prevFormData => {
       return {
         ...prevFormData,
         [name]: type === "checkbox" ? checked : value,
       }
     })
+    console.log(formData.projectType, " formdata after change")
   }
 
   return (
@@ -196,7 +224,7 @@ export default function AllProjectsForm(props) {
 
         <div className='input-label__container'>
           <label htmlFor='projectType' >
-            Material group:
+            Project type:
           </label>
           <select
             value={formData.projectType}

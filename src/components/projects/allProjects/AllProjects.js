@@ -30,6 +30,7 @@ export default function AllProjects() {
   // utlilize custom hooks
   const {
     getData,
+    deleteData,
     fetchedData,
     fetchError
   } = useApi();
@@ -50,10 +51,11 @@ export default function AllProjects() {
     if (fetchedData) {
       setProjectsData(fetchedData)
     }
-  }, [projectsData])
+  }, [projectsData, refreshedPage])
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
+    console.log("refreshing AllProjects.js")
   }
 
 
@@ -98,12 +100,32 @@ export default function AllProjects() {
     toggleModalOn();
   }
 
+  function setDeleteModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "delete",
+        messageTitle: "Do you want to delete this project?",
+        messageText: "If you press OK, it will be permanently removed from the database.",
+        elementId: item.projectid,
+        value: "",
+        refreshFunc: {refreshPage},
+        handleFunction: () => deleteData(`/data/projects/delete/${item.projectId}`),
+        closeFunc: {toggleModalOff},
+        obj: {...item}
+      }})
+      toggleModalOn();
+  }
+
   const projectsDataArr = fetchedData && fetchedData.map(item => {
     return (
       <ProjectDetailsItem
         key={item.projectId}
         item={item}
         editItem={() => setEditModal(item)}
+        deleteItem={() => setDeleteModal(item)}
       />
     )
   })
@@ -119,6 +141,7 @@ export default function AllProjects() {
                 type="add"
                 variant="large"
                 handlingFunction={setAddModal}
+                refreshPage={refreshPage}
                 /> 
             </div>
             <MainContentHeaderContainer>
