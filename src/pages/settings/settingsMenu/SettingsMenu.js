@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 // components imports
-import SideMenu from '../../headlessComponents/sideMenu/index';
+import SideMenu from '../../../headlessComponents/sideMenu/index';
 // styles imports
 import './SettingsMenu.css'
 //contexts imports
-import { DefaultSettingsContext } from '../../App';
+import { DefaultSettingsContext } from '../../../App';
 
 
 export default function SettingsMenu({children}) {

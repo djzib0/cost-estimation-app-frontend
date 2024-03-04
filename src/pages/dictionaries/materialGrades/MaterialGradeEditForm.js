@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 //components imports
-import CtaButton from '../../buttons/CtaButton';
-import FormError from '../../form/FormError';
+import CtaButton from '../../../components/buttons/CtaButton'
+import FormError from '../../../components/form/FormError';
 //contexts imports
 import { ModalContext } from '../../../App';
 //utils imports

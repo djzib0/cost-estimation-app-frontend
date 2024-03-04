@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 // components imports
-import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
-import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
+import MainContentContainer from '../../../components/mainContentContainer/MainContentContainer'
+import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
+import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer'
+import MainContentHeaderContainerItem from '../../../components/mainContentContainer/MainContentHeaderContainerItem'
+import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
-import Modal from '../../modal/Modal';
-import CtaButton from '../../buttons/CtaButton'
-import TestCalculatingKgsByGradeAndThickness from './TestCalculatingKgsByGradeAndThickness'
+import Modal from '../../../components/modal/Modal';
+import CtaButton from '../../../components/buttons/CtaButton'
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
@@ -18,7 +19,7 @@ import useModal from '../../../customHooks/useModal';
 export default function MaterialGrades() {
 
   // constant variables
-  const gradeGroupName = "aluminum"
+  const gradeGroupName = "steel"
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -46,6 +47,7 @@ export default function MaterialGrades() {
     editMaterialGradesData,
     materialGrades,
     fetchError,
+    loading
   } = useDictionariesApi()
 
 
@@ -146,7 +148,13 @@ export default function MaterialGrades() {
                 handlingFunction={setAddModal}
                 /> 
             </div>
-            <MaterialGradeHeadersContainer />
+            <MainContentHeaderContainer>
+              <MainContentHeaderContainerItemNarrow title={"Id"}>Id</MainContentHeaderContainerItemNarrow>
+              <MainContentHeaderContainerItem title={"European"} />
+              <MainContentHeaderContainerItem title={"German"} />
+              <MainContentHeaderContainerItem>Density {`[`}g/cm<sup>3</sup>{`]`}</MainContentHeaderContainerItem>
+              <div className='header-cta__container'></div>
+            </MainContentHeaderContainer>
             <div className='rows__container'>
               {materialGrades.length === 0 && <p>No data</p>}
               {materialGrades && materialGradesArr}

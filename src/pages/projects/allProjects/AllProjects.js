@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 // components imports
-import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
-import MainContentHeaderContainer from '../../mainContentContainer/MainContentHeaderContainer'
-import MainContentHeaderContainerItem from '../../mainContentContainer/MainContentHeaderContainerItem'
-import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/MainContentHeaderContainerItemNarrow'
+import MainContentContainer from '../../../components/mainContentContainer/MainContentContainer'
+import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
+import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer'
+import MainContentHeaderContainerItem from '../../../components/mainContentContainer/MainContentHeaderContainerItem'
+import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow'
 import ProjectDetailsItem from './ProjectDetailsItem';
-import Modal from '../../modal/Modal';
-import CtaButton from '../../buttons/CtaButton'
+import Modal from '../../../components/modal/Modal';
+import CtaButton from '../../../components/buttons/CtaButton'
 import AllProjectsForm from './AllProjectsForm';
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';

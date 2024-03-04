@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 // components imports
-import MainContentContainer from '../../mainContentContainer/MainContentContainer';
-import MainContentContainerTitle from '../../mainContentContainer/MainContentContainerTitle';
-import MainContentHeaderContainer from '../../mainContentContainer/MainContentHeaderContainer';
-import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/MainContentHeaderContainerItemNarrow';
-import MainSectionContainer from '../../mainContentContainer/MainSectionContainer';
-import PlateMaterialItem from '../../plateMaterial/PlateMaterialItem';
+import MainContentContainer from '../../../components/mainContentContainer/MainContentContainer';
+import MainContentContainerTitle from '../../../components/mainContentContainer/MainContentContainerTitle';
+import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer';
+import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow';
+import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer';
+import PlateMaterialItem from '../../../components/plateMaterial/PlateMaterialItem';
 // contexts imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../../App';

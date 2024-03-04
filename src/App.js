@@ -6,28 +6,27 @@ import MainLayout from './layouts/MainLayout'
 import Main from './components/main/Main';
 import ProjectsLayout from './layouts/ProjectsLayout';
 import SettingsLayout from './layouts/SettingsLayout';
-import Projects from './components/projects/Projects'
-import AllProjects from './components/projects/allProjects/AllProjects';
-import ProjectDetails from './components/projects/allProjects/ProjectDetails';
-import Dictionaries from './components/dictionaries/Dictionaries';
+import AllProjects from './pages/projects/allProjects/AllProjects';
+import ProjectDetails from './pages/projects/allProjects/ProjectDetails';
+import Dictionaries from './pages/dictionaries/Dictionaries';
 import DictionariesLayout from './layouts/DictionariesLayout';
 import MaterialGradesLayout from './layouts/MaterialGradesLayout';
-import MaterialGrades from './components/dictionaries/materialGrades/MaterialGrades';
-import MaterialGradesStSt from './components/dictionaries/materialGrades/MaterialGradesStSt';
-import MaterialGradesAluminum from './components/dictionaries/materialGrades/MaterialGradesAluminum';
-import MaterialGradesOther from './components/dictionaries/materialGrades/MaterialGradesOther';
-import OperationsAssembly from './components/dictionaries/operations/OperationsAssembly';
-import OperationsWelding from './components/dictionaries/operations/OperationsWelding';
-import OperationsMachining from './components/dictionaries/operations/OperationsMachining';
-import OperationsSurfaceConservation from './components/dictionaries/operations/OperationsSurfaceConservation';
-import OperationsOther from './components/dictionaries/operations/OperationsOther';
+import MaterialGrades from './pages/dictionaries/materialGrades/MaterialGrades';
+import MaterialGradesStSt from './pages/dictionaries/materialGrades/MaterialGradesStSt';
+import MaterialGradesAluminum from './pages/dictionaries/materialGrades/MaterialGradesAluminum';
+import MaterialGradesOther from './pages/dictionaries/materialGrades/MaterialGradesOther';
+import OperationsAssembly from './pages/dictionaries/operations/OperationsAssembly';
+import OperationsWelding from './pages/dictionaries/operations/OperationsWelding';
+import OperationsMachining from './pages/dictionaries/operations/OperationsMachining';
+import OperationsSurfaceConservation from './pages/dictionaries/operations/OperationsSurfaceConservation';
+import OperationsOther from './pages/dictionaries/operations/OperationsOther';
 import OperationsLayout from './layouts/OperationsLayout'
 // css import
 import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
-import ProjectDetailsDashboard from './components/projects/allProjects/ProjectDetailsDashboard';
-import ProjectDetailsMaterials from './components/projects/allProjects/ProjectDetailsMaterials';
+import ProjectDetailsDashboard from './pages/projects/allProjects/ProjectDetailsDashboard';
+import ProjectDetailsMaterials from './pages/projects/allProjects/ProjectDetailsMaterials';
 import ProjectDetailsLayout from './layouts/ProjectDetailsLayout';
 
 const AuthUserContext = createContext();
