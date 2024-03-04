@@ -43,9 +43,9 @@ export default function AllProjectsForm(props) {
       title: title,
       projectType: props.obj.projectType.typeId ? props.obj.projectType.typeId : "1",
       drawingNumber: drawingNumber ? drawingNumber : "",
-      materialMargin: settings.defaultMaterialMargin,
-      outsourcingMargin: settings.defaultOutsourcingMargin,
-      salesMargin: settings.defaultSalesMargin,
+      materialMargin: settings ? settings.defaultMaterialMargin : 0,
+      outsourcingMargin: settings ? settings.defaultOutsourcingMargin: 0,
+      salesMargin: settings ? settings.defaultSalesMargin: 0,
     }
   )
 
@@ -57,9 +57,6 @@ export default function AllProjectsForm(props) {
     fetchedData,
     fetchError,
   } = useApi();
-
-  console.log(props.obj.projectType.typeId, " props id")
-
 
   // fetching data
   useEffect(() => {
