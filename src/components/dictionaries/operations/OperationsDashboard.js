@@ -7,11 +7,11 @@ import MainContentHeader from '../../mainContentContainer/MainContentHeader'
 import MainContentHeaderLink from '../../mainContentContainer/MainContentHeaderLink'
 import { NavLink } from 'react-router-dom'
 //context imports 
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 
 export default function OperationsDashboard() {
 
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
   return (

@@ -2,14 +2,14 @@ import React, { useContext } from 'react';
 //components imports
 import CtaButton from '../../buttons/CtaButton';
 //context imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
 //styles imports
 
 export default function MaterialGradeItem(props) {
 
   // utlizie Theme Context 
-  const {theme} = useContext(ThemeContext);
+  const {theme} = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`
 
   //utilize Modal Context 

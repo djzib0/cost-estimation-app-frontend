@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 //components imports
 import CtaButton from '../../buttons/CtaButton';
 //context imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
 import { Link } from 'react-router-dom';
 //styles imports
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 export default function ProjectDetailItem(props) {
 
   // utlizie Theme Context 
-  const {theme} = useContext(ThemeContext);
+  const {theme} = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`
 
   //utilize Modal Context 
@@ -52,7 +52,7 @@ export default function ProjectDetailItem(props) {
                   title="delete"
                   type="delete"
                   variant="medium"
-                  // handlingFunction={() => props.deleteItem(materialGradeId)}
+                  handlingFunction={() => props.deleteItem(projectId)}
           />
         </div>
     </div>

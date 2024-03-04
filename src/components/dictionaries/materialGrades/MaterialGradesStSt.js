@@ -8,7 +8,7 @@ import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
 // contexts imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
@@ -19,8 +19,8 @@ export default function MaterialGrades() {
   // constant variables
   const gradeGroupName = "st. st."
 
-  // utilize ThemeContext
-  const {theme} = useContext(ThemeContext)
+  // utilize DefaultSettingsContext
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
   // utilize ModalContext

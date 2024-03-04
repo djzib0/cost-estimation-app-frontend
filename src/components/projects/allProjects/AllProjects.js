@@ -9,9 +9,9 @@ import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/Mai
 import ProjectDetailsItem from './ProjectDetailsItem';
 import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
-import MaterialGradeEditForm from '../../dictionaries/materialGrades/MaterialGradeEditForm';
+import AllProjectsForm from './AllProjectsForm';
 // contexts imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
 // custom hooks imports
 import useApi from '../../../customHooks/useApi';
@@ -19,8 +19,8 @@ import useModal from '../../../customHooks/useModal';
 
 export default function AllProjects() {
 
-  // utilize ThemeContext
-  const {theme} = useContext(ThemeContext)
+  // utilize DefaultSettingsContext
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
    // utilize ModalContext
@@ -30,6 +30,7 @@ export default function AllProjects() {
   // utlilize custom hooks
   const {
     getData,
+    deleteData,
     fetchedData,
     fetchError
   } = useApi();
@@ -46,23 +47,42 @@ export default function AllProjects() {
   const [refreshedPage, setRefreshedPage] = useState(false);
   
   useEffect(() => {
-    // async function fetchProjectData() {
-    //   getData("/data/projects")
-    // }
-    // fetchProjectData()
     getData("/data/projects");
     if (fetchedData) {
       setProjectsData(fetchedData)
     }
-  }, [projectsData])
+  }, [projectsData, refreshedPage])
 
   function refreshPage() {
-    getData("/data/projects");
-    if (fetchedData) {
-      setProjectsData(fetchedData)
-    }
+    setRefreshedPage(prevState => !prevState)
+    console.log("refreshing AllProjects.js")
   }
 
+
+  function setAddModal() {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "add",
+        messageTitle: "Enter values",
+        messageText: "Please enter the data in all input fields",
+        elementId: "",
+        value: "",
+        obj: {
+          projectNumber: "",
+          projectClientNumber: "",
+          title: "title",
+          projectType:  "",
+          drawingNumber: "",
+          materialMargin: "",
+          outsourcingMargin: "",
+          salesMargin: "",
+        }
+      }})
+    toggleModalOn();
+  }
 
   function setEditModal(item) {
     setModalData(prevData => {
@@ -73,11 +93,30 @@ export default function AllProjects() {
         modalType: "edit",
         messageTitle: "Enter new values",
         messageText: "Please enter the data in all input fields",
-        elementId: item.materialGradeId,
+        elementId: item.projectId,
         value: "",
         obj: {...item}
       }})
     toggleModalOn();
+  }
+
+  function setDeleteModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "delete",
+        messageTitle: "Do you want to delete this project?",
+        messageText: "If you press OK, it will be permanently removed from the database.",
+        elementId: item.projectid,
+        value: "",
+        refreshFunc: {refreshPage},
+        handleFunction: () => deleteData(`/data/projects/delete/${item.projectId}`),
+        closeFunc: {toggleModalOff},
+        obj: {...item}
+      }})
+      toggleModalOn();
   }
 
   const projectsDataArr = fetchedData && fetchedData.map(item => {
@@ -86,6 +125,7 @@ export default function AllProjects() {
         key={item.projectId}
         item={item}
         editItem={() => setEditModal(item)}
+        deleteItem={() => setDeleteModal(item)}
       />
     )
   })
@@ -95,10 +135,19 @@ export default function AllProjects() {
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
+          <div>
+              <CtaButton 
+                title="Add new project"
+                type="add"
+                variant="large"
+                handlingFunction={setAddModal}
+                refreshPage={refreshPage}
+                /> 
+            </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow>Id</MainContentHeaderContainerItemNarrow>
-              <MainContentHeaderContainerItem>Project Number</MainContentHeaderContainerItem>
-              <MainContentHeaderContainerItem>Project Client Number</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItemNarrow title={"Id"} />
+              <MainContentHeaderContainerItem title={"Project number"} />
+              <MainContentHeaderContainerItem title={"Project client number"} />
             </MainContentHeaderContainer>
             <div className='rows__container'>
               {projectsDataArr}
@@ -116,7 +165,7 @@ export default function AllProjects() {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        form={<MaterialGradeEditForm 
+        form={<AllProjectsForm 
           obj={modalData.obj} 
           type={modalData.modalType}
           refreshPage={refreshPage}

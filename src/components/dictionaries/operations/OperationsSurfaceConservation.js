@@ -4,7 +4,7 @@ import MainContentContainer from '../../mainContentContainer/MainContentContaine
 import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
 import Modal from '../../modal/Modal';
 // contexts imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
@@ -13,7 +13,7 @@ import useModal from '../../../customHooks/useModal';
 
 export default function OperationsSurfaceConservation() {
 
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
   const [operationsData, setOperationsData] = useState();

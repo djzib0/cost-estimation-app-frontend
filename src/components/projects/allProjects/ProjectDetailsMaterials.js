@@ -8,14 +8,14 @@ import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/Mai
 import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
 // contexts imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
 import { useParams } from 'react-router-dom';
 
 export default function ProjectDetailsMaterials() {
 
-  // utilize ThemeContext
-  const {theme} = useContext(ThemeContext)
+  // utilize DefaultSettingsContext
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
   const params = useParams()

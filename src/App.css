@@ -146,6 +146,27 @@ input[type=number] {
   align-items: center;
 }
 
+.input-label__container--row {
+  display: grid;
+  grid-template-columns: 150px 3fr;
+  grid-column: 1/4;
+  align-items: center;
+}
+
+/* 2/3 of the grid */
+.input-label__container--row--2-3 {
+  display: grid;
+  grid-template-columns: 150px 3fr;
+  grid-column: 1/3;
+  align-items: center;
+}
+
+.label--small {
+  font-size: .8em;
+}
+
+
+
 .form-buttons__container {
   display: flex;
   justify-content: space-evenly;

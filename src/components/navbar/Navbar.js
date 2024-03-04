@@ -28,12 +28,12 @@ import { BiSolidBook } from "react-icons/bi";
 // utility functions imports
 import capitalFirstLetter from '../../utils/utils';
 // contexts imports
-import { AuthUserContext, ThemeContext } from '../../App';
+import { AuthUserContext, DefaultSettingsContext } from '../../App';
 
 export default function Navbar() {
 
   const {authUser} = useContext(AuthUserContext);
-  const { settings, handleRefreshPage, theme, switchTheme } = useContext(ThemeContext);
+  const { settings, handleRefreshPage, theme, switchTheme } = useContext(DefaultSettingsContext);
   const { changeSettingsTheme } = useApiChangeSettings();
 
   const themeMode = `--${theme}`

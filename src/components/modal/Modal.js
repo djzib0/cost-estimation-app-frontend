@@ -8,12 +8,12 @@ import ModalYesNoButtons from './ModalYesNoButtons';
 // styles imports
 import './Modal.css'
 // context imports
-import { ThemeContext } from '../../App';
+import { DefaultSettingsContext } from '../../App';
 import ModalIcon from './ModalIcon';
 
 export default function Modal(props) {
 
-  const {theme} = useContext(ThemeContext)
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
   const {
@@ -28,8 +28,6 @@ export default function Modal(props) {
     refreshPage,
     obj,
   } = props
-
-
 
   const {
     modalData,
@@ -50,7 +48,7 @@ export default function Modal(props) {
       {modalType === 'delete' && 
       <ModalYesNoButtons 
         itemId={obj.materialGradeId} 
-        confirmFunc={handleFunction.deleteMaterialGrade} 
+        confirmFunc={handleFunction} 
         cancelFunc={onClose} 
         onClose={onClose} 
         refreshPage={refreshPage}

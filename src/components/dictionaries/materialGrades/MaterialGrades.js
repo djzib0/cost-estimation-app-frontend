@@ -10,7 +10,7 @@ import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../modal/Modal';
 import CtaButton from '../../buttons/CtaButton'
 // contexts imports
-import { ThemeContext } from '../../../App';
+import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
 // custom hooks imports
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';
@@ -21,8 +21,8 @@ export default function MaterialGrades() {
   // constant variables
   const gradeGroupName = "steel"
 
-  // utilize ThemeContext
-  const {theme} = useContext(ThemeContext)
+  // utilize DefaultSettingsContext
+  const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
 
   // utilize ModalContext
@@ -47,6 +47,7 @@ export default function MaterialGrades() {
     editMaterialGradesData,
     materialGrades,
     fetchError,
+    loading
   } = useDictionariesApi()
 
 
@@ -148,9 +149,9 @@ export default function MaterialGrades() {
                 /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow>Id</MainContentHeaderContainerItemNarrow>
-              <MainContentHeaderContainerItem>European</MainContentHeaderContainerItem>
-              <MainContentHeaderContainerItem>German</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItemNarrow title={"Id"}>Id</MainContentHeaderContainerItemNarrow>
+              <MainContentHeaderContainerItem title={"European"} />
+              <MainContentHeaderContainerItem title={"German"} />
               <MainContentHeaderContainerItem>Density {`[`}g/cm<sup>3</sup>{`]`}</MainContentHeaderContainerItem>
               <div className='header-cta__container'></div>
             </MainContentHeaderContainer>

@@ -5,12 +5,12 @@ import SideMenu from '../../headlessComponents/sideMenu/index';
 // styles imports
 import './SettingsMenu.css'
 //contexts imports
-import { ThemeContext } from '../../App';
+import { DefaultSettingsContext } from '../../App';
 
 
 export default function SettingsMenu({children}) {
 
-  const { theme } = useContext(ThemeContext)
+  const { theme } = useContext(DefaultSettingsContext)
 
   const themeMode = `--${theme}`
 
