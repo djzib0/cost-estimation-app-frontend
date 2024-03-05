@@ -3,8 +3,7 @@ import React, { useContext } from 'react'
 import '../../../App.css'
 // components import
 import HorizontalDashboard from '../../../headlessComponents/horizontalDashboard/index'
-import MainContentHeader from '../../mainContentContainer/MainContentHeader'
-import MainContentHeaderLink from '../../mainContentContainer/MainContentHeaderLink'
+import MainContentHeader from '../../../components/mainContentContainer/MainContentHeader'
 import { NavLink } from 'react-router-dom'
 // context imports
 import { DefaultSettingsContext } from '../../../App';

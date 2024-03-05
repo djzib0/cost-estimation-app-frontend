@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import GradesDictionaryDashboard from '../components/dictionaries/materialGrades/MaterialGradesDashboard';
+import GradesDictionaryDashboard from '../pages/dictionaries/materialGrades/MaterialGradesDashboard';
 
 export default function MaterialGradesLayout() {
   return (

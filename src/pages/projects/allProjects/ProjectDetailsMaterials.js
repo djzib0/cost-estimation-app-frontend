@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
 // components imports
-import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
-import MainContentHeaderContainer from '../../mainContentContainer/MainContentHeaderContainer'
-import MainContentHeaderContainerItem from '../../mainContentContainer/MainContentHeaderContainerItem'
-import MainContentHeaderContainerItemNarrow from '../../mainContentContainer/MainContentHeaderContainerItemNarrow'
-import Modal from '../../modal/Modal';
-import CtaButton from '../../buttons/CtaButton'
+import MainContentContainer from '../../../components/mainContentContainer/MainContentContainer'
+import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
+import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer'
+import MainContentHeaderContainerItem from '../../../components/mainContentContainer/MainContentHeaderContainerItem'
+import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow'
+import Modal from '../../../components/modal/Modal';
+import CtaButton from '../../../components/buttons/CtaButton'
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';

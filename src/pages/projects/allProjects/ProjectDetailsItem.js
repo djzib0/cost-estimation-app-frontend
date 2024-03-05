@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 //components imports
-import CtaButton from '../../buttons/CtaButton';
+import CtaButton from '../../../components/buttons/CtaButton';
 //context imports
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
+import { Link } from 'react-router-dom';
 //styles imports
 
-export default function MaterialGradeItem(props) {
+export default function ProjectDetailItem(props) {
 
   // utlizie Theme Context 
   const {theme} = useContext(DefaultSettingsContext);
@@ -19,33 +20,39 @@ export default function MaterialGradeItem(props) {
     toggleModalOff
   } = useContext(ModalContext);
 
-  
   const {
-    materialGradeId,
-    euSymbol,
-    gerSymbol,
-    density
+    projectId,
+    projectNumber,
+    projectClientNumber
   } = props.item;
 
 
   return (
     <div className={`row__container${themeMode}`}>
-        <div className='cell__container--narrow'>{materialGradeId}</div>
-        <div className='cell__container'>{euSymbol}</div>
-        <div className='cell__container'>{gerSymbol}</div>
-        <div className='cell__container'>{density}</div>
+        <div className='cell__container--narrow'>{projectId}</div>
+        <div className='cell__container'>{projectNumber}</div>
+        <div className='cell__container'>{projectClientNumber}</div>
         <div className='cell-cta__container'>
           <CtaButton 
                   title="edit"
                   type="edit"
                   variant="medium"
-                  handlingFunction={() => props.editItem(materialGradeId)}
-          /> 
+                  handlingFunction={() => props.editItem(projectId)}
+          />
+          <Link to={`../details/${projectId}`}>
+          <CtaButton 
+                  title="open"
+                  type="open"
+                  variant="medium"
+                  />
+          </Link>
+
+
           <CtaButton 
                   title="delete"
                   type="delete"
                   variant="medium"
-                  handlingFunction={() => props.deleteItem(materialGradeId)}
+                  handlingFunction={() => props.deleteItem(projectId)}
           />
         </div>
     </div>

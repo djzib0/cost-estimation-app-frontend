@@ -4,8 +4,8 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../../App';
 // components import
 import HorizontalDashboard from '../../../headlessComponents/horizontalDashboard/index'
-import MainContentHeader from '../../mainContentContainer/MainContentHeader'
-import MainContentHeaderLink from '../../mainContentContainer/MainContentHeaderLink'
+import MainContentHeader from '../../../components/mainContentContainer/MainContentHeader'
+import MainContentHeaderLink from '../../../components/mainContentContainer/MainContentHeaderLink'
 
 export default function ProjectDetailsDashboard() {
 

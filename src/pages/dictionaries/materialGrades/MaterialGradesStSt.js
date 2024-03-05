@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 // components imports
-import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
+import MainContentContainer from '../../../components/mainContentContainer/MainContentContainer'
+import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
 import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
-import Modal from '../../modal/Modal';
-import CtaButton from '../../buttons/CtaButton'
+import Modal from '../../../components/modal/Modal';
+import CtaButton from '../../../components/buttons/CtaButton'
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';

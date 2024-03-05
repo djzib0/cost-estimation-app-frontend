@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 // components imports
-import MainContentContainer from '../../mainContentContainer/MainContentContainer'
-import MainSectionContainer from '../../mainContentContainer/MainSectionContainer'
-import Modal from '../../modal/Modal';
+import MainContentContainer from '../../../components/mainContentContainer/MainContentContainer'
+import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
+import Modal from '../../../components/modal/Modal';
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
 // custom hooks imports

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 // components imports
-import ProjectsMenu from '../components/projects/projectsMenu/ProjectsMenu';
+import ProjectsMenu from '../pages/projects/projectsMenu/ProjectsMenu';
 
 export default function ProjectsLayout() {
   return (
