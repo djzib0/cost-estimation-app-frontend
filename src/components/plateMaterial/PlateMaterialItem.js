@@ -47,13 +47,13 @@ export default function PlateMaterialitem(props, position) {
                   title="edit"
                   type="edit"
                   variant="medium"
-                  // handlingFunction={() => props.editItem(materialGradeId)}
+                  handlingFunction={() => props.editItem(props.item)}
           /> 
           <CtaButton 
                   title="delete"
                   type="delete"
                   variant="medium"
-                  // handlingFunction={() => props.deleteItem(materialGradeId)}
+                  handlingFunction={() => props.deleteItem(props.item)}
           />
         </div>
     </div>

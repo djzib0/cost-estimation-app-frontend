@@ -8,6 +8,7 @@ import MainSectionContainer from '../../../components/mainContentContainer/MainS
 import PlateMaterialItem from '../../../components/plateMaterial/PlateMaterialItem';
 import Modal from '../../../components/modal/Modal';
 import PlateMaterialForm from '../../../components/plateMaterial/PlateMaterialForm';
+import PlatesContainer from '../../../components/platesContainer/PlatesContainer';
 // contexts imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../../App';
@@ -47,71 +48,32 @@ export default function ProjectDetails() {
   const [refreshedPage, setRefreshedPage] = useState(false);
   
 
-  useEffect(() => {
-    getData(`/data/projects/${params.id}`)
-    if (fetchedData) {
-      setProjectData(fetchedData)
-    }
-  }, [projectData])
+  // useEffect(() => {
+  //   getData(`/data/projects/${params.id}`)
+  //   if (fetchedData) {
+  //     setProjectData(fetchedData)
+  //   }
+  // }, [projectData])
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
   }
 
   // TODO - mapping plate materials (move to project Materials component!!)
-  const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
-      return (
-        <PlateMaterialItem 
-          key={item.plateMaterialId} 
-          item={item} 
-          position={1}
-          />
-      )
-    })
+  // const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
+  //     return (
+  //       <PlateMaterialItem 
+  //         key={item.plateMaterialId} 
+  //         item={item} 
+  //         position={1}
+  //         />
+  //     )
+  //   })
 
 
   return (
     <div className='main-content__container'>
-      <MainContentContainer>
-        <MainSectionContainer themeMode={themeMode}>
-          <div className='data__container'>
-          <MainContentContainerTitle title={"Plates"} />
-            Tutaj ma być tylko summary, przenieść detale materiałów do Materials
-            <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow title={"Pos."} />
-              <MainContentHeaderContainerItemNarrow title={"Dim. A [mm]"} />
-              <MainContentHeaderContainerItemNarrow title={"Dim. B [mm]"} />
-              <MainContentHeaderContainerItemNarrow title={"Thick. [mm]"} />
-              <MainContentHeaderContainerItemNarrow title={"Weight [kg]"} />
-              <MainContentHeaderContainerItemNarrow title={"Grade"} />
-              <MainContentHeaderContainerItemNarrow title={"Painted?"} />
-              <MainContentHeaderContainerItemNarrow title={"Both sides?"} />
-              <MainContentHeaderContainerItemNarrow title={"Area [m2]"} />
-            </MainContentHeaderContainer>
-              <div className='rows__container'>
-                {projectDataArr}
-
-            </div>
-          </div>
-        </MainSectionContainer>
-      </MainContentContainer>
-      {isModalOn && 
-      <Modal
-        isActive={modalData.isActive}
-        modalType={modalData.modalType}
-        messageTitle={modalData.messageTitle}
-        messageText={modalData.messageText}
-        handleFunction={modalData.handleFunction}
-        onClose={toggleModalOff}
-        obj={modalData.obj}
-        refreshPage={refreshPage}
-        form={<PlateMaterialForm 
-          obj={modalData.obj} 
-          type={modalData.modalType}
-          refreshPage={refreshPage}
-          closeModal={toggleModalOff}
-          />}
-        />}
+        <PlatesContainer />
     </div>
   )
 }
