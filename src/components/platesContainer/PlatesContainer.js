@@ -48,6 +48,7 @@ export default function PlatesContainer() {
   const [refreshedPage, setRefreshedPage] = useState(false);
 
   function refreshPage() {
+    console.log("refreshing")
     setRefreshedPage(prevState => !prevState)
   }
 
@@ -56,7 +57,7 @@ export default function PlatesContainer() {
     if (fetchedData) {
       setProjectData(fetchedData)
     }
-  }, [projectData])
+  }, [projectData, refreshedPage])
 
   const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
     return (
@@ -95,12 +96,12 @@ export default function PlatesContainer() {
         ...prevData,
         isActive: true,
         modalType: "delete",
-        messageTitle: "Do you want to delete this project?",
+        messageTitle: "Do you want to delete this element?",
         messageText: "If you press OK, it will be permanently removed from the database.",
         elementId: item.projectid,
         value: "",
         refreshFunc: {refreshPage},
-        handleFunction: () => deleteData(`here must be a correct url`),
+        handleFunction: () => deleteData(`../../../data/materials/platematerial/delete/${item.plateMaterialId}`),
         closeFunc: {toggleModalOff},
         obj: {...item}
       }})

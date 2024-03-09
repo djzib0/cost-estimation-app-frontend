@@ -165,12 +165,20 @@ input[type=number] {
   font-size: .8em;
 }
 
-
-
 .form-buttons__container {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   margin: 1.5em auto .5em auto;
   width: 350px;
+}
+
+/* IMAGE IN FORM */
+.form__image {
+  height: 150px;
+}
+
+.span--2c3r {
+  grid-column: 2 / span 2;
+  grid-row: 1 / span 3;
 }

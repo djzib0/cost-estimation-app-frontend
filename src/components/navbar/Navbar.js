@@ -23,8 +23,6 @@ import { IoMdSunny } from "react-icons/io";
 import { IoMdMoon } from "react-icons/io";
 import { BiSolidBook } from "react-icons/bi";
 
-
-
 // utility functions imports
 import capitalFirstLetter from '../../utils/utils';
 // contexts imports
