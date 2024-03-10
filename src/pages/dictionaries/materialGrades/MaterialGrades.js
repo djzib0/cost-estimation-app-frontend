@@ -115,8 +115,8 @@ export default function MaterialGrades() {
         messageText: "If you press OK, it will be permanently removed from the database.",
         elementId: item.materialGradeId,
         value: "",
-        refreshFunc: {refreshPage},
-        handleFunction: {deleteMaterialGrade},
+        refreshFunc: refreshPage,
+        handleFunction: deleteMaterialGrade,
         closeFunc: {toggleModalOff},
         obj: {...item}
       }})

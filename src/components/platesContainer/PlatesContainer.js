@@ -49,7 +49,6 @@ export default function PlatesContainer(props) {
   const [refreshedPage, setRefreshedPage] = useState(false);
 
   function refreshPage() {
-    console.log("refreshing")
     setRefreshedPage(prevState => !prevState)
   }
 
@@ -61,12 +60,13 @@ export default function PlatesContainer(props) {
   }, [projectData, refreshedPage])
 
 
-  const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
+  const positionCounter = 0
+  const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map((item, index = 1 )=> {
     return (
       <PlateMaterialItem 
         key={item.plateMaterialId} 
         item={item} 
-        position={1}
+        position={index + 1}
         materialGradeId={item.materialGrade.materialGradeId}
         editItem={setEditModal}
         deleteItem={setDeleteModal}
@@ -75,7 +75,6 @@ export default function PlatesContainer(props) {
   })
 
   function setAddModal() {
-    console.log("hehe")
     setModalData(prevData => {
       //open new modal with new properties
       return {
@@ -115,7 +114,6 @@ export default function PlatesContainer(props) {
   function setDeleteModal(item) {
     setModalData(prevData => {
       //open new modal with new properties
-      console.log("item in delete", item)
       return {
         ...prevData,
         isActive: true,
@@ -131,7 +129,7 @@ export default function PlatesContainer(props) {
       }})
       toggleModalOn();
   }
-  
+
   return (
     <div>
       <MainContentContainer>
@@ -159,7 +157,7 @@ export default function PlatesContainer(props) {
               <MainContentHeaderContainerItemNarrow title={"Grade"} />
               <MainContentHeaderContainerItemNarrow title={"Painted?"} />
               <MainContentHeaderContainerItemNarrow title={"Both sides?"} />
-              <MainContentHeaderContainerItemNarrow title={"Area [m2]"} />
+              <MainContentHeaderContainerItemNarrow title={<>Area [m<sup>2</sup>]</>} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 {projectDataArr}

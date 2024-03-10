@@ -26,8 +26,7 @@ export default function MaterialGradeItem(props) {
     gerSymbol,
     density
   } = props.item;
-
-
+  
   return (
     <div className={`row__container${themeMode}`}>
         <div className='cell__container--narrow'>{materialGradeId}</div>

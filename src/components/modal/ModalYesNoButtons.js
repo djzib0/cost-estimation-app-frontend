@@ -8,6 +8,7 @@ export default function ModalYesNoButtons({itemId, confirmFunc, cancelFunc, onCl
 
   function handleOnClick() {
     // call confirm function
+    console.log(confirmFunc, " confirm in yesno")
     confirmFunc(itemId);
     // close modal after interaction with db
     onClose();
