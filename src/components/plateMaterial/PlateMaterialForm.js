@@ -24,21 +24,22 @@ export default function PlateMaterialForm(props) {
 
   const [formData, setFormData] = useState(
     {
-      dimensionA: dimensionA,
-      dimensionB: dimensionB,
-      thickness: thickness,
-      isRing: isRing,
-      isPainted: isPainted,
-      isPaintedBothSides: isPaintedBothSides,
-      pricePerKg: pricePerKg,
-      quantity: quantity,
-      materialGradeId: materialGrade.materialGradeId,
+      dimensionA: dimensionA ? dimensionA : "",
+      dimensionB: dimensionB ? dimensionB : "",
+      thickness: thickness ? thickness : "",
+      isRing: isRing ? isRing : false,
+      isPainted: isPainted ? isPainted : false,
+      isPaintedBothSides: isPaintedBothSides ? isPaintedBothSides : false,
+      pricePerKg: pricePerKg ? pricePerKg : "",
+      quantity: quantity ? quantity : 1,
+      materialGradeId: materialGrade.materialGradeId ? materialGrade.materialGradeId : 1,
       // below are required to be a correct json body, but are not
       // editable by user
       projectId: projectId,
-      plateMaterialId: plateMaterialId
     }
   )
+
+  console.log(formData.materialGradeId, " grade id")
 
   // utilize useApi custom hook
   const {
@@ -55,9 +56,7 @@ export default function PlateMaterialForm(props) {
   }, [])
 
   useEffect(() => {
-    console.log(isRing, "before fetching")
     setMaterialGrades(prevData => fetchedData)
-    console.log(isRing, "after fetching")
   }, [fetchedData])
 
 
@@ -141,11 +140,18 @@ export default function PlateMaterialForm(props) {
       setIsError(false)
     }
 
-    if (props.type === "edit") {
-      editData(
-        `../../data/materials/platematerial/edit?materialGradeId=${Number(formData.materialGradeId)}`,
+    if (props.type === "add") {
+      addData(
+        `../../data/materials/platematerial/add?materialGradeId=${Number(formData.materialGradeId)}`,
         formData,
         "Failed to add new plate");
+    }
+
+    if (props.type === "edit") {
+      editData(
+        `../../data/materials/platematerial/edit?materialGradeId=${Number(materialGrade.materialGradeId)}&plateMaterialId=${plateMaterialId}`,
+        formData,
+        "Failed to edit new plate.");
     }
 
     props.refreshPage();

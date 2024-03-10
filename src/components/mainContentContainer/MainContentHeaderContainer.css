@@ -20,7 +20,8 @@
 }
 
 .header__container--narrow {
-    width: 100px;
+    width: 95px;
+    font-size: 0.75em;
 }
 
 .header-cta__container {

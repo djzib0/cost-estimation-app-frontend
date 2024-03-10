@@ -8,6 +8,7 @@ import MainContentHeaderContainerItemNarrow from '../mainContentContainer/MainCo
 import Modal from '../modal/Modal';
 import PlateMaterialForm from '../plateMaterial/PlateMaterialForm';
 import PlateMaterialItem from '../plateMaterial/PlateMaterialItem';
+import CtaButton from '../buttons/CtaButton';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -59,6 +60,7 @@ export default function PlatesContainer(props) {
     }
   }, [projectData, refreshedPage])
 
+
   const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
     return (
       <PlateMaterialItem 
@@ -71,6 +73,28 @@ export default function PlatesContainer(props) {
         />
     )
   })
+
+  function setAddModal() {
+    console.log("hehe")
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "add",
+        messageTitle: "Enter values",
+        messageText: "Please enter the data in all input fields",
+        elementId: "",
+        value: "",
+        obj: {
+          projectId: params.id,
+          plateMaterialId: "",
+          materialGradeId: "",
+          materialGrade: "",
+        }
+      }})
+    toggleModalOn();
+  }
 
   function setEditModal(item) {
     setModalData(prevData => {
@@ -113,14 +137,25 @@ export default function PlatesContainer(props) {
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-          <MainContentContainerTitle title={"Plates"} />
-            Tutaj ma być tylko summary, przenieść detale materiałów do Materials
+            <MainContentContainerTitle title={"Plates"} />
+            <div>
+            <CtaButton 
+                  title="Add new plate"
+                  type="add"
+                  variant="large"
+                  handlingFunction={setAddModal}
+                  refreshPage={refreshPage}
+            /> 
+            </div>
+                Tutaj ma być tylko summary, przenieść detale materiałów do Materials
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItemNarrow title={"Pos."} />
               <MainContentHeaderContainerItemNarrow title={"Dim. A [mm]"} />
               <MainContentHeaderContainerItemNarrow title={"Dim. B [mm]"} />
               <MainContentHeaderContainerItemNarrow title={"Thick. [mm]"} />
               <MainContentHeaderContainerItemNarrow title={"Weight [kg]"} />
+              <MainContentHeaderContainerItemNarrow title={"Quantity"} />
+              <MainContentHeaderContainerItemNarrow title={"Total weight [kg]"} />
               <MainContentHeaderContainerItemNarrow title={"Grade"} />
               <MainContentHeaderContainerItemNarrow title={"Painted?"} />
               <MainContentHeaderContainerItemNarrow title={"Both sides?"} />

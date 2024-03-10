@@ -60,7 +60,7 @@ function useApi() {
     })
   }
 
-  async function editData(url, obj) {
+  async function editData(url, obj, errMsg) {
     fetch(url, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
@@ -72,7 +72,7 @@ function useApi() {
     .then(res => {
       if (!res.ok) {
         throw {
-          message: "Failed to add project",
+          message: errMsg,
           statusText: res.statusText,
           status: res.status
         }

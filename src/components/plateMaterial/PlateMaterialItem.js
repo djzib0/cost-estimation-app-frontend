@@ -29,6 +29,8 @@ export default function PlateMaterialitem(props, position) {
     surfaceToConserve,
     thickness,
     weight,
+    quantity,
+    totalWeight
   } = props.item;
 
   return (
@@ -38,6 +40,8 @@ export default function PlateMaterialitem(props, position) {
         <div className='cell__container--narrow'>{dimensionB}</div>
         <div className='cell__container--narrow'>{thickness}</div>
         <div className='cell__container--narrow'>{weight}</div>
+        <div className='cell__container--narrow'>{quantity}</div>
+        <div className='cell__container--narrow'>{totalWeight}</div>
         <div className='cell__container--narrow'>{materialGrade.euSymbol}</div>
         <div className='cell__container--narrow'>{isPainted ? "Yes" : "No"}</div>
         <div className='cell__container--narrow'>{isPaintedBothSides ? "Yes" : "No"}</div>
