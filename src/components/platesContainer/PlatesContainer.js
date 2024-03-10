@@ -16,7 +16,7 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 
-export default function PlatesContainer() {
+export default function PlatesContainer(props) {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -147,6 +147,7 @@ export default function PlatesContainer() {
           obj={modalData.obj} 
           type={modalData.modalType}
           refreshPage={refreshPage}
+          projectId={props.projectId}
           closeModal={toggleModalOff}
           />}
         />}

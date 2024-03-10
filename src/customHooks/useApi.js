@@ -35,7 +35,7 @@ function useApi() {
     .finally(setLoading(false))
   }
 
-  async function addData(url, obj) {
+  async function addData(url, obj, errMsg) {
     fetch(url, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -47,7 +47,7 @@ function useApi() {
     .then(res => {
       if (!res.ok) {
         throw {
-          message: "Failed to add project",
+          message: errMsg,
           statusText: res.statusText,
           status: res.status
         }

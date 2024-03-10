@@ -48,32 +48,13 @@ export default function ProjectDetails() {
   const [refreshedPage, setRefreshedPage] = useState(false);
   
 
-  // useEffect(() => {
-  //   getData(`/data/projects/${params.id}`)
-  //   if (fetchedData) {
-  //     setProjectData(fetchedData)
-  //   }
-  // }, [projectData])
-
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
   }
 
-  // TODO - mapping plate materials (move to project Materials component!!)
-  // const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map(item => {
-  //     return (
-  //       <PlateMaterialItem 
-  //         key={item.plateMaterialId} 
-  //         item={item} 
-  //         position={1}
-  //         />
-  //     )
-  //   })
-
-
   return (
     <div className='main-content__container'>
-        <PlatesContainer />
+        <PlatesContainer projectId={params.id}/>
     </div>
   )
 }

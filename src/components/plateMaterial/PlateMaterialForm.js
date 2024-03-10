@@ -16,7 +16,7 @@ export default function PlateMaterialForm(props) {
   const {
     plateMaterialId,dimensionA, dimensionB, isPainted,
     isPaintedBothSides, isRing, pricePerKg,
-    quantity, thickness } = props.obj;
+    quantity, thickness, materialGrade, projectId} = props.obj;
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
@@ -32,6 +32,11 @@ export default function PlateMaterialForm(props) {
       isPaintedBothSides: isPaintedBothSides,
       pricePerKg: pricePerKg,
       quantity: quantity,
+      materialGradeId: materialGrade.materialGradeId,
+      // below are required to be a correct json body, but are not
+      // editable by user
+      projectId: projectId,
+      plateMaterialId: plateMaterialId
     }
   )
 
@@ -47,27 +52,27 @@ export default function PlateMaterialForm(props) {
   // fetch material grades
   useEffect(() => {
     getData("../../data/allmaterialgrades")
-    console.log(fetchedData, " after fetching")
   }, [])
 
   useEffect(() => {
+    console.log(isRing, "before fetching")
     setMaterialGrades(prevData => fetchedData)
+    console.log(isRing, "after fetching")
   }, [fetchedData])
+
 
   // create list of options to display them in form
   const materialGradesArr = materialGrades && materialGrades.map(item => {
-    console.log(item, " item")
     const {materialGradeId, euSymbol } = item;
     return (
       <option 
         key={materialGradeId}
-        value={euSymbol}
+        value={Number(materialGradeId)}
       >
         {euSymbol}
       </option>
     )
   })
-
 
   function handleChange(e) {
     const {name, value, type, checked} = e.target
@@ -82,36 +87,69 @@ export default function PlateMaterialForm(props) {
   function handleSubmit(e) {
     e.preventDefault()
     // Check for errors
-    if (isEmpty(formData.dimensionA)) {
+    if (isEmpty(formData.dimensionA) || isEqualZero(formData.dimensionA)) {
       setErrorMessage(
         formData.isRing ?
-        "Outer diameter cannot be empty":
-        "Dimension A cannot be empty")
+        "Outer diameter cannot be 0 or empty.":
+        "Dimension \"A\" cannot be 0 or empty.")
       setIsError(true);
       return
     } else {
       setIsError(false)
     }
 
-    if (isEmpty(formData.dimensionB)) {
+    if (isEmpty(formData.dimensionB) || isEqualZero(formData.dimensionB)) {
       setErrorMessage(
         formData.isRing ?
-        "Inner diameter cannot be empty":
-        "Dimension B cannot be empty")
+        "Inner diameter cannot be 0 or empty.":
+        "Dimension \"B\" cannot be 0 or empty.")
       setIsError(true);
       return
     } else {
       setIsError(false)
     }
-
 
     if (formData.isRing && formData.dimensionB > formData.dimensionA) {
-      setErrorMessage("Inner diameter cannot be bigger than outer diameter")
+      setErrorMessage("Inner diameter cannot be bigger than outer diameter.")
       setIsError(true);
       return
     } else {
       setIsError(false)
     }
+
+    if (isEmpty(formData.thickness) || isEqualZero(formData.thickness)) {
+      setErrorMessage("Thickness cannot be 0 or empty.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.pricePerKg) || isEqualZero(formData.pricePerKg)) {
+      setErrorMessage("Price per kg cannot be 0 or empty.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.quantity) || isEqualZero(formData.quantity)) {
+      setErrorMessage("Quantity must be at least 1.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (props.type === "edit") {
+      editData(
+        `../../data/materials/platematerial/edit?materialGradeId=${Number(formData.materialGradeId)}`,
+        formData,
+        "Failed to add new plate");
+    }
+
+    props.refreshPage();
+    return
   }
 
   return (
@@ -130,6 +168,7 @@ export default function PlateMaterialForm(props) {
             id="isRing"
             onChange={handleChange} 
             value={formData.isRing}
+            checked={formData.isRing}
           />
         </div>
         <div className='span--2c3r'>
@@ -149,6 +188,7 @@ export default function PlateMaterialForm(props) {
             id="isPainted"
             onChange={handleChange} 
             value={formData.isPainted}
+            checked={formData.isPainted}
           />
         </div>
 
@@ -162,6 +202,8 @@ export default function PlateMaterialForm(props) {
             id="isPaintedBothSides"
             onChange={handleChange} 
             value={formData.isPaintedBothSides}
+            checked={formData.isPaintedBothSides}
+            disabled={formData.isPainted ? false : true}
           />
         </div>
 
@@ -246,14 +288,14 @@ export default function PlateMaterialForm(props) {
         </div>
 
         <div className='input-label__container'>
-          <label htmlFor='materialGrade' >
+          <label htmlFor='materialGradeId' >
             Material grade:
           </label>
           <select
-            value={formData.materialGrade}
+            value={formData.materialGradeId}
             onChange={handleChange}
-            name="materialGrade"
-            id="materialGrade"
+            name="materialGradeId"
+            id="materialGradeId"
           >
             {materialGradesArr}
           </select>
