@@ -9,6 +9,8 @@ import Modal from '../modal/Modal';
 import PlateMaterialForm from '../plateMaterial/PlateMaterialForm';
 import PlateMaterialItem from '../plateMaterial/PlateMaterialItem';
 import CtaButton from '../buttons/CtaButton';
+import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
+import MainContentHeaderContainerItemNarrower from '../mainContentContainer/MainContentHeaderContainerItemNarrower';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -147,17 +149,19 @@ export default function PlatesContainer(props) {
             </div>
                 Tutaj ma być tylko summary, przenieść detale materiałów do Materials
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow title={"Pos."} />
-              <MainContentHeaderContainerItemNarrow title={"Dim. A [mm]"} />
-              <MainContentHeaderContainerItemNarrow title={"Dim. B [mm]"} />
-              <MainContentHeaderContainerItemNarrow title={"Thick. [mm]"} />
-              <MainContentHeaderContainerItemNarrow title={"Weight [kg]"} />
-              <MainContentHeaderContainerItemNarrow title={"Quantity"} />
-              <MainContentHeaderContainerItemNarrow title={"Total weight [kg]"} />
-              <MainContentHeaderContainerItemNarrow title={"Grade"} />
-              <MainContentHeaderContainerItemNarrow title={"Painted?"} />
-              <MainContentHeaderContainerItemNarrow title={"Both sides?"} />
-              <MainContentHeaderContainerItemNarrow title={<>Area [m<sup>2</sup>]</>} />
+              <MainContentHeaderContainerItemNarrower title={"Pos."} />
+              <MainContentHeaderContainerItemNarrower title={"Dim. A [mm]"} />
+              <MainContentHeaderContainerItemNarrower title={"Dim. B [mm]"} />
+              <MainContentHeaderContainerItemNarrower title={"Thick. [mm]"} />
+              <MainContentHeaderContainerItemNarrower title={"Weight [kg]"} />
+              <MainContentHeaderContainerItemNarrower title={"Quantity"} />
+              <MainContentHeaderContainerItemNarrower title={"Total weight [kg]"} />
+              <MainContentHeaderContainerItemNarrower title={"Grade"} />
+              <MainContentHeaderContainerItemNarrower title={"Painted?"} />
+              <MainContentHeaderContainerItemNarrower title={"Both sides?"} />
+              <MainContentHeaderContainerItemNarrower title={<>Area [m<sup>2</sup>]</>} />
+              <MainContentHeaderContainerItemNarrower title={"Shape"} />
+              <MainContentHeaderContainerItemNarrower title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 {projectDataArr}

@@ -10,7 +10,8 @@
 }
 
 .header__container,
-.header__container--narrow {
+.header__container--narrow,
+.header__container--narrower {
     border-bottom: 1px solid;
     margin-bottom: 1em;
 }
@@ -20,7 +21,12 @@
 }
 
 .header__container--narrow {
-    width: 95px;
+    width: 75px;
+    font-size: 0.75em;
+}
+
+.header__container--narrower {
+    width: 65px;
     font-size: 0.75em;
 }
 

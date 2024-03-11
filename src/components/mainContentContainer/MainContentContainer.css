@@ -31,8 +31,19 @@
 }
 
 .cell__container--narrow {
-    width: 95px;
+    width: 75px;
     font-size: 0.75em;
+}
+
+.cell__container--narrow {
+    width: 75px;
+    font-size: 0.75em;
+}
+
+.cell__container--narrower {
+    width: 65px;
+    font-size: 0.75em;
+    position: relative
 }
 
 .cell-cta__container {

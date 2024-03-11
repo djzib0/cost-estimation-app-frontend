@@ -1,0 +1,8 @@
+.remark__modal {
+    background-color: red;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: -50px;
+    z-index: 100;
+}

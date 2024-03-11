@@ -16,11 +16,11 @@ export default function PlateMaterialForm(props) {
   const {
     plateMaterialId,dimensionA, dimensionB, isPainted,
     isPaintedBothSides, isRing, pricePerKg,
-    quantity, thickness, materialGrade, projectId} = props.obj;
+    quantity, thickness, materialGrade, projectId, density} = props.obj;
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
-  const [materialGrades, setMaterialGrades] = useState();
+  const [materialGrades, setMaterialGrades] = useState([]);
 
   const [formData, setFormData] = useState(
     {
@@ -32,10 +32,12 @@ export default function PlateMaterialForm(props) {
       isPaintedBothSides: isPaintedBothSides ? isPaintedBothSides : false,
       pricePerKg: pricePerKg ? pricePerKg : "",
       quantity: quantity ? quantity : 1,
-      materialGradeId: materialGrade.materialGradeId ? materialGrade.materialGradeId : 1,
+      materialGradeId: 0,
       // below are required to be a correct json body, but are not
       // editable by user
       projectId: projectId,
+      materialGrade: materialGrade ? materialGrade : "",
+      density: density ? density : 0
     }
   )
 
@@ -57,6 +59,22 @@ export default function PlateMaterialForm(props) {
 
   useEffect(() => {
     setMaterialGrades(prevData => fetchedData)
+    if (fetchedData) {
+      for (let item of materialGrades) {
+        if (item.euSymbol === materialGrade) {
+          console.log("success!!")
+          setFormData(prevData => {
+            return {
+              ...prevData,
+              materialGradeId: item.materialGradeId,
+              materialGrade: item.euSymbol,
+              density: item.density,
+            }
+          })
+        }
+      }
+    }
+    
   }, [fetchedData])
 
 
@@ -140,6 +158,14 @@ export default function PlateMaterialForm(props) {
       setIsError(false)
     }
 
+    if (Number(formData.materialGradeId) === 0) {
+      setErrorMessage("Please choose the material grade.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
     if (props.type === "add") {
       addData(
         `../../data/materials/platematerial/add?materialGradeId=${Number(formData.materialGradeId)}`,
@@ -149,7 +175,7 @@ export default function PlateMaterialForm(props) {
 
     if (props.type === "edit") {
       editData(
-        `../../data/materials/platematerial/edit?materialGradeId=${Number(materialGrade.materialGradeId)}&plateMaterialId=${plateMaterialId}`,
+        `../../data/materials/platematerial/edit?materialGradeId=${Number(formData.materialGradeId)}&plateMaterialId=${plateMaterialId}`,
         formData,
         "Failed to edit new plate.");
     }
@@ -303,6 +329,11 @@ export default function PlateMaterialForm(props) {
             name="materialGradeId"
             id="materialGradeId"
           >
+            <option 
+              value={0}
+            >
+            ------
+            </option>
             {materialGradesArr}
           </select>
 
