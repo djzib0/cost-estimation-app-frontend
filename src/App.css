@@ -85,7 +85,8 @@ button {
 /* FORMS */
 
 input,
-select {
+select,
+textarea {
   width: 100%;
   height: 36px;
   border-radius: 4px;
@@ -101,9 +102,15 @@ select {
   padding-right: 12px;
 }
 
+textarea {
+  resize: none;
+  height: 108px;
+}
+
 label {
   font-family: 'Karla', sans-serif;
 }
+
 
 input:hover {
   border: 1px solid #bcbcff;
@@ -161,8 +168,35 @@ input[type=number] {
   align-items: center;
 }
 
+/* 3/3 of the grid - whole width */
+.input-label__container--row--3-3 {
+  display: grid;
+  grid-template-columns: 150px 3fr;
+  grid-column: 1/4;
+  align-items: top;
+}
+
 .label--small {
   font-size: .8em;
+}
+
+.chars-counter__container {
+  margin-top: -6px;
+  padding: 0;
+  padding-left: 6px;
+  background-color: transparent;
+}
+
+.chars-counter,
+.chars-counter--red {
+  display: inline;
+  font-size: .7em;
+  padding: 0;
+  background-color: transparent;
+}
+
+.chars-counter--red {
+  color: #e0726b;
 }
 
 .form-buttons__container {

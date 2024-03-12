@@ -155,7 +155,7 @@ export default function PlatesContainer(props) {
               <MainContentHeaderContainerItemNarrower title={"Thick. [mm]"} />
               <MainContentHeaderContainerItemNarrower title={"Weight [kg]"} />
               <MainContentHeaderContainerItemNarrower title={"Quantity"} />
-              <MainContentHeaderContainerItemNarrower title={"Total weight [kg]"} />
+              <MainContentHeaderContainerItemNarrower title={"Weight total [kg]"} />
               <MainContentHeaderContainerItemNarrower title={"Grade"} />
               <MainContentHeaderContainerItemNarrower title={"Painted?"} />
               <MainContentHeaderContainerItemNarrower title={"Both sides?"} />

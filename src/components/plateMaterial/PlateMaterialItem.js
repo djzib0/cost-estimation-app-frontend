@@ -46,12 +46,9 @@ export default function PlateMaterialitem(props, position) {
 
   function toggleRemarkModal() {
     setIsRemarkModalOn(prevState => {
-      console.log(prevState, "prev..")
       return prevState === true ? false : true;
     })
   }
-
-  console.log(isRemarkModalOn, "ok")
 
   return (
     <div className={`row__container${themeMode}`}>
@@ -69,11 +66,13 @@ export default function PlateMaterialitem(props, position) {
         <div className='cell__container--narrower'>{isRing ? <MdOutlineCircle /> : <MdOutlineRectangle />}</div>
         <div 
         className='cell__container--narrower'
-        onMouseEnter={toggleRemarkModal}
-        onMouseLeave={toggleRemarkModal}
         >
-          {remark && <SlNote />}
-          {isRemarkModalOn && <PlateMaterialRemarkModal />}
+          {remark && 
+          <span onMouseEnter={toggleRemarkModal}
+                onMouseLeave={toggleRemarkModal}>
+                  <SlNote />
+          </span>}
+          {isRemarkModalOn && <PlateMaterialRemarkModal remark={remark} />}
         </div>
         <div className='cell-cta__container'>
           <CtaButton 

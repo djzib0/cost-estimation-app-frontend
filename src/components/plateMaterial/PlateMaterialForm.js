@@ -15,8 +15,8 @@ export default function PlateMaterialForm(props) {
   
   const {
     plateMaterialId,dimensionA, dimensionB, isPainted,
-    isPaintedBothSides, isRing, pricePerKg,
-    quantity, thickness, materialGrade, projectId, density} = props.obj;
+    isPaintedBothSides, isRing, pricePerKg, quantity,
+    thickness, materialGrade, projectId, density, remark} = props.obj;
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
@@ -37,11 +37,10 @@ export default function PlateMaterialForm(props) {
       // editable by user
       projectId: projectId,
       materialGrade: materialGrade ? materialGrade : "",
-      density: density ? density : 0
+      density: density ? density : 0,
+      remark: remark ? remark: ""
     }
   )
-
-  console.log(formData.materialGradeId, " grade id")
 
   // utilize useApi custom hook
   const {
@@ -62,7 +61,6 @@ export default function PlateMaterialForm(props) {
     if (fetchedData) {
       for (let item of materialGrades) {
         if (item.euSymbol === materialGrade) {
-          console.log("success!!")
           setFormData(prevData => {
             return {
               ...prevData,
@@ -338,6 +336,29 @@ export default function PlateMaterialForm(props) {
           </select>
 
         </div>
+
+        <div className='input-label__container--row--3-3'>
+          <label htmlFor='remark' className='textarea__label'>
+            Remark
+          </label>
+          <div className='textarea-input__field'>
+            <textarea
+              placeholder="Remark"
+              name="remark"
+              id="remark"
+              onChange={handleChange} 
+              value={formData.remark}
+              maxLength={500}              
+            />
+            <div className='chars-counter__container'>
+              <p className={formData.remark.length >= 500 ? 'chars-counter--red' : 'chars-counter'}>
+                {formData.remark.length}/500
+                </p>
+            </div>
+          </div>
+          
+        </div>
+
       </form>
       <div className='form-buttons__container'>
         <CtaButton 
