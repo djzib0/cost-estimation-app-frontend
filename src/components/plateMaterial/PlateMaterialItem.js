@@ -9,11 +9,10 @@ import { ModalContext } from '../../App';
 import { MdOutlineRectangle } from "react-icons/md";
 import { MdOutlineCircle } from "react-icons/md";
 import { SlNote } from "react-icons/sl";
-import { hover } from '@testing-library/user-event/dist/hover';
 //styles imports
 import "./PlateMaterialItem.css"
 
-export default function PlateMaterialitem(props, position) {
+export default function PlateMaterialitem(props) {
 
   // utlizie Theme Context 
   const {theme} = useContext(DefaultSettingsContext);
@@ -68,7 +67,7 @@ export default function PlateMaterialitem(props, position) {
         <div 
         className='cell__container--narrower'
         >
-          {remark && 
+          {remark &&  
           <p 
             className='remark__icon'
             onMouseEnter={toggleRemarkModal}

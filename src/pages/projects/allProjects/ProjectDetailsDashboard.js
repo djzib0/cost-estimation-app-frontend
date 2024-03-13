@@ -1,22 +1,64 @@
-import React, { useContext } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { NavLink, Outlet, useParams } from 'react-router-dom';
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
-// components import
+// components imports
 import HorizontalDashboard from '../../../headlessComponents/horizontalDashboard/index'
 import MainContentHeader from '../../../components/mainContentContainer/MainContentHeader'
-import MainContentHeaderLink from '../../../components/mainContentContainer/MainContentHeaderLink'
+// custom hooks imports
+import useApi from '../../../customHooks/useApi';
 
 export default function ProjectDetailsDashboard() {
 
+  // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`
-  
+
+  // utilize params
+  const params = useParams();
+
+  // utilize custom hooks
+  const {
+    getData,
+    fetchedData
+  } = useApi()
+
+  // state variables
+  const [projectData, setProjectData] = useState(
+    {
+      projectNumber:  "kjlk ",
+      projectClientNumber: " "
+    }
+  );
+
+  const [projectTitle, setProjecTitle] = useState("Project");
+
+  // fetching project data
+  useEffect(() => {
+    getData(`/data/projects/${params.id}`)
+  }, [])
+
+  // setting projectData
+  useEffect(() => {
+    if (fetchedData) {
+      setProjectData(fetchedData)
+    }
+  }, [fetchedData])
+
+  // settings project title to display it on the page
+  useEffect(() => {
+    if (fetchedData) {
+      setProjecTitle(`Project 
+      ${projectData.projectNumber ? projectData.projectNumber : ""}/${projectData.projectClientNumber ? projectData.projectClientNumber : ""}`)
+    }
+  }, [projectData])
+
   return (
     <div className='main-content-dashboard__container'>
       <HorizontalDashboard>
         <HorizontalDashboard.Title>
-          <MainContentHeader title={"Project"} />
+          <MainContentHeader 
+          title={projectTitle} />
         </HorizontalDashboard.Title>
         <HorizontalDashboard.Tabs>
 

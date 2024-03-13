@@ -1,13 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 // components imports
-import MainContentContainer from '../../../components/mainContentContainer/MainContentContainer';
-import MainContentContainerTitle from '../../../components/mainContentContainer/MainContentContainerTitle';
-import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer';
-import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow';
-import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer';
-import PlateMaterialItem from '../../../components/plateMaterial/PlateMaterialItem';
-import Modal from '../../../components/modal/Modal';
-import PlateMaterialForm from '../../../components/plateMaterial/PlateMaterialForm';
 import PlatesContainer from '../../../components/platesContainer/PlatesContainer';
 // contexts imports
 import { useParams } from 'react-router-dom';
@@ -33,13 +25,6 @@ export default function ProjectDetails() {
     closeModal,
     openModal,
   } = useModal()
-
-  const {
-    fetchedData,
-    fetchError,
-    isFetched,
-    getData
-  } = useApi()
 
   const params = useParams()
 
