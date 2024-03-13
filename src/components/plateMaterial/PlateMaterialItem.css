@@ -1,0 +1,11 @@
+.remark__icon {
+    display: inline;
+    padding: 0;
+    transition: all ease-in .2s;
+    -webkit-transition: all .2s ease;
+}
+
+.remark__icon:hover {
+    opacity: 60%;
+    font-size: 130%;
+}

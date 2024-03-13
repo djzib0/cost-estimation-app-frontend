@@ -11,6 +11,7 @@ import { MdOutlineCircle } from "react-icons/md";
 import { SlNote } from "react-icons/sl";
 import { hover } from '@testing-library/user-event/dist/hover';
 //styles imports
+import "./PlateMaterialItem.css"
 
 export default function PlateMaterialitem(props, position) {
 
@@ -68,10 +69,12 @@ export default function PlateMaterialitem(props, position) {
         className='cell__container--narrower'
         >
           {remark && 
-          <span onMouseEnter={toggleRemarkModal}
-                onMouseLeave={toggleRemarkModal}>
-                  <SlNote />
-          </span>}
+          <p 
+            className='remark__icon'
+            onMouseEnter={toggleRemarkModal}
+            onMouseLeave={toggleRemarkModal}>
+              <SlNote />
+          </p>}
           {isRemarkModalOn && <PlateMaterialRemarkModal remark={remark} />}
         </div>
         <div className='cell-cta__container'>
