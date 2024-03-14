@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 // contexts imports
 import { DefaultSettingsContext } from '../../App'
 // styles imports
-import './PlateMaterialRemarkModal.css'
+import './RemarkModal.css'
 
-export default function PlateMaterialRemarkModal(props) {
+export default function RemarkModal(props) {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)

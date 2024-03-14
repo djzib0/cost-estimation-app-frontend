@@ -79,6 +79,16 @@ export default function ProjectDetailsDashboard() {
           >
               Materials
           </NavLink>
+
+          <NavLink 
+            to={"roundbars"}
+            end
+            className={({isActive}) => isActive ? `main-content-header__link${themeMode}--active`
+            :`main-content-header__link${themeMode}`}
+          >
+              Roundbars
+          </NavLink>
+
         </HorizontalDashboard.Tabs>
       </HorizontalDashboard>
       <Outlet />

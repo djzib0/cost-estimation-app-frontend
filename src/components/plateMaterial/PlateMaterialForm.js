@@ -53,7 +53,7 @@ export default function PlateMaterialForm(props) {
 
   // fetch material grades
   useEffect(() => {
-    getData("../../data/allmaterialgrades")
+    getData("../../../data/allmaterialgrades")
   }, [])
 
   useEffect(() => {

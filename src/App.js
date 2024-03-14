@@ -8,6 +8,8 @@ import ProjectsLayout from './layouts/ProjectsLayout';
 import SettingsLayout from './layouts/SettingsLayout';
 import AllProjects from './pages/projects/allProjects/AllProjects';
 import ProjectDetails from './pages/projects/allProjects/ProjectDetails';
+import ProjectMaterials from './pages/projects/allProjects/ProjectMaterials';
+import RoundbarMaterials from './pages/projects/allProjects/RoundbarMaterials';
 import Dictionaries from './pages/dictionaries/Dictionaries';
 import DictionariesLayout from './layouts/DictionariesLayout';
 import MaterialGradesLayout from './layouts/MaterialGradesLayout';
@@ -26,8 +28,6 @@ import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
 import ProjectDetailsDashboard from './pages/projects/allProjects/ProjectDetailsDashboard';
-import ProjectDetailsMaterials from './pages/projects/allProjects/ProjectDetailsMaterials';
-import ProjectDetailsLayout from './layouts/ProjectDetailsLayout';
 
 const AuthUserContext = createContext();
 const DefaultSettingsContext = createContext();
@@ -133,6 +133,9 @@ export default function App() {
                   <Route path='allProjects' element={<AllProjects />} /> 
                   <Route path='details/:id' element={<ProjectDetailsDashboard />}>
                     <Route index element={<ProjectDetails />} />
+                    <Route path='materials' element={<ProjectMaterials />} />
+                    <Route path='roundbars' element={<RoundbarMaterials />} />
+
                   </Route>
                   
                 </Route>

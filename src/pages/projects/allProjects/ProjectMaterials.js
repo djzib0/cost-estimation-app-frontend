@@ -18,14 +18,7 @@ export default function ProjectDetails() {
   // utilize ModalContext
   const {isModalOn, toggleModalOn, toggleModalOff} = useContext(ModalContext);
 
-  // utlilize custom hooks
-  const {
-    modalData,
-    setModalData,
-    closeModal,
-    openModal,
-  } = useModal()
-
+  // utilize params
   const params = useParams()
 
   // state variables
@@ -39,8 +32,7 @@ export default function ProjectDetails() {
 
   return (
     <div className='main-content__container'>
-        {/* <PlatesContainer projectId={params.id}/> */}
-        Tutaj będzie summary
+        <PlatesContainer projectId={params.id}/>
     </div>
   )
 }

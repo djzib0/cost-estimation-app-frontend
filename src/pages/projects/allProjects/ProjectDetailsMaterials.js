@@ -5,8 +5,6 @@ import MainSectionContainer from '../../../components/mainContentContainer/MainS
 import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer'
 import MainContentHeaderContainerItem from '../../../components/mainContentContainer/MainContentHeaderContainerItem'
 import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow'
-import Modal from '../../../components/modal/Modal';
-import CtaButton from '../../../components/buttons/CtaButton'
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';

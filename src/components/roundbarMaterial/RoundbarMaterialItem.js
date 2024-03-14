@@ -1,40 +1,36 @@
-import React, { useContext, useState } from 'react';
-//components imports
-import CtaButton from '../buttons/CtaButton';
+import React, { useContext, useState } from 'react'
+// components imports
 import RemarkModal from '../remarkModal/RemarkModal';
-//context imports
-import { DefaultSettingsContext } from '../../App';
-import { ModalContext } from '../../App';
+import CtaButton from '../buttons/CtaButton';
 //icons imports
-import { MdOutlineRectangle } from "react-icons/md";
-import { MdOutlineCircle } from "react-icons/md";
 import { SlNote } from "react-icons/sl";
-//styles imports
-import "./PlateMaterialItem.css"
+// context imports
+import { DefaultSettingsContext } from '../../App';
 
-export default function PlateMaterialitem(props) {
+export default function RoundbarMaterialItem(props) {
 
-  // utlizie Theme Context 
-  const {theme} = useContext(DefaultSettingsContext);
-  const themeMode = `--${theme}`
-  
+   // utilize Theme Context 
+   const {theme} = useContext(DefaultSettingsContext);
+   const themeMode = `--${theme}`
+
+  console.log(props.item)
+
   const {
-    dimensionA,
-    dimensionB,
-    isPainted,
-    isPaintedBothSides,
-    materialGrade,
-    surfaceToConserve,
-    thickness,
+    remark,
+    diameter,
+    profileLength,
     weight,
-    quantity,
     totalWeight,
-    isRing,
-    remark
-  } = props.item;
+    weightPerMeter,
+    quantity,
+    materialGrade,
+    isPainted,
+    surfaceToConserve,
+  } = props.item
 
   // state variables 
   const [isRemarkModalOn, setIsRemarkModalOn] = useState(false)
+
 
   function toggleRemarkModal() {
     setIsRemarkModalOn(prevState => {
@@ -45,17 +41,15 @@ export default function PlateMaterialitem(props) {
   return (
     <div className={`row__container${themeMode}`}>
         <div className='cell__container--narrower'>{props.position}</div>
-        <div className='cell__container--narrower'>{dimensionA}</div>
-        <div className='cell__container--narrower'>{dimensionB}</div>
-        <div className='cell__container--narrower'>{thickness}</div>
+        <div className='cell__container--narrower'>{diameter}</div>
+        <div className='cell__container--narrower'>{profileLength}</div>
         <div className='cell__container--narrower'>{weight}</div>
+        <div className='cell__container--narrower'>{weightPerMeter}</div>
         <div className='cell__container--narrower'>{quantity}</div>
         <div className='cell__container--narrower'>{totalWeight}</div>
         <div className='cell__container--narrower'>{materialGrade}</div>
         <div className='cell__container--narrower'>{isPainted ? "Yes" : "No"}</div>
-        <div className='cell__container--narrower'>{isPaintedBothSides ? "Yes" : "No"}</div>
         <div className='cell__container--narrower'>{surfaceToConserve}</div>
-        <div className='cell__container--narrower'>{isRing ? <MdOutlineCircle /> : <MdOutlineRectangle />}</div>
         <div 
         className='cell__container--narrower'
         >
