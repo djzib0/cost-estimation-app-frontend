@@ -47,7 +47,7 @@ export default function PlatesContainer(props) {
   const params = useParams()
 
   // state variables
-  const [projectData, setProjectData] = useState();
+  const [projectData, setProjectData] = useState([]);
   const [refreshedPage, setRefreshedPage] = useState(false);
 
   function refreshPage() {
@@ -55,15 +55,14 @@ export default function PlatesContainer(props) {
   }
 
   useEffect(() => {
-    getData(`/data/projects/${params.id}`)
+    getData(`/data/project/${params.id}/materials/platematerial`)
     if (fetchedData) {
       setProjectData(fetchedData)
     }
   }, [projectData, refreshedPage])
 
-
   const positionCounter = 0
-  const projectDataArr = fetchedData.plateMaterials && fetchedData.plateMaterials.map((item, index = 1 )=> {
+  const projectDataArr = fetchedData && fetchedData.map((item, index = 1 )=> {
     return (
       <PlateMaterialItem 
         key={item.plateMaterialId} 

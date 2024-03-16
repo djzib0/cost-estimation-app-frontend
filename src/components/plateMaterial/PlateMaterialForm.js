@@ -59,7 +59,13 @@ export default function PlateMaterialForm(props) {
   useEffect(() => {
     setMaterialGrades(prevData => fetchedData)
     if (fetchedData) {
+      // iterate through material grades
       for (let item of materialGrades) {
+        // if edited plate material grade is in array of material grades, 
+        // form get that values and set it while rendered.
+        // If the user delete material grade from dictionary
+        // and the plate will be edited, it won't find it in array,
+        // and then the values will be set to the default one
         if (item.euSymbol === materialGrade) {
           setFormData(prevData => {
             return {

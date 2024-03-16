@@ -54,13 +54,11 @@ export default function RoundbarsContainer(props) {
   }
 
   useEffect(() => {
-    getData(`../../../data/materials/roundbar/${params.id}`)
+    getData(`../../../data/project//${params.id}/materials/roundbar`)
     if (fetchedData) {
       setRoundbarsData(fetchedData)
     }
   }, [roundbarsData, refreshedPage])
-
-  console.log(roundbarsData)
 
   const positionCounter = 0
   const roundbarsDataArr = fetchedData && fetchedData.map((item, index = 1 )=> {
