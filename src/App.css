@@ -212,7 +212,17 @@ input[type=number] {
   height: 150px;
 }
 
+/* FORM GRID ELEMENT WIDTH VARIANTS */
+
 .span--2c3r {
+  display: flex;
+  justify-content: center;
   grid-column: 2 / span 2;
   grid-row: 1 / span 3;
+}
+
+.span--3c1r {
+  display: flex;
+  justify-content: center;
+  grid-column: 1 / span 3;
 }

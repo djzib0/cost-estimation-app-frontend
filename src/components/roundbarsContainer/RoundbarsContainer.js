@@ -4,11 +4,10 @@ import MainContentContainer from '../mainContentContainer/MainContentContainer';
 import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
-import MainContentHeaderContainerItemNarrow from '../mainContentContainer/MainContentHeaderContainerItemNarrow';
+import MainContentHeaderContainerItemNarrower from '../mainContentContainer/MainContentHeaderContainerItemNarrower';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
-import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
-import MainContentHeaderContainerItemNarrower from '../mainContentContainer/MainContentHeaderContainerItemNarrower';
+import RoundbarMaterialForm from '../roundbarMaterial/RoundbarMaterialForm';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -67,9 +66,9 @@ export default function RoundbarsContainer(props) {
         key={item.roundbarMaterialId} 
         item={item} 
         position={index + 1}
-        // materialGradeId={item.materialGrade.materialGradeId}
-        // editItem={setEditModal}
-        // deleteItem={setDeleteModal}
+        materialGradeId={item.materialGrade.materialGradeId}
+        editItem={setEditModal}
+        deleteItem={setDeleteModal}
         />
     )
   })
@@ -112,6 +111,7 @@ export default function RoundbarsContainer(props) {
   }
 
   function setDeleteModal(item) {
+    console.log(item, "item")
     setModalData(prevData => {
       //open new modal with new properties
       return {
@@ -123,7 +123,7 @@ export default function RoundbarsContainer(props) {
         elementId: item.projectid,
         value: "",
         refreshFunc: {refreshPage},
-        handleFunction: () => deleteData(`../../../data/materials/platematerial/delete/${item.plateMaterialId}`),
+        handleFunction: () => deleteData(`../../../data/materials/roundbarmaterial/delete/${item.roundbarMaterialId}`),
         closeFunc: {toggleModalOff},
         obj: {...item}
       }})
@@ -174,13 +174,13 @@ export default function RoundbarsContainer(props) {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        // form={<PlateMaterialForm 
-        //   obj={modalData.obj} 
-        //   type={modalData.modalType}
-        //   refreshPage={refreshPage}
-        //   projectId={props.projectId}
-        //   closeModal={toggleModalOff}
-        //   />}
+        form={<RoundbarMaterialForm 
+          obj={modalData.obj} 
+          type={modalData.modalType}
+          refreshPage={refreshPage}
+          projectId={props.projectId}
+          closeModal={toggleModalOff}
+          />}
         />}
     </div>
   )

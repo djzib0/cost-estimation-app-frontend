@@ -13,8 +13,6 @@ export default function RoundbarMaterialItem(props) {
    const {theme} = useContext(DefaultSettingsContext);
    const themeMode = `--${theme}`
 
-  console.log(props.item)
-
   const {
     remark,
     diameter,

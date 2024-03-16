@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // components imports
 import FormError from '../form/FormError';
 import CtaButton from '../buttons/CtaButton';
 // custom hooks imports
 import useApi from '../../customHooks/useApi';
-// images import
-import rectTestImage from '../../images/rectTestImage.png'
-import ringTestImage from '../../images/ringTestImage.png'
 // utils imports
-import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../utils/utils';
+import { isEmpty, isEqualZero } from '../../utils/utils';
+// images imports
+import roundbarTestImage from '../../images/roundbarTestImage.jpg'
 
-export default function PlateMaterialForm(props) {
+export default function RoundbarMaterialForm(props) {
 
-  
   const {
-    plateMaterialId, dimensionA, dimensionB, isPainted,
-    isPaintedBothSides, isRing, pricePerKg, quantity,
-    thickness, materialGrade, projectId, density, remark} = props.obj;
+    roundbarMaterialId, diameter, profileLength, quantity,
+    isPainted, projectId, pricePerKg, materialGrade, remark,
+    density
+  } = props.obj
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
@@ -24,26 +23,22 @@ export default function PlateMaterialForm(props) {
 
   const [formData, setFormData] = useState(
     {
-      dimensionA: dimensionA ? dimensionA : "",
-      dimensionB: dimensionB ? dimensionB : "",
-      thickness: thickness ? thickness : "",
-      isRing: isRing ? isRing : false,
+      roundbarMaterialId: roundbarMaterialId,
+      diameter: diameter ? diameter : "",
+      profileLength: profileLength ? profileLength : "",
+      quantity: quantity ? quantity : "",
+      remark: remark ? remark : "",
+      materialGrade: materialGrade ? materialGrade: "",
       isPainted: isPainted ? isPainted : false,
-      isPaintedBothSides: isPaintedBothSides ? isPaintedBothSides : false,
-      pricePerKg: pricePerKg ? pricePerKg : "",
-      quantity: quantity ? quantity : 1,
-      materialGrade: materialGrade ? materialGrade : 0,
+      pricePerKg:  pricePerKg ? pricePerKg : "",
       remark: remark ? remark: "",
       // below are required to be a correct json body, but are not
       // editable by user
       projectId: projectId,
       density: density ? density : 0,
       materialGradeId: 0,
-      plateMaterialId: plateMaterialId,
     }
   )
-
-  console.log(formData.materialGrade, " material grade in form")
 
   // utilize useApi custom hook
   const {
@@ -51,11 +46,11 @@ export default function PlateMaterialForm(props) {
     addData,
     editData,
     fetchedData,
-    fetchError,
-  } = useApi();
+    fetchError
+  } = useApi()
 
-  // fetch material grades
-  useEffect(() => {
+   // fetch material grades
+   useEffect(() => {
     getData("../../../data/allmaterialgrades")
   }, [])
 
@@ -83,7 +78,6 @@ export default function PlateMaterialForm(props) {
     }
   }, [fetchedData])
 
-
   // create list of options to display them in form
   const materialGradesArr = materialGrades && materialGrades.map(item => {
     const {materialGradeId, euSymbol } = item;
@@ -109,39 +103,17 @@ export default function PlateMaterialForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    // Check for errors
-    if (isEmpty(formData.dimensionA) || isEqualZero(formData.dimensionA)) {
-      setErrorMessage(
-        formData.isRing ?
-        "Outer diameter cannot be 0 or empty.":
-        "Dimension \"A\" cannot be 0 or empty.")
+    //Check for errors
+    if (isEmpty(formData.diameter) || isEqualZero(formData.diameter)) {
+      setErrorMessage("Diameter cannot be 0 or empty.")
       setIsError(true);
       return
     } else {
       setIsError(false)
     }
 
-    if (isEmpty(formData.dimensionB) || isEqualZero(formData.dimensionB)) {
-      setErrorMessage(
-        formData.isRing ?
-        "Inner diameter cannot be 0 or empty.":
-        "Dimension \"B\" cannot be 0 or empty.")
-      setIsError(true);
-      return
-    } else {
-      setIsError(false)
-    }
-
-    if (formData.isRing && formData.dimensionB > formData.dimensionA) {
-      setErrorMessage("Inner diameter cannot be bigger than outer diameter.")
-      setIsError(true);
-      return
-    } else {
-      setIsError(false)
-    }
-
-    if (isEmpty(formData.thickness) || isEqualZero(formData.thickness)) {
-      setErrorMessage("Thickness cannot be 0 or empty.")
+    if (isEmpty(formData.profileLength) || isEqualZero(formData.profileLength)) {
+      setErrorMessage("Length cannot be 0 or empty.")
       setIsError(true);
       return
     } else {
@@ -175,20 +147,21 @@ export default function PlateMaterialForm(props) {
 
     if (props.type === "add") {
       addData(
-        `../../../data/materials/platematerial/add?materialGradeId=${Number(formData.materialGradeId)}`,
+        `../../../data/materials/roundbar/add?materialGradeId=${Number(formData.materialGradeId)}`,
         formData,
         "Failed to add new plate");
     }
 
     if (props.type === "edit") {
+      console.log(formData.materialGradeId)
       editData(
-        `../../../data/materials/platematerial/edit?materialGradeId=${Number(formData.materialGradeId)}&plateMaterialId=${plateMaterialId}`,
+        `../../../data/materials/roundbar/edit?materialGradeId=${Number(formData.materialGradeId)}`,
         formData,
         "Failed to edit new plate.");
     }
 
+    console.log("submitting")
     props.refreshPage();
-    return
   }
 
   return (
@@ -197,105 +170,55 @@ export default function PlateMaterialForm(props) {
       {fetchError && <FormError errorMessage={fetchError.message} />}
       <form className='form--3xfr'>
 
-      <div className='input-label__container'>
-          <label htmlFor='isRing'>
-            Ring
-          </label>
-          <input
-            type="checkbox"
-            name="isRing"
-            id="isRing"
-            onChange={handleChange} 
-            value={formData.isRing}
-            checked={formData.isRing}
-          />
-        </div>
-        <div className='span--2c3r'>
-          {!formData.isRing ?
-           <img src={rectTestImage} className='form__image'/>:
-           <img src={ringTestImage} className='form__image'/>
-           }
+        <div className='span--3c1r'>
+          <img src={roundbarTestImage} className='form__image'/>
         </div>
 
         <div className='input-label__container'>
-          <label htmlFor='isPainted'>
-            Painted
-          </label>
-          <input
-            type="checkbox"
-            name="isPainted"
-            id="isPainted"
-            onChange={handleChange} 
-            value={formData.isPainted}
-            checked={formData.isPainted}
-          />
-        </div>
-
-        <div className='input-label__container'>
-          <label htmlFor='isPaintedBothSides'>
-            Painted both sides
-          </label>
-          <input
-            type="checkbox"
-            name="isPaintedBothSides"
-            id="isPaintedBothSides"
-            onChange={handleChange} 
-            value={formData.isPaintedBothSides}
-            checked={formData.isPaintedBothSides}
-            disabled={formData.isPainted ? false : true}
-          />
-        </div>
-
-        <div className='input-label__container'>
-          <label htmlFor='dimensionA'>
-            {formData.isRing ? 
-            "Out. diameter [mm]" :
-            "Dimension A [mm]"}
-          </label>
-          <input
-            type="text"
-            placeholder={
-              formData.isRing ?
-              "Outer diameter":
-              "Dimension A"}
-            name="dimensionA"
-            id="dimensionA"
-            onChange={handleChange} 
-            value={formData.dimensionA}
-          />
-        </div>
-
-        <div className='input-label__container'>
-          <label htmlFor='dimensionB'>
-          {formData.isRing ? 
-            "Inn. diameter [mm]" :
-            "Dimension B [mm]"}
-          </label>
-          <input
-            type="text"
-            placeholder={
-              formData.isRing ?
-              "Inner diameter":
-              "Dimension B"}
-            name="dimensionB"
-            id="dimensionB"
-            onChange={handleChange} 
-            value={formData.dimensionB}
-          />
-        </div>
-
-        <div className='input-label__container'>
-          <label htmlFor='thickness'>
-            Thickness [mm]
+          <label htmlFor='diameter'>
+            Diameter [mm]
           </label>
           <input
             type="number"
-            placeholder="Thickness"
-            name="thickness"
-            id="thickness"
+            placeholder="Diameter"
+            name="diameter"
+            id="diameter"
             onChange={handleChange} 
-            value={formData.thickness}
+            value={formData.diameter}
           />
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='profileLength'>
+            Length [mm]
+          </label>
+          <input
+            type="number"
+            placeholder="Length"
+            name="profileLength"
+            id="profileLength"
+            onChange={handleChange} 
+            value={formData.profileLength}
+          />
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='materialGradeId' >
+            Material grade:
+          </label>
+          <select
+            value={formData.materialGradeId}
+            onChange={handleChange}
+            name="materialGradeId"
+            id="materialGradeId"
+          >
+            <option 
+              value={0}
+            >
+            ------
+            </option>
+            {materialGradesArr}
+          </select>
         </div>
 
         <div className='input-label__container'>
@@ -327,23 +250,17 @@ export default function PlateMaterialForm(props) {
         </div>
 
         <div className='input-label__container'>
-          <label htmlFor='materialGradeId' >
-            Material grade:
+          <label htmlFor='isPainted'>
+            Painted?
           </label>
-          <select
-            value={formData.materialGradeId}
-            onChange={handleChange}
-            name="materialGradeId"
-            id="materialGradeId"
-          >
-            <option 
-              value={0}
-            >
-            ------
-            </option>
-            {materialGradesArr}
-          </select>
-
+          <input
+            type="checkbox"
+            name="isPainted"
+            id="isPainted"
+            onChange={handleChange} 
+            value={formData.isPainted}
+            checked={formData.isPainted}
+          />
         </div>
 
         <div className='input-label__container--row--3-3'>
@@ -365,7 +282,6 @@ export default function PlateMaterialForm(props) {
                 </p>
             </div>
           </div>
-          
         </div>
 
       </form>
