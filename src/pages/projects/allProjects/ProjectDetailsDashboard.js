@@ -72,12 +72,12 @@ export default function ProjectDetailsDashboard() {
           </NavLink>
 
           <NavLink 
-            to={"materials"}
+            to={"plates"}
             end
             className={({isActive}) => isActive ? `main-content-header__link${themeMode}--active`
             :`main-content-header__link${themeMode}`}
           >
-              Materials
+              Plates
           </NavLink>
 
           <NavLink 

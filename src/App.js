@@ -133,7 +133,7 @@ export default function App() {
                   <Route path='allProjects' element={<AllProjects />} /> 
                   <Route path='details/:id' element={<ProjectDetailsDashboard />}>
                     <Route index element={<ProjectDetails />} />
-                    <Route path='materials' element={<ProjectMaterials />} />
+                    <Route path='plates' element={<ProjectMaterials />} />
                     <Route path='roundbars' element={<RoundbarMaterials />} />
 
                   </Route>

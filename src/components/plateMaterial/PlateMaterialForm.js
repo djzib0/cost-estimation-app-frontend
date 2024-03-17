@@ -7,6 +7,9 @@ import useApi from '../../customHooks/useApi';
 // images import
 import rectTestImage from '../../images/rectTestImage.png'
 import ringTestImage from '../../images/ringTestImage.png'
+// icons imports
+import { GoTrash } from "react-icons/go";
+import { CiUndo } from "react-icons/ci";
 // utils imports
 import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../utils/utils';
 
@@ -21,6 +24,7 @@ export default function PlateMaterialForm(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [materialGrades, setMaterialGrades] = useState([]);
+  const [remarkClipBoard, setRemarkClipBoard] = useState("");
 
   const [formData, setFormData] = useState(
     {
@@ -189,6 +193,28 @@ export default function PlateMaterialForm(props) {
 
     props.refreshPage();
     return
+  }
+
+  function resetRemark() {
+    // copy remark text and save it in "clipboard" state
+    setRemarkClipBoard(formData.remark);
+    setFormData(prevData => {
+      return {
+        ...prevData,
+        remark: ""
+      }
+    });
+  }
+
+  function undoRemark() {
+    // undo remark from "clipboard" state
+    setFormData(prevData => {
+      return {
+        ...prevData,
+        remark: remarkClipBoard
+      }
+    });
+    setRemarkClipBoard("");
   }
 
   return (
@@ -362,7 +388,21 @@ export default function PlateMaterialForm(props) {
             <div className='chars-counter__container'>
               <p className={formData.remark.length >= 500 ? 'chars-counter--red' : 'chars-counter'}>
                 {formData.remark.length}/500
-                </p>
+              </p>
+              {formData.remark.length > 0
+              ? 
+                <div 
+                className='remark-icon__container'
+                onClick={resetRemark}>
+                  <GoTrash />
+              </div>
+              :
+              <div 
+              className='remark-icon__container'
+              onClick={undoRemark}>
+                <CiUndo />
+              </div>
+              }
             </div>
           </div>
           

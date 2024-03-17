@@ -181,15 +181,35 @@ input[type=number] {
 }
 
 .chars-counter__container {
+  display: flex;
+  align-items: center;
   margin-top: -6px;
   padding: 0;
   padding-left: 6px;
   background-color: transparent;
 }
 
+.remark-icon__container {
+  margin-left: .5em;
+  padding-top: .1em;
+  transition: all .1s ease-in;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.remark-icon__container:hover {
+  scale: 120%;
+}
+
 .chars-counter,
 .chars-counter--red {
   display: inline;
+  width: 45px;
   font-size: .7em;
   padding: 0;
   background-color: transparent;
@@ -198,6 +218,8 @@ input[type=number] {
 .chars-counter--red {
   color: #e0726b;
 }
+
+
 
 .form-buttons__container {
   display: flex;
