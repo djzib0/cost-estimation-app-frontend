@@ -279,7 +279,7 @@ export default function PlateMaterialForm(props) {
             "Dimension A [mm]"}
           </label>
           <input
-            type="text"
+            type="number"
             placeholder={
               formData.isRing ?
               "Outer diameter":
@@ -298,7 +298,7 @@ export default function PlateMaterialForm(props) {
             "Dimension B [mm]"}
           </label>
           <input
-            type="text"
+            type="number"
             placeholder={
               formData.isRing ?
               "Inner diameter":
