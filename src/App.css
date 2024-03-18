@@ -30,8 +30,16 @@ a {
 .main-content__container {
   position: fixed;
   left: 0px;
+  top: 200px;
   display: flex;
   justify-content: center;
+  overflow-y: auto;
+  height: 600px;
+  /* it will set the content always in the middle of page
+  200px is the value of the "left" property from main-content-dashboard__container */
+  width: calc(100vw - 200px);
+  margin-left: 200px; 
+  padding: .5em 2em;
 }
 
 
@@ -47,24 +55,16 @@ a {
   margin-top: 80px;
 }
 
-.main-content__container {
-  position: fixed;
-  top: 200px;
-  /* it will set the content always in the middle of page
-  200px is the value of the "left" property from main-content-dashboard__container */
-  width: calc(100vw - 200px);
-  margin-left: 200px; 
-  padding: .5em 2em;
-}
-
 .main-section__container--dark {
   background-color: #51595f;
   border: 1px solid #51595f;
+  height: fit-content;
 }
 
 .main-section__container--light {
   background-color: #ffffff;
   border: 1px solid #ededf2;
+  height: fit-content;
 }
 
 .main-section__container--dark,
