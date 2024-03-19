@@ -72,6 +72,15 @@ export default function ProjectDetailsDashboard() {
           </NavLink>
 
           <NavLink 
+            to={"operations"}
+            end
+            className={({isActive}) => isActive ? `main-content-header__link${themeMode}--active`
+            :`main-content-header__link${themeMode}`}
+          >
+              Operations
+          </NavLink>
+
+          <NavLink 
             to={"plates"}
             end
             className={({isActive}) => isActive ? `main-content-header__link${themeMode}--active`

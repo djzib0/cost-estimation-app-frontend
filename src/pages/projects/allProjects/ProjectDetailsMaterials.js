@@ -28,7 +28,7 @@ export default function ProjectDetailsMaterials() {
               <MainContentHeaderContainerItem>Project Number</MainContentHeaderContainerItem>
               <MainContentHeaderContainerItem>Project Client Number</MainContentHeaderContainerItem>
             </MainContentHeaderContainer>
-              <div className='rows__container'>
+            <div className='rows__container'>
                 
             </div>
           </div>

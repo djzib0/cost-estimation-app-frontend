@@ -28,6 +28,7 @@ import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
 import ProjectDetailsDashboard from './pages/projects/allProjects/ProjectDetailsDashboard';
+import OperationsContainer from './components/operationsContainer/OperationsContainer';
 
 const AuthUserContext = createContext();
 const DefaultSettingsContext = createContext();
@@ -133,6 +134,7 @@ export default function App() {
                   <Route path='allProjects' element={<AllProjects />} /> 
                   <Route path='details/:id' element={<ProjectDetailsDashboard />}>
                     <Route index element={<ProjectDetails />} />
+                    <Route path='operations' element={<OperationsContainer />} />
                     <Route path='plates' element={<ProjectMaterials />} />
                     <Route path='roundbars' element={<RoundbarMaterials />} />
 

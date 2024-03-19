@@ -20,7 +20,7 @@ export default function GradesDictionaryDashboard() {
           <MainContentHeader title={"Material Grades"} />
         </HorizontalDashboard.Title>
         <HorizontalDashboard.Tabs>
-
+          
           <NavLink 
             to={"."}
             end

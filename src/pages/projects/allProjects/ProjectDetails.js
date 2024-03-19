@@ -39,7 +39,6 @@ export default function ProjectDetails() {
 
   return (
     <div className='main-content__container'>
-        {/* <PlatesContainer projectId={params.id}/> */}
         Tutaj będzie summary
     </div>
   )
