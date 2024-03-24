@@ -7,8 +7,9 @@ import MainContentHeaderContainer from '../mainContentContainer/MainContentHeade
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
-// context imports
+// params import
 import { useParams } from 'react-router-dom';
+// context imports
 import { DefaultSettingsContext } from '../../App';
 import { ModalContext } from '../../App';
 // custom hooks imports
@@ -16,8 +17,9 @@ import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 import ProjectDetailItem from '../../pages/projects/allProjects/ProjectDetailsItem';
 import OperationItem from '../operation/OperationItem';
+import OperationForm from '../operation/OperationForm';
 
-export default function OperationsContainer() {
+export default function OperationsContainer(props) {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -77,15 +79,50 @@ export default function OperationsContainer() {
       }})
     toggleModalOn();
   }
+  
+  function setEditModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "edit",
+        messageTitle: "Enter new values",
+        messageText: "Please enter the data in all input fields",
+        elementId: item.plateMaterialId,
+        value: "",
+        obj: {...item}
+      }})
+    toggleModalOn();
+  }
+
+  function setDeleteModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "delete",
+        messageTitle: "Do you want to delete this element?",
+        messageText: "If you press OK, it will be permanently removed from the database.",
+        elementId: item.projectid,
+        value: "",
+        refreshFunc: {refreshPage},
+        handleFunction: () => deleteData(`../../../data/operations/delete/${item.projectOperationId}`),
+        closeFunc: {toggleModalOff},
+        obj: {...item}
+      }})
+      toggleModalOn();
+  }
 
   const operationsArr = fetchedData && fetchedData.map((item, index = 1) => {    
-    console.log(item, "item")
     return (
       <OperationItem
         key={item.projectOperationId}
         item={item}
         position={index + 1}
-        
+        editItem={setEditModal}
+        deleteItem={setDeleteModal}
       />
     )
   })
@@ -121,6 +158,24 @@ export default function OperationsContainer() {
           </div>
         </MainSectionContainer>
       </MainContentContainer>
+      {isModalOn && 
+      <Modal
+        isActive={modalData.isActive}
+        modalType={modalData.modalType}
+        messageTitle={modalData.messageTitle}
+        messageText={modalData.messageText}
+        handleFunction={modalData.handleFunction}
+        onClose={toggleModalOff}
+        obj={modalData.obj}
+        refreshPage={refreshPage}
+        form={<OperationForm 
+          obj={modalData.obj} 
+          type={modalData.modalType}
+          refreshPage={refreshPage}
+          projectId={props.projectId}
+          closeModal={toggleModalOff}
+          />}
+        />}
     </div>
   )
 }

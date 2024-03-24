@@ -47,8 +47,6 @@ export default function PlateMaterialForm(props) {
     }
   )
 
-  console.log(formData.materialGrade, " material grade in form")
-
   // utilize useApi custom hook
   const {
     getData,
@@ -168,7 +166,6 @@ export default function PlateMaterialForm(props) {
       setIsError(false)
     }
 
-    console.log(formData.materialGradeId, "grade id ")
     if (Number(formData.materialGradeId) === 0) {
       setErrorMessage("Please choose the material grade.")
       setIsError(true);

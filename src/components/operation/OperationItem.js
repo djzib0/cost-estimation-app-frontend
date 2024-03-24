@@ -24,8 +24,6 @@ export default function OperationItem(props) {
     remark
   } = props.item;
 
-  console.log(props.item)
-
   // state variables 
   const [isRemarkModalOn, setIsRemarkModalOn] = useState(false)
 
