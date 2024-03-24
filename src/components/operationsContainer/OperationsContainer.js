@@ -4,8 +4,7 @@ import MainContentContainer from '../mainContentContainer/MainContentContainer';
 import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
-import MainContentHeaderContainerItemNarrower from '../mainContentContainer/MainContentHeaderContainerItemNarrower';
-import MainContentHeaderContainerItemNarrow from '../mainContentContainer/MainContentHeaderContainerItemNarrow';
+import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
 // context imports
@@ -108,13 +107,13 @@ export default function OperationsContainer() {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow title={"Pos."} />
-              <MainContentHeaderContainerItemNarrow title={"Title"} />
-              <MainContentHeaderContainerItemNarrow title={"Quantity [hrs]"} />
-              <MainContentHeaderContainerItemNarrow title={"Price/hr [PLN]"} />
-              <MainContentHeaderContainerItemNarrow title={"Total value [PLN]"} />
-              <MainContentHeaderContainerItemNarrow title={"Type"} />
-              <MainContentHeaderContainerItemNarrow title={"Remark"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Title"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Quantity [hrs]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Price/hr [PLN]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Total value [PLN]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Type"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 {operationsArr}

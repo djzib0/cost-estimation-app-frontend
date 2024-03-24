@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 // components imports
 import RemarkModal from '../remarkModal/RemarkModal';
 import CtaButton from '../buttons/CtaButton';
+// utils imports
+import { capitalFirstLetter } from '../../utils/utils'
 //icons imports
 import { SlNote } from "react-icons/sl";
 // context imports
@@ -16,9 +18,9 @@ export default function OperationItem(props) {
   const {
     operationTitle,
     quantity,
-    pricePerHour,
+    operationPricePerHour,
     totalValue,
-    operationTypeName,
+    operationHourTypeName,
     remark
   } = props.item;
 
@@ -38,9 +40,9 @@ export default function OperationItem(props) {
         <div className='cell__container--narrower'>{props.position}</div>
         <div className='cell__container--narrower'>{operationTitle}</div>
         <div className='cell__container--narrower'>{quantity}</div>
-        <div className='cell__container--narrower'>{pricePerHour}</div>
+        <div className='cell__container--narrower'>{operationPricePerHour}</div>
         <div className='cell__container--narrower'>{totalValue}</div>
-        <div className='cell__container--narrower'>{operationTypeName}</div>
+        <div className='cell__container--narrower'>{operationHourTypeName && capitalFirstLetter(operationHourTypeName)}</div>
         <div className='cell__container--narrower'>{remark}</div>
         <div 
         className='cell__container--narrower'

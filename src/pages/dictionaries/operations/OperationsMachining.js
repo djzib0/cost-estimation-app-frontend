@@ -33,7 +33,7 @@ export default function OperationsMachining() {
           <div className='data__container'>
             <div className='headers__container'> 
               <div className='header__container--narrow'>Id</div>
-              <div className='header__container'>Name</div>
+              <div className='header__container--regular'>Name</div>
               <div className='header__container--narrow'>Group</div>
               <div className='header__container--narrow'>Cost/hr</div>
               <div className='header-cta__container'>

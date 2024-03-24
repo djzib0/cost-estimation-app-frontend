@@ -4,7 +4,6 @@ import MainContentContainer from '../../../components/mainContentContainer/MainC
 import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
 import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer'
 import MainContentHeaderContainerItem from '../../../components/mainContentContainer/MainContentHeaderContainerItem'
-import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../../components/modal/Modal';
@@ -149,10 +148,10 @@ export default function MaterialGrades() {
                 /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow title={"Id"}>Id</MainContentHeaderContainerItemNarrow>
-              <MainContentHeaderContainerItem title={"European"} />
-              <MainContentHeaderContainerItem title={"German"} />
-              <MainContentHeaderContainerItem>Density {`[`}g/cm<sup>3</sup>{`]`}</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItem variant={'narrow'} title={"Id"} />
+              <MainContentHeaderContainerItem variant={'regular'} title={"European"} />
+              <MainContentHeaderContainerItem variant={'regular'} title={"German"} />
+              <MainContentHeaderContainerItem variant={'regular'}>Density {`[`}g/cm<sup>3</sup>{`]`}</MainContentHeaderContainerItem>
               <div className='header-cta__container'></div>
             </MainContentHeaderContainer>
             <div className='rows__container'>

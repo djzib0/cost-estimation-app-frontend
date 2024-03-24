@@ -5,7 +5,6 @@ import MainContentContainer from '../../../components/mainContentContainer/MainC
 import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
 import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer'
 import MainContentHeaderContainerItem from '../../../components/mainContentContainer/MainContentHeaderContainerItem'
-import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow'
 import ProjectDetailsItem from './ProjectDetailsItem';
 import Modal from '../../../components/modal/Modal';
 import CtaButton from '../../../components/buttons/CtaButton'
@@ -145,9 +144,9 @@ export default function AllProjects() {
                 /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow title={"Id"} />
-              <MainContentHeaderContainerItem title={"Project number"} />
-              <MainContentHeaderContainerItem title={"Project client number"} />
+              <MainContentHeaderContainerItem variant={'narrow'} title={"Id"} />
+              <MainContentHeaderContainerItem variant={'regular'} title={"Project number"} />
+              <MainContentHeaderContainerItem variant={'regular'} title={"Project client number"} />
             </MainContentHeaderContainer>
             <div className='rows__container'>
               {projectsDataArr}

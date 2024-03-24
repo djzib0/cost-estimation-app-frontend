@@ -23,7 +23,6 @@
     background-color: #f3f6fd;
 }
 
-
 .cell__container {
     width: 200px;
     display: flex;
@@ -46,6 +45,12 @@
     position: relative
 }
 
+.cell__container--wide {
+    width: 300px;
+    font-size: 0.75em;
+    position: relative
+}
+
 .cell-cta__container {
     display: flex;
     width: fit-content;
@@ -54,8 +59,6 @@
     align-items: center;
 }
 
-.header__container,
-.header__container--narrow,
 .cell__container,
 .cell__container--narrow {
     margin-right: 1em;

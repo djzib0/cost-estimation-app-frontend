@@ -4,13 +4,11 @@ import MainContentContainer from '../mainContentContainer/MainContentContainer';
 import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
-import MainContentHeaderContainerItemNarrow from '../mainContentContainer/MainContentHeaderContainerItemNarrow';
 import Modal from '../modal/Modal';
 import PlateMaterialForm from '../plateMaterial/PlateMaterialForm';
 import PlateMaterialItem from '../plateMaterial/PlateMaterialItem';
 import CtaButton from '../buttons/CtaButton';
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
-import MainContentHeaderContainerItemNarrower from '../mainContentContainer/MainContentHeaderContainerItemNarrower';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -147,19 +145,19 @@ export default function PlatesContainer(props) {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrower title={"Pos."} />
-              <MainContentHeaderContainerItemNarrower title={"Dim. A [mm]"} />
-              <MainContentHeaderContainerItemNarrower title={"Dim. B [mm]"} />
-              <MainContentHeaderContainerItemNarrower title={"Thick. [mm]"} />
-              <MainContentHeaderContainerItemNarrower title={"Weight [kg]"} />
-              <MainContentHeaderContainerItemNarrower title={"Quantity"} />
-              <MainContentHeaderContainerItemNarrower title={"Weight total [kg]"} />
-              <MainContentHeaderContainerItemNarrower title={"Grade"} />
-              <MainContentHeaderContainerItemNarrower title={"Painted?"} />
-              <MainContentHeaderContainerItemNarrower title={"Both sides?"} />
-              <MainContentHeaderContainerItemNarrower title={<>Area [m<sup>2</sup>]</>} />
-              <MainContentHeaderContainerItemNarrower title={"Shape"} />
-              <MainContentHeaderContainerItemNarrower title={"Remark"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Dim. A [mm]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Dim. B [mm]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Thick. [mm]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Weight [kg]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Quantity"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Weight total [kg]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Grade"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Painted?"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Both sides?"} />
+              <MainContentHeaderContainerItem variant='narrower' title={<>Area [m<sup>2</sup>]</>} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Shape"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 {projectDataArr}

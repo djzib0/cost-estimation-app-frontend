@@ -4,7 +4,6 @@ import MainContentContainer from '../../../components/mainContentContainer/MainC
 import MainSectionContainer from '../../../components/mainContentContainer/MainSectionContainer'
 import MainContentHeaderContainer from '../../../components/mainContentContainer/MainContentHeaderContainer'
 import MainContentHeaderContainerItem from '../../../components/mainContentContainer/MainContentHeaderContainerItem'
-import MainContentHeaderContainerItemNarrow from '../../../components/mainContentContainer/MainContentHeaderContainerItemNarrow'
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
@@ -24,9 +23,9 @@ export default function ProjectDetailsMaterials() {
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrow>Id</MainContentHeaderContainerItemNarrow>
-              <MainContentHeaderContainerItem>Project Number</MainContentHeaderContainerItem>
-              <MainContentHeaderContainerItem>Project Client Number</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItem variant={'narrow'}>Id</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItem variant={'regular'}>Project Number</MainContentHeaderContainerItem>
+              <MainContentHeaderContainerItem variant={'regular'}>Project Client Number</MainContentHeaderContainerItem>
             </MainContentHeaderContainer>
             <div className='rows__container'>
                 

@@ -4,7 +4,7 @@ import MainContentContainer from '../mainContentContainer/MainContentContainer';
 import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
-import MainContentHeaderContainerItemNarrower from '../mainContentContainer/MainContentHeaderContainerItemNarrower';
+import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
 import RoundbarMaterialItem from '../roundbarMaterial/RoundbarMaterialItem';
@@ -146,17 +146,17 @@ export default function RoundbarsContainer(props) {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItemNarrower title={"Pos."} />
-              <MainContentHeaderContainerItemNarrower title={"Diameter [mm]"} />
-              <MainContentHeaderContainerItemNarrower title={"Length [mm]"} />
-              <MainContentHeaderContainerItemNarrower title={"Weight [kg]"} />
-              <MainContentHeaderContainerItemNarrower title={"Weight/m [kg]"} />
-              <MainContentHeaderContainerItemNarrower title={"Quantity"} />
-              <MainContentHeaderContainerItemNarrower title={"Weight total [kg]"} />
-              <MainContentHeaderContainerItemNarrower title={"Grade"} />
-              <MainContentHeaderContainerItemNarrower title={"Painted?"} />
-              <MainContentHeaderContainerItemNarrower title={<>Area [m<sup>2</sup>]</>} />
-              <MainContentHeaderContainerItemNarrower title={"Remark"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Pos."} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Diameter [mm]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Length [mm]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight [kg]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight/m [kg]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Quantity"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight total [kg]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Grade"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Painted?"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={<>Area [m<sup>2</sup>]</>} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 {roundbarsDataArr}
