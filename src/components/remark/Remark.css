@@ -1,0 +1,36 @@
+.remark__container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.remark__text {
+    text-align: justify;
+    width: 80%;
+}
+
+.toggle__btn--round--dark,
+.toggle__btn--round--light {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1em;
+    background-color: transparent;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    transition: all .3s ease-in;
+}
+
+.toggle__btn--round--dark:hover,
+.toggle__btn--round--light:hover {
+    scale: 120%;
+
+}
+
+.toggle__btn--round--dark {
+    color: #ededf2;
+}
+
+.toggle__btn--round--light {
+    color: #192c3b;
+}

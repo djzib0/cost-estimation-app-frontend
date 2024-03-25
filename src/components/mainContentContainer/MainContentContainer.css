@@ -23,6 +23,13 @@
     background-color: #f3f6fd;
 }
 
+.cell-cta__container,
+.cell__container--narrow,
+.cell__container--narrower,
+.cell__container--wide {
+    margin-right: 1em;
+}
+
 .cell__container {
     width: 200px;
     display: flex;

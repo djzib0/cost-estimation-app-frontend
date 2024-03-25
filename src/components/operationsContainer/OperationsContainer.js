@@ -126,14 +126,13 @@ export default function OperationsContainer(props) {
       />
     )
   })
-
-
+  
   return (
     <div>
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-            <MainContentContainerTitle title={"Round bars"} />
+            <MainContentContainerTitle title={"Operations"} />
             <div>
             <CtaButton 
                   title={`Add new operation`}
@@ -145,12 +144,12 @@ export default function OperationsContainer(props) {
             </div>
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Title"} />
+              <MainContentHeaderContainerItem variant='wide' title={"Title"} />
               <MainContentHeaderContainerItem variant='narrower' title={"Quantity [hrs]"} />
               <MainContentHeaderContainerItem variant='narrower' title={"Price/hr [PLN]"} />
               <MainContentHeaderContainerItem variant='narrower' title={"Total value [PLN]"} />
               <MainContentHeaderContainerItem variant='narrower' title={"Type"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Remark"} />
+              <MainContentHeaderContainerItem variant='wide' title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 {operationsArr}

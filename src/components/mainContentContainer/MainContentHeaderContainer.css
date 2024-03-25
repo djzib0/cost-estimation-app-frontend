@@ -11,7 +11,8 @@
 
 .header__container--regular,
 .header__container--narrow,
-.header__container--narrower {
+.header__container--narrower,
+.header__container--wide {
     border-bottom: 1px solid;
     margin-right: 1em;
     justify-content: flex-start;
@@ -29,6 +30,11 @@
 
 .header__container--narrower {
     width: 65px;
+    font-size: 0.75em;
+}
+
+.header__container--wide {
+    width: 300px;
     font-size: 0.75em;
 }
 
