@@ -7,6 +7,8 @@ import Remark from '../remark/Remark';
 import { capitalFirstLetter } from '../../utils/utils'
 //icons imports
 import { SlNote } from "react-icons/sl";
+import { FaArrowUp } from "react-icons/fa";
+import { FaArrowDown } from "react-icons/fa";
 // context imports
 import { DefaultSettingsContext } from '../../App';
 
@@ -22,8 +24,18 @@ export default function OperationItem(props) {
     operationPricePerHour,
     totalValue,
     operationHourTypeName,
-    remark
+    remark,
   } = props.item;
+
+  // console.log(props.previousItemPosition, "prev")
+  // console.log(props.nextItemPosition, " next")
+  // console.log(props.operationsArrLength, " length")
+
+  function moveUp() {
+    console.log("moving up")
+    props.refreshPage();
+  }
+
 
   return (
     <div className={`row__container${themeMode}`}>
@@ -35,6 +47,11 @@ export default function OperationItem(props) {
         <div className='cell__container--narrower'>{operationHourTypeName && capitalFirstLetter(operationHourTypeName)}</div>
         <div className='cell__container--wide'>
           <Remark text={remark} />
+        </div>
+        <div>
+          {props.previousItemPosition != 0 && <FaArrowUp onClick={() => moveUp()} />}
+          {props.nextItemPosition <= props.operationsArrLength && <FaArrowDown />}
+
         </div>
         
         <div className='cell-cta__container'>

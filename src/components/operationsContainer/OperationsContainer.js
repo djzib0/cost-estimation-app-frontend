@@ -116,13 +116,18 @@ export default function OperationsContainer(props) {
   }
 
   const operationsArr = fetchedData && fetchedData.map((item, index = 1) => {    
+    const position = index + 1;
     return (
       <OperationItem
         key={item.projectOperationId}
         item={item}
-        position={index + 1}
+        position={position}
         editItem={setEditModal}
         deleteItem={setDeleteModal}
+        previousItemPosition={position - 1}
+        nextItemPosition={position + 1}
+        operationsArrLength={fetchedData.length}
+        refreshPage={refreshPage}
       />
     )
   })
