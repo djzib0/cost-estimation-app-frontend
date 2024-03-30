@@ -1,0 +1,13 @@
+.arrow__icon {
+    display: inline;
+    padding: 0;
+    transition: all ease-in .2s;
+    -webkit-transition: all .2s ease;
+    margin-right: .2em;
+    cursor: pointer;
+}
+
+.arrow__icon:hover {
+    opacity: 60%;
+    font-size: 130%;
+}

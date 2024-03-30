@@ -124,10 +124,12 @@ export default function OperationsContainer(props) {
         position={position}
         editItem={setEditModal}
         deleteItem={setDeleteModal}
-        previousItemPosition={position - 1}
-        nextItemPosition={position + 1}
+        previousItemId={fetchedData[index -1] && fetchedData[index - 1].projectOperationId}
+        nextItemId={fetchedData[index + 1] && fetchedData[index + 1].projectOperationId}
         operationsArrLength={fetchedData.length}
         refreshPage={refreshPage}
+        isFirst={index === 0}
+        isLast={index === fetchedData.length - 1}
       />
     )
   })
@@ -156,7 +158,7 @@ export default function OperationsContainer(props) {
               <MainContentHeaderContainerItem variant='narrower' title={"Type"} />
               <MainContentHeaderContainerItem variant='wide' title={"Remark"} />
             </MainContentHeaderContainer>
-              <div className='rows__container'>
+            <div className='rows__container'>
                 {operationsArr}
             </div>
           </div>

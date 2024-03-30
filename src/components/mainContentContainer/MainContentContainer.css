@@ -23,6 +23,11 @@
     background-color: #f3f6fd;
 }
 
+.position-arrows__container {
+    width: 40px;
+    font-size: .7em;
+}
+
 .cell-cta__container,
 .cell__container--narrow,
 .cell__container--narrower,

@@ -3,6 +3,8 @@ import React, { useContext, useState } from 'react';
 import RemarkModal from '../remarkModal/RemarkModal';
 import CtaButton from '../buttons/CtaButton';
 import Remark from '../remark/Remark';
+// custom hooks imports
+import useApi from '../../customHooks/useApi';
 // utils imports
 import { capitalFirstLetter } from '../../utils/utils'
 //icons imports
@@ -11,6 +13,8 @@ import { FaArrowUp } from "react-icons/fa";
 import { FaArrowDown } from "react-icons/fa";
 // context imports
 import { DefaultSettingsContext } from '../../App';
+// styles imports
+import "./OperationItem.css"
 
 export default function OperationItem(props) {
 
@@ -18,21 +22,42 @@ export default function OperationItem(props) {
   const {theme} = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`
 
+  // utilize custom hooks
   const {
+    changeEntryPosition
+  } = useApi()
+
+  const {
+    projectOperationId,
     operationTitle,
     quantity,
     operationPricePerHour,
     totalValue,
     operationHourTypeName,
     remark,
+    positionInProject
   } = props.item;
 
+  const {
+    isFirst,
+    isLast,
+    nextItemId,
+    previousItemId
+  } = props
+  
   // console.log(props.previousItemPosition, "prev")
   // console.log(props.nextItemPosition, " next")
   // console.log(props.operationsArrLength, " length")
 
-  function moveUp() {
-    console.log("moving up")
+  function increasePosition() {
+    console.log("increasing position")
+    changeEntryPosition(`../../../data/operation/changeposition?editedOperationId=${projectOperationId}&switchedOperationId=${nextItemId}`)
+    props.refreshPage();
+  }
+
+  function decreasePosition() {
+    console.log("decreasing position")
+    changeEntryPosition(`../../../data/operation/changeposition?editedOperationId=${projectOperationId}&switchedOperationId=${previousItemId}`)
     props.refreshPage();
   }
 
@@ -48,12 +73,16 @@ export default function OperationItem(props) {
         <div className='cell__container--wide'>
           <Remark text={remark} />
         </div>
-        <div>
-          {props.previousItemPosition != 0 && <FaArrowUp onClick={() => moveUp()} />}
-          {props.nextItemPosition <= props.operationsArrLength && <FaArrowDown />}
-
+        <div className='position-arrows__container'>
+          {!isFirst && 
+          <FaArrowUp 
+            onClick={() => decreasePosition()}
+            className='arrow__icon' />}
+          {!isLast && 
+          <FaArrowDown 
+            onClick={() => increasePosition()}
+            className='arrow__icon'/>}
         </div>
-        
         <div className='cell-cta__container'>
           <CtaButton 
                   title="edit"

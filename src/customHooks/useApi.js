@@ -91,6 +91,12 @@ function useApi() {
     })
   }
 
+  async function changeEntryPosition(url, editedItemPosition, SwitchedItemPosition, errMsg) {
+    fetch(url, {
+      method: 'PUT',
+    })
+  }
+
 
   return {
     fetchedData,
@@ -99,7 +105,8 @@ function useApi() {
     getData,
     addData,
     editData,
-    deleteData
+    deleteData,
+    changeEntryPosition
   }
 }
 
