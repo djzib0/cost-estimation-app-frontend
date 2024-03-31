@@ -9,7 +9,7 @@ import { ModalContext } from '../../../App';
 import useApi from '../../../customHooks/useApi';
 import useModal from '../../../customHooks/useModal';
 
-export default function ProjectDetails() {
+export default function ProjectMaterials() {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)

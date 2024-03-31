@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 // components imports
-import PlatesContainer from '../../../components/platesContainer/PlatesContainer';
+import SummaryContainer from '../../../components/summary/SummaryContainer';
 // contexts imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../../App';
@@ -39,7 +39,7 @@ export default function ProjectDetails() {
 
   return (
     <div className='main-content__container'>
-        Tutaj będzie summary
+        <SummaryContainer />
     </div>
   )
 }
