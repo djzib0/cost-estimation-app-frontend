@@ -28,7 +28,8 @@ function isEqualZero(input) {
 function summarizeOperationsCost(data) {
     let operationsDict = new Map();
 
-    for (let operation of data) {
+    if (data) {
+        for (let operation of data) {
         const operationType = operation.operationHourTypeName;
         const quantity = operation.quantity;
         const pricePerHr = operation.operationPricePerHour;
@@ -55,13 +56,55 @@ function summarizeOperationsCost(data) {
                     hoursQuantity: quantity
                 })
         }
+        }
     }
-
+    
     return Array.from(operationsDict)
+}
+
+function summarizePlateMaterials(data) {
+    let materialsDic = new Map();
+    if (data) {
+        for (let material of data) {
+            const materialGradeName = material.materialGrade
+        // check if the key is in the dictionary
+        // if dict contains a key, add total value of selected materials
+        // to already existed total value
+        if (materialsDic.has(materialGradeName)) {
+            let obj = materialsDic.get(materialGradeName)
+            console.log("obj", obj)
+            materialsDic.set(
+                materialGradeName,
+                {
+                    ...obj,
+                    totalValue: obj.totalValue + material.totalValue,
+                    totalWeight: obj.totalWeight + material.totalWeight
+                })
+                // materialsDic.get(materialGradeName) + material.totalValue)
+        } else {
+            let obj = {
+                totalValue: 0,
+                totalWeight: 0
+            }
+            // if dict doesn't contain a key, set a new key with value 0
+            materialsDic.set(materialGradeName, 0);
+            materialsDic.set(
+                materialGradeName,
+                {
+                    ...obj,
+                    totalValue: material.totalValue,
+                    totalWeight: material.totalWeight
+                }
+                )
+        }
+        }
+    }
+    console.log(materialsDic)
+    return Array.from(materialsDic)
 }
 
 
 export {
     capitalFirstLetter, getLocalStorageTheme, isEmpty, isEqualZero,
-    summarizeOperationsCost
+    summarizeOperationsCost, summarizePlateMaterials
 }

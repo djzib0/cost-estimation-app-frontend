@@ -5,6 +5,7 @@ import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
+import SummaryOperationItem from './SummaryOperationItem';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -13,7 +14,7 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 // utilities imports
-import { summarizeOperationsCost } from '../../utils/utils';
+import { summarizeOperationsCost, summarizePlateMaterials } from '../../utils/utils';
 
 export default function SummaryContainer(props) {
 
@@ -45,7 +46,6 @@ export default function SummaryContainer(props) {
   // state variables
   const [projectData, setProjectData] = useState([]);
   const [refreshedPage, setRefreshedPage] = useState(false);
-  const [operationsData, setOperationsData] = useState([]);
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
@@ -56,22 +56,31 @@ export default function SummaryContainer(props) {
   }, [refreshedPage])
 
   useEffect(() => {
-    setOperationsData(fetchedData.operations)
+    setProjectData(fetchedData)
   }, [fetchedData])
 
   // operations summary
-  
-  const operationsSummary = operationsData && summarizeOperationsCost(operationsData);
-  const operationsSummaryArr = operationsSummary && operationsSummary.map((item) => {
-    console.log(item[1])
+  let operationsTotalValue = 0;
+  const operationsSummary = projectData && summarizeOperationsCost(fetchedData.operations);
+  const operationsSummaryArr = operationsSummary && operationsSummary.map((item, index) => {
+    const position = index + 1;
+    operationsTotalValue += item[1].hoursQuantity * item[1].pricePerHr
     return (
-        <div>
-            {item[0]}
-            <p>{item[1].hoursQuantity}</p>
-            <p>{item[1].pricePerHr}</p>
-        </div>
+        <SummaryOperationItem
+          key={index}
+          position={position}
+          type={item[0]}
+          quantity={item[1].hoursQuantity}
+          pricePerHr={item[1].pricePerHr}
+        />
     )
   })
+
+  // materials summary
+  let plateMaterialsTotalValue = projectData && summarizePlateMaterials(fetchedData.plateMaterials);
+  // console.log(plateMaterialsTotalValue, " total value of plate materials")
+  let roundbarMaterialsTotalValue = 0;
+
   
   return (
     <div>
@@ -89,10 +98,29 @@ export default function SummaryContainer(props) {
             <div className='rows__container'>
                 {operationsSummaryArr}
             </div>
+            <div className='total-value__container'>
+              Total value: {operationsTotalValue},-
+            </div>
           </div>
         </MainSectionContainer>
       </MainContentContainer>
-      
+
+      <MainContentContainer>
+        <MainSectionContainer themeMode={themeMode}>
+          <div className='data__container'>
+            <MainContentContainerTitle title={"Materials"} />
+            <MainContentHeaderContainer>
+              <MainContentHeaderContainerItem variant='narrow' title={"Plates"} />
+              <MainContentHeaderContainerItem variant='narrow' title={"Total value [PLN]"} />
+            </MainContentHeaderContainer>
+            <div className='rows__container'>
+            </div>
+            <div className='total-value__container'>
+              {/* Total value: {plateMaterialsTotalValue},- */}
+            </div>
+          </div>
+        </MainSectionContainer>
+      </MainContentContainer>
     </div>
   )
 }
