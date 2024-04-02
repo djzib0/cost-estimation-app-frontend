@@ -14,7 +14,8 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 // utilities imports
-import { summarizeOperationsCost, summarizePlateMaterials } from '../../utils/utils';
+import { summarizeOperationsCost, summarizePlateMaterials, formatValueToCurrency } from '../../utils/utils';
+import SummaryPlateMaterialsItem from './SummaryPlateMaterialsItem';
 
 export default function SummaryContainer(props) {
 
@@ -76,11 +77,24 @@ export default function SummaryContainer(props) {
     )
   })
 
-  // materials summary
-  let plateMaterialsTotalValue = projectData && summarizePlateMaterials(fetchedData.plateMaterials);
-  // console.log(plateMaterialsTotalValue, " total value of plate materials")
-  let roundbarMaterialsTotalValue = 0;
+  console.log(projectData, "projectData")
 
+  // materials summary
+  let plateMaterialsTotalValue = 0;
+  let plateMaterialsSummary = projectData && summarizePlateMaterials(projectData.plateMaterials)
+  const plateMaterialsSummaryArr = plateMaterialsSummary && plateMaterialsSummary.map((item, index) => {
+    const position = index + 1;
+    plateMaterialsTotalValue += item[1].totalValue
+    return (
+      <SummaryPlateMaterialsItem
+        key={index}
+        position={position}
+        grade={item[0]}
+        totalWeight={item[1].totalWeight}
+        totalValue={item[1].totalValue}
+      />
+    )
+  })
   
   return (
     <div>
@@ -90,17 +104,24 @@ export default function SummaryContainer(props) {
             <MainContentContainerTitle title={"Operations"} />
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Type"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Quantity"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Price/hr [PLN]"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Total value [PLN]"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Type"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Quantity"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Price/hr [PLN]"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Total value [PLN]"} />
             </MainContentHeaderContainer>
             <div className='rows__container'>
                 {operationsSummaryArr}
             </div>
             <div className='total-value__container'>
-              Total value: {operationsTotalValue},-
+              <div className='total-value__container--title'>
+                Total value:
+              </div>
+              <div className='total-value__container--value'>
+                {formatValueToCurrency(operationsTotalValue)},-
+              </div>
             </div>
+
+
           </div>
         </MainSectionContainer>
       </MainContentContainer>
@@ -110,13 +131,39 @@ export default function SummaryContainer(props) {
           <div className='data__container'>
             <MainContentContainerTitle title={"Materials"} />
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItem variant='narrow' title={"Plates"} />
-              <MainContentHeaderContainerItem variant='narrow' title={"Total value [PLN]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
+              <MainContentHeaderContainerItem variant='regular' title={"Plates"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Total weight [kg]"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Total value [PLN]"} />
             </MainContentHeaderContainer>
             <div className='rows__container'>
+              {plateMaterialsSummaryArr}
             </div>
             <div className='total-value__container'>
-              {/* Total value: {plateMaterialsTotalValue},- */}
+              <div className='total-value__container--title'>
+                Total value: 
+              </div>
+              <div className='total-value__container--value'>
+                {formatValueToCurrency(plateMaterialsTotalValue)} ,-
+              </div>
+            </div>
+
+            <div className='total-value__container'>
+              <div className='total-value__container--title'>
+                Material margin:
+              </div>
+              <div className='total-value__container--value'>
+                {projectData.materialMargin}%
+              </div>
+            </div>
+
+            <div className='total-value__container'>
+              <div className='total-value__container--title'>
+                Total value with margin:
+              </div>
+              <div className='total-value__container--value'>
+                {formatValueToCurrency(plateMaterialsTotalValue * (1 + projectData.materialMargin / 100))},-
+              </div>
             </div>
           </div>
         </MainSectionContainer>

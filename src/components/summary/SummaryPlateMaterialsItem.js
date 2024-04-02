@@ -1,0 +1,28 @@
+import React, { useContext } from 'react';
+// context imports
+import { DefaultSettingsContext } from '../../App';
+// utilities imports
+import { capitalFirstLetter } from '../../utils/utils';
+
+export default function SummaryPlateMaterialsItem(props) {
+
+  const {
+    position,
+    grade,
+    totalWeight,
+    totalValue
+  } = props
+
+  // utilize Theme Context 
+  const {theme} = useContext(DefaultSettingsContext);
+  const themeMode = `--${theme}`
+
+  return (
+    <div className={`row__container${themeMode}`}>
+      <div className='cell__container--narrower'>{position}</div>
+      <div className='cell__container--regular'>{capitalFirstLetter(grade)}</div>
+      <div className='cell__container--regular'>{totalWeight}</div>
+      <div className='cell__container--regular'>{totalValue} ,-</div>
+  </div>
+  )
+}

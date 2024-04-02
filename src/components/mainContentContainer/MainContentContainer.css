@@ -3,6 +3,28 @@
     flex-direction: column;
 }
 
+.rows__container {
+    margin-top: .2em;
+}
+
+.total-value__container {
+    display: flex;
+    justify-content: flex-end;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    margin-top: .4em;
+}
+
+.total-value__container--title {
+
+}
+
+.total-value__container--value {
+    display: flex;
+    justify-content: flex-end;
+    width: 150px;
+}
+
 .headers__container {
     display: flex;
     font-weight: bolder;
@@ -31,6 +53,7 @@
 .cell-cta__container,
 .cell__container--narrow,
 .cell__container--narrower,
+.cell__container--regular,
 .cell__container--wide {
     margin-right: 1em;
 }
@@ -55,6 +78,10 @@
     width: 65px;
     font-size: 0.75em;
     position: relative
+}
+
+.cell__container--regular {
+    width: 200px;
 }
 
 .cell__container--wide {

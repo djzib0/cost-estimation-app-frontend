@@ -20,10 +20,10 @@ export default function SummaryOperationItem(props) {
   return (
     <div className={`row__container${themeMode}`}>
       <div className='cell__container--narrower'>{position}</div>
-      <div className='cell__container--narrower'>{capitalFirstLetter(type)}</div>
-      <div className='cell__container--narrower'>{quantity}</div>
-      <div className='cell__container--narrower'>{pricePerHr}</div>
-      <div className='cell__container--narrower'>{pricePerHr * quantity}</div>
+      <div className='cell__container--regular'>{capitalFirstLetter(type)}</div>
+      <div className='cell__container--regular'>{quantity}</div>
+      <div className='cell__container--regular'>{pricePerHr}</div>
+      <div className='cell__container--regular'>{pricePerHr * quantity} ,-</div>
     </div>
   )
 }

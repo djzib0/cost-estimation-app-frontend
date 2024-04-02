@@ -23,6 +23,12 @@ function isEqualZero(input) {
     return Number(input) === 0;
 }
 
+function formatValueToCurrency(value, locales, currency) {
+    // solution from stack overflow (https://stackoverflow.com/questions/149055/how-to-format-numbers-as-currency-strings)
+    return (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+    // return value.toLocaleString(locales, {style: "currency", currency: currency})
+}
+
 // SUMMARIZE PROJECT COST
 // operations summary
 function summarizeOperationsCost(data) {
@@ -72,7 +78,6 @@ function summarizePlateMaterials(data) {
         // to already existed total value
         if (materialsDic.has(materialGradeName)) {
             let obj = materialsDic.get(materialGradeName)
-            console.log("obj", obj)
             materialsDic.set(
                 materialGradeName,
                 {
@@ -99,12 +104,10 @@ function summarizePlateMaterials(data) {
         }
         }
     }
-    console.log(materialsDic)
     return Array.from(materialsDic)
 }
 
-
 export {
     capitalFirstLetter, getLocalStorageTheme, isEmpty, isEqualZero,
-    summarizeOperationsCost, summarizePlateMaterials
+    formatValueToCurrency, summarizeOperationsCost, summarizePlateMaterials
 }
