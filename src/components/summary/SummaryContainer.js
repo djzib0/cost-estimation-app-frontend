@@ -77,8 +77,6 @@ export default function SummaryContainer(props) {
     )
   })
 
-  console.log(projectData, "projectData")
-
   // materials summary
   let plateMaterialsTotalValue = 0;
   let plateMaterialsSummary = projectData && summarizePlateMaterials(projectData.plateMaterials)

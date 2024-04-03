@@ -28,6 +28,7 @@ export default function AllProjectsForm(props) {
     materialMargin,
     outsourcingMargin,
     salesMargin,
+    netWeight
   } = props.obj
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -43,6 +44,7 @@ export default function AllProjectsForm(props) {
       title: title,
       projectType: props.obj.projectType.typeId ? props.obj.projectType.typeId : "1",
       drawingNumber: drawingNumber ? drawingNumber : "",
+      netWeight: netWeight ? netWeight: 0,
       materialMargin: settings ? settings.defaultMaterialMargin : 0,
       outsourcingMargin: settings ? settings.defaultOutsourcingMargin: 0,
       salesMargin: settings ? settings.defaultSalesMargin: 0,
@@ -112,6 +114,15 @@ export default function AllProjectsForm(props) {
       setIsError(false)
     }
 
+    if (isEmpty(formData.netWeight)) {
+      setErrorMessage(
+        "Net weight cannot be empty. Please enter \"0\" if weight is not known.")
+      setIsError(true);
+      return
+    } else {
+      setIsError(false)
+    }
+
     if (isEmpty(formData.materialMargin)) {
       setErrorMessage(
         "Material margin cannot be empty. Please enter \"0\" if there is no extra margin.")
@@ -141,13 +152,13 @@ export default function AllProjectsForm(props) {
 
     //if there are no input errors call requested method function
     if (props.type === "add") {
-      console.log(formData.projectType, "number of project type")
       addData(`/data/projects/add?projectTypeId=${formData.projectType}`, 
       {
         projectNumber: formData.projectNumber,
         projectClientNumber: formData.projectClientNumber,
         title: formData.title,
         drawingNumber: formData.drawingNumber,
+        netWeight: formData.netWeight,
         materialMargin: formData.materialMargin,
         outsourcingMargin: formData.outsourcingMargin,
         salesMargin: formData.salesMargin
@@ -164,6 +175,7 @@ export default function AllProjectsForm(props) {
         projectClientNumber: formData.projectClientNumber,
         title: formData.title,
         drawingNumber: formData.drawingNumber,
+        netWeight: formData.netWeight,
         materialMargin: formData.materialMargin,
         outsourcingMargin: formData.outsourcingMargin,
         salesMargin: formData.salesMargin
@@ -173,7 +185,6 @@ export default function AllProjectsForm(props) {
     }
   }
 
-
   function handleChange(e) {
     const {name, value, type, checked} = e.target
     setFormData(prevFormData => {
@@ -182,7 +193,7 @@ export default function AllProjectsForm(props) {
         [name]: type === "checkbox" ? checked : value,
       }
     })
-    console.log(formData.projectType, " formdata after change")
+    
   }
 
   return (
@@ -233,7 +244,7 @@ export default function AllProjectsForm(props) {
           </select>
         </div>
 
-        <div className='input-label__container--row--2-3'>
+        <div className='input-label__container--row--3-3'>
           <label htmlFor='projectTitle'>
             Project title:
           </label>
@@ -247,7 +258,7 @@ export default function AllProjectsForm(props) {
           />
         </div>
 
-        <div className='input-label__container'>
+        <div className='input-label__container--row--2-3'>
           <label htmlFor='drawingNumber'>
             Drawing number
           </label>
@@ -258,6 +269,20 @@ export default function AllProjectsForm(props) {
             id="drawingNumber"
             onChange={handleChange} 
             value={formData.drawingNumber}
+          />
+        </div>
+
+        <div className='input-label__container'>
+          <label htmlFor='netWeight'>
+           Net weight [kg]
+          </label>
+          <input
+            type="number"
+            placeholder="Net weight"
+            name="netWeight"
+            id="netWeight"
+            onChange={handleChange} 
+            value={formData.netWeight}
           />
         </div>
 

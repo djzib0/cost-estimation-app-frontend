@@ -23,15 +23,19 @@ export default function ProjectDetailItem(props) {
   const {
     projectId,
     projectNumber,
-    projectClientNumber
+    projectClientNumber,
+    title,
+    netWeight,
   } = props.item;
-
 
   return (
     <div className={`row__container${themeMode}`}>
         <div className='cell__container--narrow'>{projectId}</div>
         <div className='cell__container'>{projectNumber}</div>
         <div className='cell__container'>{projectClientNumber}</div>
+        <div className='cell__container--wide'>{title}</div>
+        <div className='cell__container'>{netWeight}</div>
+
         <div className='cell-cta__container'>
           <CtaButton 
                   title="edit"
