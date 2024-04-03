@@ -10,19 +10,23 @@ export default function SummaryPlateMaterialsItem(props) {
     position,
     grade,
     totalWeight,
-    totalValue
+    totalValue,
+    allPlatesMaterialsTotalWeight
   } = props
 
   // utilize Theme Context 
   const {theme} = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`
 
+  const percentageWeightShare = totalWeight / allPlatesMaterialsTotalWeight * 100
+
   return (
     <div className={`row__container${themeMode}`}>
       <div className='cell__container--narrower'>{position}</div>
       <div className='cell__container--regular'>{capitalFirstLetter(grade)}</div>
       <div className='cell__container--regular'>{totalWeight}</div>
-      <div className='cell__container--regular'>{totalValue} ,-</div>
+      <div className='cell__container--regular'>{totalValue},-</div>
+      <div className='cell__container--regular'>{percentageWeightShare.toFixed(1)}%</div>
   </div>
   )
 }

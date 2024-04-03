@@ -80,6 +80,14 @@ export default function SummaryContainer(props) {
   // materials summary
   let plateMaterialsTotalValue = 0;
   let plateMaterialsSummary = projectData && summarizePlateMaterials(projectData.plateMaterials)
+
+  // calculate gross weight of all plates in the project
+  let allPlatesMaterialsTotalWeight = 0;
+  plateMaterialsSummary && plateMaterialsSummary.map(item => {
+    allPlatesMaterialsTotalWeight += item[1].totalWeight;
+  })
+
+  // create an array of plate item components
   const plateMaterialsSummaryArr = plateMaterialsSummary && plateMaterialsSummary.map((item, index) => {
     const position = index + 1;
     plateMaterialsTotalValue += item[1].totalValue
@@ -90,6 +98,7 @@ export default function SummaryContainer(props) {
         grade={item[0]}
         totalWeight={item[1].totalWeight}
         totalValue={item[1].totalValue}
+        allPlatesMaterialsTotalWeight={allPlatesMaterialsTotalWeight}
       />
     )
   })
@@ -103,7 +112,7 @@ export default function SummaryContainer(props) {
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
               <MainContentHeaderContainerItem variant='regular' title={"Type"} />
-              <MainContentHeaderContainerItem variant='regular' title={"Quantity"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Quantity [hrs]"} />
               <MainContentHeaderContainerItem variant='regular' title={"Price/hr [PLN]"} />
               <MainContentHeaderContainerItem variant='regular' title={"Total value [PLN]"} />
             </MainContentHeaderContainer>
@@ -127,12 +136,13 @@ export default function SummaryContainer(props) {
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-            <MainContentContainerTitle title={"Materials"} />
+            <MainContentContainerTitle title={"Plates"} />
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
               <MainContentHeaderContainerItem variant='regular' title={"Plates"} />
               <MainContentHeaderContainerItem variant='regular' title={"Total weight [kg]"} />
               <MainContentHeaderContainerItem variant='regular' title={"Total value [PLN]"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Gross weight share"} />
             </MainContentHeaderContainer>
             <div className='rows__container'>
               {plateMaterialsSummaryArr}

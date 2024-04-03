@@ -22,7 +22,7 @@ export default function SummaryOperationItem(props) {
       <div className='cell__container--narrower'>{position}</div>
       <div className='cell__container--regular'>{capitalFirstLetter(type)}</div>
       <div className='cell__container--regular'>{quantity}</div>
-      <div className='cell__container--regular'>{pricePerHr}</div>
+      <div className='cell__container--regular'>{pricePerHr},-</div>
       <div className='cell__container--regular'>{pricePerHr * quantity} ,-</div>
     </div>
   )
