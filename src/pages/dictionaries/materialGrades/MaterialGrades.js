@@ -49,6 +49,11 @@ export default function MaterialGrades() {
     loading
   } = useDictionariesApi()
 
+  // if modal is on when the first render occurs,
+  // close modal is any is opened
+  useEffect(() => {
+    toggleModalOff();
+  }, [])
 
   useEffect(() => {
     getMaterialGradesData(gradeGroupName);

@@ -64,6 +64,12 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
+  // if any modal is opened, close it when user goes to another
+  // route/view
+  useEffect(() => {
+    toggleModalOff()
+  }, [])
+
   // fetch user data
   useEffect(() => {
     setLoading(true)

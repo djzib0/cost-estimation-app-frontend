@@ -47,7 +47,6 @@ export default function ProjectDetailItem(props) {
                   />
           </Link>
 
-
           <CtaButton 
                   title="delete"
                   type="delete"

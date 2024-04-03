@@ -54,6 +54,12 @@ export default function OperationsContainer(props) {
     setRefreshedPage(prevState => !prevState)
   }
 
+  // if modal is on when the first render occurs,
+  // close modal is any is opened
+  useEffect(() => {
+    toggleModalOff();
+  }, [])
+
   useEffect(() => {
     getData(`../../../data/project/${params.id}/operations/all`)
     if (fetchedData) {

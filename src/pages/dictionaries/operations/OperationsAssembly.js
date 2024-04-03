@@ -5,16 +5,20 @@ import MainSectionContainer from '../../../components/mainContentContainer/MainS
 import Modal from '../../../components/modal/Modal';
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
+import { ModalContext } from '../../../App';
 // custom hooks imports
-import useDictionariesApi from '../../../customHooks/useDictionariesApi';
 import useModal from '../../../customHooks/useModal';
 // styles import
 
 
 export default function Operations() {
 
+  // utilize default settings context
   const {theme} = useContext(DefaultSettingsContext)
   const themeMode = `--${theme}`
+
+  // utilize modal context
+  const {toggleModalOff} = useContext(ModalContext)
 
   const [operationsData, setOperationsData] = useState();
 
@@ -24,6 +28,12 @@ export default function Operations() {
     setModalData,
     closeModal,
   } = useModal()
+
+  // if modal is on when the first render occurs,
+  // close modal is any is opened
+  useEffect(() => {
+    toggleModalOff();
+  }, [])
 
   
   return (
