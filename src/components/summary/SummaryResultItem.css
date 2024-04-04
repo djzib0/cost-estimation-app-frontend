@@ -1,17 +1,20 @@
-.total-value__container,
-.total-value__container--first-child {
+.total-value__container--light,
+.total-value__container--dark {
     display: flex;
     justify-content: flex-end;
     letter-spacing: 1px;
     font-weight: bolder;
-    background-color: #424C56;
     padding: .4em 0;
 }
 
-.total-value__container--first-child {
-    /* border-top: 1px solid; */
-    margin-top: .5em;
-    padding-top: .5em;
+.total-value__container--light {
+    background-color: #f3f6fd;
+    color: #444d55;
+}
+
+.total-value__container--dark {
+    background-color: #424C56;
+    color: #fafaff;;
 }
 
 .summary-value__container {
