@@ -1,0 +1,27 @@
+.total-value__container,
+.total-value__container--first-child {
+    display: flex;
+    justify-content: flex-end;
+    letter-spacing: 1px;
+    font-weight: bolder;
+    background-color: #424C56;
+    padding: .4em 0;
+}
+
+.total-value__container--first-child {
+    /* border-top: 1px solid; */
+    margin-top: .5em;
+    padding-top: .5em;
+}
+
+.summary-value__container {
+    width: 130px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.summary-suffix__container {
+    width: 20px;
+    display: flex;
+    justify-content: flex-start;
+}

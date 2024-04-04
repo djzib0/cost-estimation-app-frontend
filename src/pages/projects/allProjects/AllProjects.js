@@ -144,11 +144,12 @@ export default function AllProjects() {
                 /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItem variant={'narrow'} title={"Id"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Id"} />
               <MainContentHeaderContainerItem variant={'regular'} title={"Project number"} />
               <MainContentHeaderContainerItem variant={'regular'} title={"Project client number"} />
-              <MainContentHeaderContainerItem variant={'wide'} title={"Project title"} />
-              <MainContentHeaderContainerItem variant={'regular'} title={"Net weight [kg]"} />
+              <MainContentHeaderContainerItem variant={'regular'} title={"Project title"} />
+              <MainContentHeaderContainerItem variant={'regular'} title={"Project type"} />
+              <MainContentHeaderContainerItem variant={'narrow'} title={"Net weight [kg]"} />
             </MainContentHeaderContainer>
             <div className='rows__container'>
               {projectsDataArr}

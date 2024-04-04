@@ -16,6 +16,7 @@ import useModal from '../../customHooks/useModal';
 // utilities imports
 import { summarizeOperationsCost, summarizePlateMaterials, formatValueToCurrency } from '../../utils/utils';
 import SummaryPlateMaterialsItem from './SummaryPlateMaterialsItem';
+import SummaryResultItem from './SummaryResultItem';
 
 export default function SummaryContainer(props) {
 
@@ -119,16 +120,12 @@ export default function SummaryContainer(props) {
             <div className='rows__container'>
                 {operationsSummaryArr}
             </div>
-            <div className='total-value__container'>
-              <div className='total-value__container--title'>
-                Total value:
-              </div>
-              <div className='total-value__container--value'>
-                {formatValueToCurrency(operationsTotalValue)},-
-              </div>
-            </div>
-
-
+            <SummaryResultItem
+              title={"Total value:"}
+              value={formatValueToCurrency(operationsTotalValue)}
+              suffix={",-"}
+              isTop={true}
+             />
           </div>
         </MainSectionContainer>
       </MainContentContainer>
@@ -147,32 +144,22 @@ export default function SummaryContainer(props) {
             <div className='rows__container'>
               {plateMaterialsSummaryArr}
             </div>
-            <div className='total-value__container'>
-              <div className='total-value__container--title'>
-                Total value: 
-              </div>
-              <div className='total-value__container--value'>
-                {formatValueToCurrency(plateMaterialsTotalValue)} ,-
-              </div>
-            </div>
-
-            <div className='total-value__container'>
-              <div className='total-value__container--title'>
-                Material margin:
-              </div>
-              <div className='total-value__container--value'>
-                {projectData.materialMargin}%
-              </div>
-            </div>
-
-            <div className='total-value__container'>
-              <div className='total-value__container--title'>
-                Total value with margin:
-              </div>
-              <div className='total-value__container--value'>
-                {formatValueToCurrency(plateMaterialsTotalValue * (1 + projectData.materialMargin / 100))},-
-              </div>
-            </div>
+            <SummaryResultItem
+              title={"Total value:"}
+              value={formatValueToCurrency(plateMaterialsTotalValue)}
+              suffix={",-"}
+              isTop={true}
+             />
+            <SummaryResultItem
+              title={"Material margin:"}
+              value={projectData.materialMargin}
+              suffix={"%"}
+            />
+            <SummaryResultItem
+              title={"Total value with margin:"}
+              value={formatValueToCurrency(plateMaterialsTotalValue * (1 + projectData.materialMargin / 100))}
+              suffix={",-"}
+            />
           </div>
         </MainSectionContainer>
       </MainContentContainer>

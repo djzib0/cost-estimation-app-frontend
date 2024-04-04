@@ -30,11 +30,12 @@ export default function ProjectDetailItem(props) {
 
   return (
     <div className={`row__container${themeMode}`}>
-        <div className='cell__container--narrow'>{projectId}</div>
+        <div className='cell__container--narrower'>{projectId}</div>
         <div className='cell__container'>{projectNumber}</div>
         <div className='cell__container'>{projectClientNumber}</div>
-        <div className='cell__container--wide'>{title}</div>
-        <div className='cell__container'>{netWeight}</div>
+        <div className='cell__container'>{title}</div>
+        <div className='cell__container'>{title}</div>
+        <div className='cell__container--narrow'>{netWeight}</div>
 
         <div className='cell-cta__container'>
           <CtaButton 

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 // context imports
 import { DefaultSettingsContext } from '../../App';
 // utilities imports
-import { capitalFirstLetter } from '../../utils/utils';
+import { capitalFirstLetter, formatValueToCurrency } from '../../utils/utils';
 
 export default function SummaryPlateMaterialsItem(props) {
 
@@ -25,7 +25,7 @@ export default function SummaryPlateMaterialsItem(props) {
       <div className='cell__container--narrower'>{position}</div>
       <div className='cell__container--regular'>{capitalFirstLetter(grade)}</div>
       <div className='cell__container--regular'>{totalWeight}</div>
-      <div className='cell__container--regular'>{totalValue},-</div>
+      <div className='cell__container--regular'>{formatValueToCurrency(totalValue)},-</div>
       <div className='cell__container--regular'>{percentageWeightShare.toFixed(1)}%</div>
   </div>
   )
