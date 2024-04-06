@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 // custom hooks imports
 import useModal from '../../../customHooks/useModal';
 import useDictionariesApi from '../../../customHooks/useDictionariesApi';

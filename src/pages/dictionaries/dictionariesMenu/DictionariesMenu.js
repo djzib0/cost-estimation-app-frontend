@@ -28,10 +28,10 @@ export default function DictionariesMenu() {
             MATERIAL GRADES
           </NavLink>
 
-          <NavLink to={"operations"} 
+          <NavLink to={"units"} 
             className={({isActive}) => isActive ? `side-menu__item${themeMode}--active` : `side-menu__item${themeMode}`}
           >
-            OPERATIONS
+            UNITS
           </NavLink>
 
         </SideMenu.Item>

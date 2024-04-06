@@ -1,5 +1,5 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import { Outlet } from 'react-router-dom';
 // components imports
 import OperationsDashboard from '../pages/dictionaries/operations/OperationsDashboard'
 

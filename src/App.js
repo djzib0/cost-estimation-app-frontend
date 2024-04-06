@@ -17,18 +17,14 @@ import MaterialGrades from './pages/dictionaries/materialGrades/MaterialGrades';
 import MaterialGradesStSt from './pages/dictionaries/materialGrades/MaterialGradesStSt';
 import MaterialGradesAluminum from './pages/dictionaries/materialGrades/MaterialGradesAluminum';
 import MaterialGradesOther from './pages/dictionaries/materialGrades/MaterialGradesOther';
-import OperationsAssembly from './pages/dictionaries/operations/OperationsAssembly';
-import OperationsWelding from './pages/dictionaries/operations/OperationsWelding';
-import OperationsMachining from './pages/dictionaries/operations/OperationsMachining';
-import OperationsSurfaceConservation from './pages/dictionaries/operations/OperationsSurfaceConservation';
-import OperationsOther from './pages/dictionaries/operations/OperationsOther';
-import OperationsLayout from './layouts/OperationsLayout'
+import UnitsLayout from './layouts/UnitsLayout';
 // css import
 import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
 import ProjectDetailsDashboard from './pages/projects/allProjects/ProjectDetailsDashboard';
 import OperationsContainer from './components/operationsContainer/OperationsContainer';
+import UnitsContainer from './pages/dictionaries/units/UnitsContainer';
 
 const AuthUserContext = createContext();
 const DefaultSettingsContext = createContext();
@@ -156,12 +152,8 @@ export default function App() {
                     <Route path='aluminum' element={<MaterialGradesAluminum />} />
                     <Route path='other' element={<MaterialGradesOther />} />
                   </Route>
-                  <Route path="operations" element={<OperationsLayout />}>
-                    <Route index element={<OperationsAssembly />} />
-                    <Route path='welding' element={<OperationsWelding />} />
-                    <Route path='machining' element={<OperationsMachining />} />
-                    <Route path='surfaceConservation' element={<OperationsSurfaceConservation />} />
-                    <Route path='other' element={<OperationsOther />} />
+                  <Route path="units" element={<UnitsLayout />}>
+                    <Route index element={<UnitsContainer />} />
                   </Route>
                 </Route>
               </Route>

@@ -6,8 +6,7 @@ import MaterialGradeHeadersContainer from './MaterialGradeHeadersContainer'
 import MaterialGradeItem from './MaterialGradeItem'
 import MaterialGradeEditForm from './MaterialGradeEditForm';
 import Modal from '../../../components/modal/Modal';
-import CtaButton from '../../../components/buttons/CtaButton'
-import TestCalculatingKgsByGradeAndThickness from './TestCalculatingKgsByGradeAndThickness'
+import CtaButton from '../../../components/buttons/CtaButton';
 // contexts imports
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
