@@ -7,17 +7,19 @@ import MainContentHeaderContainer from '../mainContentContainer/MainContentHeade
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
-import RoundbarMaterialItem from '../roundbarMaterial/RoundbarMaterialItem';
-import RoundbarMaterialForm from '../roundbarMaterial/RoundbarMaterialForm';
-// context imports
+// params import
 import { useParams } from 'react-router-dom';
+// context imports
 import { DefaultSettingsContext } from '../../App';
 import { ModalContext } from '../../App';
 // custom hooks imports
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
+import ProjectDetailItem from '../../pages/projects/allProjects/ProjectDetailsItem';
+import OperationItem from './OperationItem';
+import OperationForm from './OperationForm';
 
-export default function RoundbarsContainer(props) {
+export default function OperationsContainer(props) {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -45,8 +47,8 @@ export default function RoundbarsContainer(props) {
   const params = useParams()
 
   // state variables
-  const [roundbarsData, setRoundbarsData] = useState();
-  const [refreshedPage, setRefreshedPage] = useState(false);
+  const [operationsData, setOperationsData] = useState();
+  const [refreshedPage, setRefreshedPage] = useState(false);  
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
@@ -59,25 +61,12 @@ export default function RoundbarsContainer(props) {
   }, [])
 
   useEffect(() => {
-    getData(`../../../data/project//${params.id}/materials/roundbar`)
+    getData(`../../../data/project/${params.id}/operations/all`)
     if (fetchedData) {
-      setRoundbarsData(fetchedData)
+      setOperationsData(fetchedData)
     }
-  }, [roundbarsData, refreshedPage])
+  }, [operationsData, refreshedPage])
 
-  const positionCounter = 0
-  const roundbarsDataArr = fetchedData && fetchedData.map((item, index = 1 )=> {
-    return (
-      <RoundbarMaterialItem
-        key={item.roundbarMaterialId} 
-        item={item} 
-        position={index + 1}
-        materialGradeId={item.materialGrade.materialGradeId}
-        editItem={setEditModal}
-        deleteItem={setDeleteModal}
-        />
-    )
-  })
 
   function setAddModal() {
     setModalData(prevData => {
@@ -92,14 +81,11 @@ export default function RoundbarsContainer(props) {
         value: "",
         obj: {
           projectId: params.id,
-          plateMaterialId: "",
-          materialGradeId: "",
-          materialGrade: "",
         }
       }})
     toggleModalOn();
   }
-
+  
   function setEditModal(item) {
     setModalData(prevData => {
       //open new modal with new properties
@@ -117,7 +103,6 @@ export default function RoundbarsContainer(props) {
   }
 
   function setDeleteModal(item) {
-    console.log(item, "item")
     setModalData(prevData => {
       //open new modal with new properties
       return {
@@ -129,22 +114,41 @@ export default function RoundbarsContainer(props) {
         elementId: item.projectid,
         value: "",
         refreshFunc: {refreshPage},
-        handleFunction: () => deleteData(`../../../data/materials/roundbarmaterial/delete/${item.roundbarMaterialId}`),
+        handleFunction: () => deleteData(`../../../data/operations/delete/${item.projectOperationId}`),
         closeFunc: {toggleModalOff},
         obj: {...item}
       }})
       toggleModalOn();
   }
 
+  const operationsArr = fetchedData && fetchedData.map((item, index = 1) => {    
+    const position = index + 1;
+    return (
+      <OperationItem
+        key={item.projectOperationId}
+        item={item}
+        position={position}
+        editItem={setEditModal}
+        deleteItem={setDeleteModal}
+        previousItemId={fetchedData[index -1] && fetchedData[index - 1].projectOperationId}
+        nextItemId={fetchedData[index + 1] && fetchedData[index + 1].projectOperationId}
+        operationsArrLength={fetchedData.length}
+        refreshPage={refreshPage}
+        isFirst={index === 0}
+        isLast={index === fetchedData.length - 1}
+      />
+    )
+  })
+  
   return (
     <div>
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-            <MainContentContainerTitle title={"Round bars"} />
+            <MainContentContainerTitle title={"Operations"} />
             <div>
             <CtaButton 
-                  title={`Add new round bar`}
+                  title={`Add new operation`}
                   type="add"
                   variant="large"
                   handlingFunction={setAddModal}
@@ -152,20 +156,16 @@ export default function RoundbarsContainer(props) {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Pos."} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Diameter [mm]"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Length [mm]"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight [kg]"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight/m [kg]"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Quantity"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight total [kg]"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Grade"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Painted?"} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={<>Area [m<sup>2</sup>]</>} />
-              <MainContentHeaderContainerItem variant={'narrower'} title={"Remark"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
+              <MainContentHeaderContainerItem variant='wide' title={"Title"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Quantity [hrs]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Price/hr [PLN]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Total value [PLN]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Type"} />
+              <MainContentHeaderContainerItem variant='wide' title={"Remark"} />
             </MainContentHeaderContainer>
-              <div className='rows__container'>
-                {roundbarsDataArr}
+            <div className='rows__container'>
+                {operationsArr}
             </div>
           </div>
         </MainSectionContainer>
@@ -180,7 +180,7 @@ export default function RoundbarsContainer(props) {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        form={<RoundbarMaterialForm 
+        form={<OperationForm 
           obj={modalData.obj} 
           type={modalData.modalType}
           refreshPage={refreshPage}

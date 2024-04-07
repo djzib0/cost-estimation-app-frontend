@@ -18,13 +18,14 @@ import MaterialGradesStSt from './pages/dictionaries/materialGrades/MaterialGrad
 import MaterialGradesAluminum from './pages/dictionaries/materialGrades/MaterialGradesAluminum';
 import MaterialGradesOther from './pages/dictionaries/materialGrades/MaterialGradesOther';
 import UnitsLayout from './layouts/UnitsLayout';
+import OperationsContainer from './components/operation/OperationsContainer';
+import UnitsContainer from './pages/dictionaries/units/UnitsContainer';
+import OtherMaterials from './pages/projects/allProjects/OtherMaterials';
 // css import
 import './App.css'
 // utils imports
 import { getLocalStorageTheme } from './utils/utils';
 import ProjectDetailsDashboard from './pages/projects/allProjects/ProjectDetailsDashboard';
-import OperationsContainer from './components/operationsContainer/OperationsContainer';
-import UnitsContainer from './pages/dictionaries/units/UnitsContainer';
 
 const AuthUserContext = createContext();
 const DefaultSettingsContext = createContext();
@@ -139,6 +140,7 @@ export default function App() {
                     <Route path='operations' element={<OperationsContainer />} />
                     <Route path='plates' element={<ProjectMaterials />} />
                     <Route path='roundbars' element={<RoundbarMaterials />} />
+                    <Route path='othermaterials' element={<OtherMaterials />} />
 
                   </Route>
                   

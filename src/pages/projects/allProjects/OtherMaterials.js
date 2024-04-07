@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 // components imports
-import RoundbarsContainer from '../../../components/roundbarMaterial/RoundbarsContainer';
+import OtherMaterialsContainer from '../../../components/otherMaterial/OtherMaterialsContainer';
 // contexts imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../../App';
 import { ModalContext } from '../../../App';
+// custom hooks imports
+import useApi from '../../../customHooks/useApi';
+import useModal from '../../../customHooks/useModal';
 
-
-export default function RoundbarMaterials() {
+export default function OtherMaterials() {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -22,7 +24,6 @@ export default function RoundbarMaterials() {
   // state variables
   const [projectData, setProjectData] = useState();
   const [refreshedPage, setRefreshedPage] = useState(false);
-  
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
@@ -30,7 +31,7 @@ export default function RoundbarMaterials() {
 
   return (
     <div className='main-content__container'>
-        <RoundbarsContainer projectId={params.id}/>
+      <OtherMaterialsContainer projectId={params.id}/>
     </div>
   )
 }

@@ -4,11 +4,11 @@ import MainContentContainer from '../mainContentContainer/MainContentContainer';
 import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
-import Modal from '../modal/Modal';
-import PlateMaterialForm from '../plateMaterial/PlateMaterialForm';
-import PlateMaterialItem from '../plateMaterial/PlateMaterialItem';
-import CtaButton from '../buttons/CtaButton';
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
+import Modal from '../modal/Modal';
+import CtaButton from '../buttons/CtaButton';
+import RoundbarMaterialItem from './RoundbarMaterialItem';
+import RoundbarMaterialForm from './RoundbarMaterialForm';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -17,7 +17,7 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 
-export default function PlatesContainer(props) {
+export default function RoundbarsContainer(props) {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -45,7 +45,7 @@ export default function PlatesContainer(props) {
   const params = useParams()
 
   // state variables
-  const [projectData, setProjectData] = useState([]);
+  const [roundbarsData, setRoundbarsData] = useState();
   const [refreshedPage, setRefreshedPage] = useState(false);
 
   function refreshPage() {
@@ -59,17 +59,17 @@ export default function PlatesContainer(props) {
   }, [])
 
   useEffect(() => {
-    getData(`/data/project/${params.id}/materials/platematerial`)
+    getData(`../../../data/project//${params.id}/materials/roundbar`)
     if (fetchedData) {
-      setProjectData(fetchedData)
+      setRoundbarsData(fetchedData)
     }
-  }, [projectData, refreshedPage])
+  }, [roundbarsData, refreshedPage])
 
   const positionCounter = 0
-  const projectDataArr = fetchedData && fetchedData.map((item, index = 1 )=> {
+  const roundbarsDataArr = fetchedData && fetchedData.map((item, index = 1 )=> {
     return (
-      <PlateMaterialItem 
-        key={item.plateMaterialId} 
+      <RoundbarMaterialItem
+        key={item.roundbarMaterialId} 
         item={item} 
         position={index + 1}
         materialGradeId={item.materialGrade.materialGradeId}
@@ -117,6 +117,7 @@ export default function PlatesContainer(props) {
   }
 
   function setDeleteModal(item) {
+    console.log(item, "item")
     setModalData(prevData => {
       //open new modal with new properties
       return {
@@ -128,7 +129,7 @@ export default function PlatesContainer(props) {
         elementId: item.projectid,
         value: "",
         refreshFunc: {refreshPage},
-        handleFunction: () => deleteData(`../../../data/materials/platematerial/delete/${item.plateMaterialId}`),
+        handleFunction: () => deleteData(`../../../data/materials/roundbarmaterial/delete/${item.roundbarMaterialId}`),
         closeFunc: {toggleModalOff},
         obj: {...item}
       }})
@@ -140,10 +141,10 @@ export default function PlatesContainer(props) {
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-            <MainContentContainerTitle title={"Plates"} />
+            <MainContentContainerTitle title={"Round bars"} />
             <div>
             <CtaButton 
-                  title="Add new plate"
+                  title={`Add new round bar`}
                   type="add"
                   variant="large"
                   handlingFunction={setAddModal}
@@ -151,23 +152,20 @@ export default function PlatesContainer(props) {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Dim. A [mm]"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Dim. B [mm]"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Thick. [mm]"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Weight [kg]"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Quantity"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Weight total [kg]"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Grade"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Painted?"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Both sides?"} />
-              <MainContentHeaderContainerItem variant='narrower' title={<>Area [m<sup>2</sup>]</>} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Shape"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Remark"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Pos."} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Diameter [mm]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Length [mm]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight [kg]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight/m [kg]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Quantity"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Weight total [kg]"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Grade"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Painted?"} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={<>Area [m<sup>2</sup>]</>} />
+              <MainContentHeaderContainerItem variant={'narrower'} title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
-                {projectDataArr}
-
+                {roundbarsDataArr}
             </div>
           </div>
         </MainSectionContainer>
@@ -182,7 +180,7 @@ export default function PlatesContainer(props) {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        form={<PlateMaterialForm 
+        form={<RoundbarMaterialForm 
           obj={modalData.obj} 
           type={modalData.modalType}
           refreshPage={refreshPage}

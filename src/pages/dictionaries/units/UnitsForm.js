@@ -15,7 +15,7 @@ export default function UnitsForm(props) {
   // utilize ModalContext
   const {isModalOn, toggleModalOn, toggleModalOff} = useContext(ModalContext)
   
-  const {unitName, unitNameAbbreviation} = props.obj;
+  const {unitId, unitName, unitNameAbbreviation} = props.obj;
 
   // state variables
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,6 +37,43 @@ export default function UnitsForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault()
+    // check for errors
+    if (isEmpty(formData.unitName)) {
+      setErrorMessage("Unit name field cannot be empty")
+      setIsError(true)
+      return
+    } else {
+      setIsError(false)
+    }
+
+    if (isEmpty(formData.unitNameAbbreviation)) {
+      setErrorMessage("Abbreviation field cannot be empty")
+      setIsError(true)
+      return
+    } else {
+      setIsError(false)
+    }
+
+    //if there are no input errors call requested method function
+    if (props.type === "add") {
+      addData(`/data/units/add`, 
+      {
+        ...formData
+      });
+      props.refreshPage();
+      return
+    }
+
+    //if there are no input errors call requested method function
+    if (props.type === "edit") {
+      editData(`/data/units/edit`, 
+      {
+        ...formData,
+        unitId: unitId
+      });
+      props.refreshPage();
+      return
+    }
   }
 
   function handleChange(e) {

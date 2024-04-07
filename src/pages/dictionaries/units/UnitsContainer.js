@@ -53,14 +53,15 @@ export default function UnitsContainer() {
 
   useEffect(() => {
     getData(`/data/units`)
+    console.log("using effect")
     if (fetchedData) {
       setUnitsData(fetchedData)
     }
-  }, [refreshedPage])
+  }, [unitsData, refreshedPage])
 
-  useEffect(() => {
-    setUnitsData(fetchedData)
-  }, [fetchedData])
+  // useEffect(() => {
+  //   setUnitsData(fetchedData)
+  // }, [fetchedData])
 
   function refreshPage() {
     // fetch new data and trigger useEffect to re render
@@ -86,13 +87,50 @@ export default function UnitsContainer() {
     toggleModalOn();
   }
 
-  const unitsDataArr = unitsData && unitsData.map((item, index) => {
+  function setEditModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "edit",
+        messageTitle: "Enter new values",
+        messageText: "Please enter the data in all input fields",
+        elementId: item.unitId,
+        value: "",
+        obj: {...item}
+      }})
+    toggleModalOn();
+  }
+
+  function setDeleteModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "delete",
+        messageTitle: "Do you want to delete this material grade?",
+        messageText: "If you press OK, it will be permanently removed from the database.",
+        elementId: item.materialGradeId,
+        value: "",
+        refreshFunc: refreshPage,
+        handleFunction: () => deleteData(`../../../data/units/delete/${item.unitId}`),
+        closeFunc: {toggleModalOff},
+        obj: {...item}
+      }})
+      toggleModalOn();
+  }
+
+  const unitsDataArr = unitsData && fetchedData.map((item, index) => {
     const position = index + 1;
     return (
       <UnitItem 
         key={item.unitId}
         item={item}
         position={position}
+        editItem={() => setEditModal(item)}
+        deleteItem={() => setDeleteModal(item)}
       />
     )
   })

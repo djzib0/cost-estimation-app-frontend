@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 // components imports
-import PlatesContainer from '../../../components/platesContainer/PlatesContainer';
+import PlatesContainer from '../../../components/plateMaterial/PlatesContainer';
 // contexts imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../../App';
