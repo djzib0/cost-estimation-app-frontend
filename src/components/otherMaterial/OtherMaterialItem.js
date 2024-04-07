@@ -37,12 +37,12 @@ export default function OtherMaterialItem(props) {
   return (
     <div className={`row__container${themeMode}`}>
         <div className='cell__container--narrower'>{props.position}</div>
-        <div className='cell__container--narrower'>{otherMaterialName}</div>
-        <div className='cell__container--narrower'>{quantity}</div>
-        <div className='cell__container--narrower'>{unitName}</div>
-        <div className='cell__container--narrower'>{pricePerUnit}</div>
-        <div className='cell__container--narrower'>{totalValue}</div>
-        <div className='cell__container--narrower'>{remark}</div>
+        <div className='cell__container'>{otherMaterialName}</div>
+        <div className='cell__container'>{quantity}</div>
+        <div className='cell__container'>{unitName}</div>
+        <div className='cell__container'>{pricePerUnit}</div>
+        <div className='cell__container'>{totalValue}</div>
+        <div className='cell__container'>{remark}</div>
         <div 
         className='cell__container--narrower'
         >

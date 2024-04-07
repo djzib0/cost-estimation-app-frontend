@@ -11,7 +11,7 @@ import ringTestImage from '../../images/ringTestImage.png'
 import { GoTrash } from "react-icons/go";
 import { CiUndo } from "react-icons/ci";
 // utils imports
-import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../utils/utils';
+import { isEmpty, isEqualZero } from '../../utils/utils';
 
 export default function PlateMaterialForm(props) {
 
@@ -329,7 +329,7 @@ export default function PlateMaterialForm(props) {
             type="number"
             placeholder="Price per kg"
             name="pricePerKg"
-            id="thicknpricePerKgess"
+            id="pricePerKg"
             onChange={handleChange} 
             value={formData.pricePerKg}
           />

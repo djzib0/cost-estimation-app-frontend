@@ -8,6 +8,7 @@ import MainContentHeaderContainerItem from '../mainContentContainer/MainContentH
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
 import OtherMaterialItem from './OtherMaterialItem';
+import OtherMaterialForm from './OtherMaterialForm';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -16,7 +17,7 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 
-export default function OtherMaterialsContainer() {
+export default function OtherMaterialsContainer(props) {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -78,13 +79,27 @@ export default function OtherMaterialsContainer() {
         value: "",
         obj: {
           projectId: params.id,
-          plateMaterialId: "",
-          materialGradeId: "",
-          materialGrade: "",
         }
       }})
     toggleModalOn();
   }
+
+  function setEditModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "edit",
+        messageTitle: "Enter new values",
+        messageText: "Please enter the data in all input fields",
+        elementId: item.plateMaterialId,
+        value: "",
+        obj: {...item}
+      }})
+    toggleModalOn();
+  }
+
 
   const otherMaterialsArr = otherMaterialsData && fetchedData.map((item, index) => {
     console.log(item)
@@ -93,9 +108,30 @@ export default function OtherMaterialsContainer() {
         key={item.otherMaterialId}
         item={item}
         position={index + 1}
+        editItem={setEditModal}
+        deleteItem={setDeleteModal}
       />
     )
   })
+
+  function setDeleteModal(item) {
+    setModalData(prevData => {
+      //open new modal with new properties
+      return {
+        ...prevData,
+        isActive: true,
+        modalType: "delete",
+        messageTitle: "Do you want to delete this element?",
+        messageText: "If you press OK, it will be permanently removed from the database.",
+        elementId: item.projectid,
+        value: "",
+        refreshFunc: {refreshPage},
+        handleFunction: () => deleteData(`../../../data/materials/othermaterials/delete/${item.otherMaterialId}`),
+        closeFunc: {toggleModalOff},
+        obj: {...item}
+      }})
+      toggleModalOn();
+  }
 
   return (
     <div>
@@ -116,6 +152,7 @@ export default function OtherMaterialsContainer() {
               <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
               <MainContentHeaderContainerItem variant='regular' title={"Name"} />
               <MainContentHeaderContainerItem variant='regular' title={"Quantity"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Unit"} />
               <MainContentHeaderContainerItem variant='regular' title={"Price/unit"} />
               <MainContentHeaderContainerItem variant='regular' title={"Total value"} />
               <MainContentHeaderContainerItem variant='regular' title={"Remark"} />
@@ -136,13 +173,13 @@ export default function OtherMaterialsContainer() {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        // form={<PlateMaterialForm 
-        //   obj={modalData.obj} 
-        //   type={modalData.modalType}
-        //   refreshPage={refreshPage}
-        //   projectId={props.projectId}
-        //   closeModal={toggleModalOff}
-        //   />}
+        form={<OtherMaterialForm 
+          obj={modalData.obj} 
+          type={modalData.modalType}
+          refreshPage={refreshPage}
+          projectId={props.projectId}
+          closeModal={toggleModalOff}
+          />}
         />}
     </div>
   )
