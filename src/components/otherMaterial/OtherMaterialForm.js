@@ -39,7 +39,8 @@ export default function OtherMaterialForm(props) {
       remark: remark ? remark : "",
       // below are required to be a correct json body, but are not
       // editable by user
-      projectId: projectId
+      projectId: projectId,
+      otherMaterialId: otherMaterialId,
     }
   )
 
@@ -143,6 +144,14 @@ export default function OtherMaterialForm(props) {
         `../../../data/materials/othermaterials/add`,
         formData,
         "Failed to add new material");
+    }
+
+    if (props.type === "edit") {
+      console.log(formData.projectId)
+      editData(
+        `../../../data/materials/othermaterials/edit`,
+        formData,
+        "Failed to edit material");
     }
 
     props.refreshPage();

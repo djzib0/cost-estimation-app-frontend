@@ -107,7 +107,57 @@ function summarizePlateMaterials(data) {
     return Array.from(materialsDic)
 }
 
+function summarizeRoundbarMaterials(data) {
+    let materialsDic = new Map();
+    if (data) {
+        for (let material of data) {
+            const materialGradeName = material.materialGrade
+        // check if the key is in the dictionary
+        // if dict contains a key, add total value of selected materials
+        // to already existed total value
+        if (materialsDic.has(materialGradeName)) {
+            let obj = materialsDic.get(materialGradeName)
+            materialsDic.set(
+                materialGradeName,
+                {
+                    ...obj,
+                    totalValue: obj.totalValue + material.totalValue,
+                    totalWeight: obj.totalWeight + material.totalWeight
+                })
+                // materialsDic.get(materialGradeName) + material.totalValue)
+        } else {
+            let obj = {
+                totalValue: 0,
+                totalWeight: 0
+            }
+            // if dict doesn't contain a key, set a new key with value 0
+            materialsDic.set(materialGradeName, 0);
+            materialsDic.set(
+                materialGradeName,
+                {
+                    ...obj,
+                    totalValue: material.totalValue,
+                    totalWeight: material.totalWeight
+                }
+                )
+        }
+        }
+    }
+    return Array.from(materialsDic)
+}
+
+function summarizeOtherMaterials(data) {
+    let totalValue = 0;
+    if (data) {
+        for (let item of data) {
+            totalValue += item.totalValue
+        }
+    }
+    return totalValue;
+}
+
 export {
     capitalFirstLetter, getLocalStorageTheme, isEmpty, isEqualZero,
-    formatValueToCurrency, summarizeOperationsCost, summarizePlateMaterials
+    formatValueToCurrency, summarizeOperationsCost, summarizePlateMaterials,
+    summarizeRoundbarMaterials, summarizeOtherMaterials
 }

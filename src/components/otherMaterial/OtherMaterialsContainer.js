@@ -102,7 +102,6 @@ export default function OtherMaterialsContainer(props) {
 
 
   const otherMaterialsArr = otherMaterialsData && fetchedData.map((item, index) => {
-    console.log(item)
     return (
       <OtherMaterialItem 
         key={item.otherMaterialId}

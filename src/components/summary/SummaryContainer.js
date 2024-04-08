@@ -6,6 +6,10 @@ import MainContentContainerTitle from '../mainContentContainer/MainContentContai
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
 import SummaryOperationItem from './SummaryOperationItem';
+import SummaryPlateMaterialsItem from './SummaryPlateMaterialsItem';
+import SummaryRoundbarItem from './SummaryRoundbarItem';
+import SummaryOtherItem from './SummaryOtherItem';
+import SummaryResultItem from './SummaryResultItem';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -14,9 +18,14 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 // utilities imports
-import { summarizeOperationsCost, summarizePlateMaterials, formatValueToCurrency } from '../../utils/utils';
-import SummaryPlateMaterialsItem from './SummaryPlateMaterialsItem';
-import SummaryResultItem from './SummaryResultItem';
+import { 
+  summarizeOperationsCost,
+  summarizePlateMaterials,
+  summarizeRoundbarMaterials,
+  summarizeOtherMaterials,
+  formatValueToCurrency,
+} from '../../utils/utils';
+import OtherMaterialItem from '../otherMaterial/OtherMaterialItem';
 
 export default function SummaryContainer(props) {
 
@@ -82,6 +91,7 @@ export default function SummaryContainer(props) {
   let plateMaterialsTotalValue = 0;
   let plateMaterialsSummary = projectData && summarizePlateMaterials(projectData.plateMaterials)
 
+
   // calculate gross weight of all plates in the project
   let allPlatesMaterialsTotalWeight = 0;
   plateMaterialsSummary && plateMaterialsSummary.map(item => {
@@ -104,6 +114,37 @@ export default function SummaryContainer(props) {
     )
   })
   
+  // roundbars materials summary
+  let roundbarMaterialsTotalValue = 0;
+  let roundbarMaterialsTotalWeight = 0;
+  let roundbarMaterialsSummary = projectData && summarizeRoundbarMaterials(projectData.roundbarMaterials)
+
+  // calculate gross weight of all roundbars in the project
+  let allRoundbarMaterialsTotalWeight = 0;
+  roundbarMaterialsSummary && roundbarMaterialsSummary.map(item => {
+    allRoundbarMaterialsTotalWeight += item[1].totalWeight;
+  })
+
+  // create an array of roundbar item components
+  const roundbarMaterialsSummaryArr = roundbarMaterialsSummary && roundbarMaterialsSummary.map((item, index) => {
+    roundbarMaterialsTotalValue += item[1].totalValue;
+    roundbarMaterialsTotalWeight += item[1].totalWeight;
+    return  (
+      <SummaryRoundbarItem
+        key={index}
+        position={index + 1}
+        grade={item[0]}
+        totalWeight={item[1].totalWeight}
+        totalValue={item[1].totalValue}
+        allRoundbarMaterialsTotalWeight={allRoundbarMaterialsTotalWeight}
+      />
+    )
+  })
+
+  // other materials summary
+  let otherMaterialsTotalValue = projectData && summarizeOtherMaterials(projectData.otherMaterials)
+
+
   return (
     <div>
       <MainContentContainer>
@@ -136,7 +177,7 @@ export default function SummaryContainer(props) {
             <MainContentContainerTitle title={"Plates"} />
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
-              <MainContentHeaderContainerItem variant='regular' title={"Plates"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Grade"} />
               <MainContentHeaderContainerItem variant='regular' title={"Total weight [kg]"} />
               <MainContentHeaderContainerItem variant='regular' title={"Total value [PLN]"} />
               <MainContentHeaderContainerItem variant='regular' title={"Gross weight share"} />
@@ -144,9 +185,37 @@ export default function SummaryContainer(props) {
             <div className='rows__container'>
               {plateMaterialsSummaryArr}
             </div>
+
+            <MainContentContainerTitle title={"Roundbars"} />
+            <MainContentHeaderContainer>
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
+              <MainContentHeaderContainerItem variant='regular' title={"Grade"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Total weight [kg]"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Total value [PLN]"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Gross weight share"} />
+            </MainContentHeaderContainer>
+            <div className='rows__container'>
+              {roundbarMaterialsSummaryArr}
+            </div>
+
+            <MainContentContainerTitle title={"Other materials"} />
+            <MainContentHeaderContainer>
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
+              <MainContentHeaderContainerItem variant='regular' title={"Name"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Total weight [kg]"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Total value [PLN]"} />
+            </MainContentHeaderContainer>
+            <div className='rows__container'>
+              <SummaryOtherItem 
+                position={1}
+                name={"Other materials"}
+                otherMaterialsTotalValue={otherMaterialsTotalValue}
+              />
+            </div>
+
             <SummaryResultItem
               title={"Total value:"}
-              value={formatValueToCurrency(plateMaterialsTotalValue)}
+              value={formatValueToCurrency(roundbarMaterialsTotalValue)}
               suffix={",-"}
               isTop={true}
              />
@@ -157,12 +226,14 @@ export default function SummaryContainer(props) {
             />
             <SummaryResultItem
               title={"Total value with margin:"}
-              value={formatValueToCurrency(plateMaterialsTotalValue * (1 + projectData.materialMargin / 100))}
+              value={formatValueToCurrency(roundbarMaterialsTotalValue * (1 + projectData.materialMargin / 100))}
               suffix={",-"}
             />
           </div>
+
         </MainSectionContainer>
       </MainContentContainer>
+
     </div>
   )
 }
