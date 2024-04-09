@@ -9,7 +9,7 @@ import { SlNote } from "react-icons/sl";
 
 export default function OtherMaterialItem(props) {
 
-  // utlizie Theme Context 
+  // utilize Theme Context 
   const {theme} = useContext(DefaultSettingsContext);
   const themeMode = `--${theme}`
 

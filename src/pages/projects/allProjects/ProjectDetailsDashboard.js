@@ -107,6 +107,15 @@ export default function ProjectDetailsDashboard() {
               Other
           </NavLink>
 
+          <NavLink 
+            to={"outsourcing"}
+            end
+            className={({isActive}) => isActive ? `main-content-header__link${themeMode}--active`
+            :`main-content-header__link${themeMode}`}
+          >
+              Outsourcing
+          </NavLink>
+
         </HorizontalDashboard.Tabs>
       </HorizontalDashboard>
       <Outlet />

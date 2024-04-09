@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 // components imports
-import OtherMaterialsContainer from '../../../components/otherMaterial/OtherMaterialsContainer';
+import OutsourcingContainer from '../../../components/outsourcing/OutsourcingContainer';
 // contexts imports
 import { useParams } from 'react-router-dom';
 
-export default function OtherMaterials() {
+export default function ProjectOutsourcing() {
 
   // utilize params
   const params = useParams()
 
   return (
     <div className='main-content__container'>
-      <OtherMaterialsContainer projectId={params.id}/>
+      <OutsourcingContainer projectId={params.id} />
     </div>
   )
 }

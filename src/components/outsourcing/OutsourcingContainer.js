@@ -7,8 +7,6 @@ import MainContentHeaderContainer from '../mainContentContainer/MainContentHeade
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
-import OtherMaterialItem from './OtherMaterialItem';
-import OtherMaterialForm from './OtherMaterialForm';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -17,7 +15,7 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 
-export default function OtherMaterialsContainer(props) {
+export default function OutsourcingContainer() {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -45,9 +43,8 @@ export default function OtherMaterialsContainer(props) {
   const params = useParams()
 
   // state variables
-  const [otherMaterialsData, setOtherMaterialsData] = useState([]);
+  const [outsourcingData, setOutsourcingData] = useState([]);
   const [refreshedPage, setRefreshedPage] = useState(false);
-
 
   // if modal is on when the first render occurs,
   // close modal if any is opened
@@ -56,11 +53,11 @@ export default function OtherMaterialsContainer(props) {
   }, [])
 
   useEffect(() => {
-    getData(`../../../data/project/${params.id}/materials/other`)
+    getData(`../../../data/project/${params.id}/outsourcing/all`)
     if (fetchedData) {
-      setOtherMaterialsData(fetchedData)
+      setOutsourcingData(fetchedData)
     }
-  }, [otherMaterialsData, refreshedPage])
+  }, [outsourcingData, refreshedPage])
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
@@ -119,18 +116,6 @@ export default function OtherMaterialsContainer(props) {
       toggleModalOn();
   }
 
-  const otherMaterialsArr = otherMaterialsData && fetchedData.map((item, index) => {
-    return (
-      <OtherMaterialItem 
-        key={item.otherMaterialId}
-        item={item}
-        position={index + 1}
-        editItem={setEditModal}
-        deleteItem={setDeleteModal}
-      />
-    )
-  })
-
   return (
     <div>
       <MainContentContainer>
@@ -156,7 +141,7 @@ export default function OtherMaterialsContainer(props) {
               <MainContentHeaderContainerItem variant='regular' title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
-                {otherMaterialsArr}
+                {/* {otherMaterialsArr} */}
             </div>
           </div>
         </MainSectionContainer>
@@ -171,13 +156,13 @@ export default function OtherMaterialsContainer(props) {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        form={<OtherMaterialForm 
-          obj={modalData.obj} 
-          type={modalData.modalType}
-          refreshPage={refreshPage}
-          projectId={props.projectId}
-          closeModal={toggleModalOff}
-          />}
+        // form={<OtherMaterialForm 
+        //   obj={modalData.obj} 
+        //   type={modalData.modalType}
+        //   refreshPage={refreshPage}
+        //   projectId={props.projectId}
+        //   closeModal={toggleModalOff}
+        //   />}
         />}
     </div>
   )

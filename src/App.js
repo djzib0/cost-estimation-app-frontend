@@ -21,6 +21,7 @@ import UnitsLayout from './layouts/UnitsLayout';
 import OperationsContainer from './components/operation/OperationsContainer';
 import UnitsContainer from './pages/dictionaries/units/UnitsContainer';
 import OtherMaterials from './pages/projects/allProjects/OtherMaterials';
+import ProjectOutsourcing from './pages/projects/allProjects/ProjectOutsourcing';
 // css import
 import './App.css'
 // utils imports
@@ -141,9 +142,8 @@ export default function App() {
                     <Route path='plates' element={<ProjectMaterials />} />
                     <Route path='roundbars' element={<RoundbarMaterials />} />
                     <Route path='othermaterials' element={<OtherMaterials />} />
-
+                    <Route path='outsourcing' element={<ProjectOutsourcing />} />
                   </Route>
-                  
                 </Route>
 
                 <Route path='dictionaries' element={<DictionariesLayout />}>
