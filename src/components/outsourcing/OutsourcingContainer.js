@@ -7,6 +7,8 @@ import MainContentHeaderContainer from '../mainContentContainer/MainContentHeade
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
+import OutsourcingItem from './OutsourcingItem';
+import OutsourcingForm from './OutsourcingForm';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -15,7 +17,7 @@ import { ModalContext } from '../../App';
 import useApi from '../../customHooks/useApi';
 import useModal from '../../customHooks/useModal';
 
-export default function OutsourcingContainer() {
+export default function OutsourcingContainer(props) {
 
   // utilize DefaultSettingsContext
   const {theme} = useContext(DefaultSettingsContext)
@@ -109,12 +111,25 @@ export default function OutsourcingContainer() {
         elementId: item.projectid,
         value: "",
         refreshFunc: {refreshPage},
-        handleFunction: () => deleteData(`../../../data/materials/othermaterials/delete/${item.otherMaterialId}`),
+        handleFunction: () => deleteData(`../../../data/outsourcing/delete/${item.outsourcingId}`),
         closeFunc: {toggleModalOff},
         obj: {...item}
       }})
       toggleModalOn();
   }
+
+  console.log(fetchedData, )
+  const outsourcingArr = fetchedData && fetchedData.map((item, index) => {
+    return (
+      <OutsourcingItem 
+        key={item.outsourcingId}
+        item={item}
+        position={index + 1}
+        editItem={setEditModal}
+        deleteItem={setDeleteModal}
+      />
+    )
+  })
 
   return (
     <div>
@@ -124,7 +139,7 @@ export default function OutsourcingContainer() {
             <MainContentContainerTitle title={"Other materials"} />
             <div>
             <CtaButton 
-                  title="Add new material"
+                  title="Add new outsourcing"
                   type="add"
                   variant="large"
                   handlingFunction={setAddModal}
@@ -134,14 +149,12 @@ export default function OutsourcingContainer() {
             <MainContentHeaderContainer>
               <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
               <MainContentHeaderContainerItem variant='regular' title={"Name"} />
-              <MainContentHeaderContainerItem variant='regular' title={"Quantity"} />
-              <MainContentHeaderContainerItem variant='regular' title={"Unit"} />
-              <MainContentHeaderContainerItem variant='regular' title={"Price/unit"} />
-              <MainContentHeaderContainerItem variant='regular' title={"Total value"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Contractor"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Price [PLN]"} />
               <MainContentHeaderContainerItem variant='regular' title={"Remark"} />
             </MainContentHeaderContainer>
               <div className='rows__container'>
-                {/* {otherMaterialsArr} */}
+                {outsourcingArr}
             </div>
           </div>
         </MainSectionContainer>
@@ -156,13 +169,13 @@ export default function OutsourcingContainer() {
         onClose={toggleModalOff}
         obj={modalData.obj}
         refreshPage={refreshPage}
-        // form={<OtherMaterialForm 
-        //   obj={modalData.obj} 
-        //   type={modalData.modalType}
-        //   refreshPage={refreshPage}
-        //   projectId={props.projectId}
-        //   closeModal={toggleModalOff}
-        //   />}
+        form={<OutsourcingForm 
+          obj={modalData.obj} 
+          type={modalData.modalType}
+          refreshPage={refreshPage}
+          projectId={props.projectId}
+          closeModal={toggleModalOff}
+          />}
         />}
     </div>
   )

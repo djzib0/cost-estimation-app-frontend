@@ -11,38 +11,33 @@ import { CiUndo } from "react-icons/ci";
 import { isEmpty, isNumber, isEqualZero, capitalFirstLetter } from '../../utils/utils';
 
 
-export default function OtherMaterialForm(props) {
+export default function OutsourcingForm(props) {
 
   const {
-    otherMaterialId,
-    otherMaterialName,
-    quantity,
-    unitName,
-    pricePerUnit,
-    totalValue,
+    outsourcingId,
+    outsourcingName,
+    contractorName,
+    outsourcingValue,
     remark,
     projectId,
   } = props.obj
 
-  // state variables
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isError, setIsError] = useState(false);
-  const [unitsData, setUnitsData] = useState([]);
-  const [remarkClipBoard, setRemarkClipBoard] = useState("");
-  const [formData, setFormData] = useState(
+   // state variables
+   const [errorMessage, setErrorMessage] = useState("");
+   const [isError, setIsError] = useState(false);
+   const [remarkClipBoard, setRemarkClipBoard] = useState("");
+   const [formData, setFormData] = useState(
     {
-      otherMaterialName: otherMaterialName ? otherMaterialName : "",
-      quantity: quantity ? quantity : "",
-      unitName: unitName ? unitName: "",
-      pricePerUnit: pricePerUnit ? pricePerUnit : "",
-      totalValue: totalValue ? totalValue : "",
+      outsourcingName: outsourcingName ? outsourcingName : "",
+      contractorName: contractorName ? contractorName : "",
+      outsourcingValue: outsourcingValue ? outsourcingValue : "",
       remark: remark ? remark : "",
       // below are required to be a correct json body, but are not
       // editable by user
       projectId: projectId,
-      otherMaterialId: otherMaterialId,
+      outsourcingId: outsourcingId
     }
-  )
+  );
 
   // utilize useApi custom hook
   const {
@@ -53,45 +48,6 @@ export default function OtherMaterialForm(props) {
     fetchError,
   } = useApi();
 
-  // fetch units
-  useEffect(() => {
-    getData("../../../data/units")
-  }, [])
-
-  useEffect(() => {
-    setUnitsData(prevData => fetchedData)
-    if (fetchedData) {
-      // iterate through units
-      for (let unit of unitsData) {
-        // if edited item unit is in array of units,
-        // form get that value and set it while rendered.
-        // If the user delete unit from dictionary it won't be 
-        // found, so it has to be set to the default one
-        if (unit.unitName === unitName) {
-          setFormData(prevData => {
-            return {
-              ...prevData,
-              unitName: unit.unitName
-            }
-          })
-        }
-      }
-    }
-  }, [fetchedData])
-
-  // create list of options to display them in form
-  const unitsArr = unitsData && unitsData.map(item => {
-    const {unitId, unitName} = item;
-    return (
-      <option
-        key={unitId}
-        value={unitName}
-      >
-        {unitName}
-      </option>
-    )
-  })
-
   function handleChange(e) {
     const {name, value, type, checked} = e.target
     setFormData(prevFormData => {
@@ -101,11 +57,11 @@ export default function OtherMaterialForm(props) {
       }
     })
   }
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     // Check for errors
-    if (isEmpty(formData.otherMaterialName)) {
+    if (isEmpty(formData.outsourcingName)) {
       setErrorMessage("Name cannot be empty.")
       setIsError(true);
       return
@@ -113,33 +69,26 @@ export default function OtherMaterialForm(props) {
       setIsError(false)
     }
 
-    if (isEmpty(formData.quantity) || isEqualZero(formData.quantity)) {
-      setErrorMessage("Quantity cannot be 0 or empty.")
+    if (isEmpty(formData.contractorName)) {
+      setErrorMessage("Contractor name cannot be empty.")
       setIsError(true);
       return
     } else {
       setIsError(false)
     }
 
-    if (isEmpty(formData.pricePerUnit) || isEqualZero(formData.price)) {
+    if (isEmpty(formData.outsourcingValue) || isEqualZero(formData.outsourcingValue)) {
       setErrorMessage("Price cannot be 0 or empty.")
       setIsError(true);
       return
     } else {
       setIsError(false)
     }
-
-    if (Number(formData.unitId) === 0) {
-      setErrorMessage("Please choose the unit.")
-      setIsError(true);
-      return
-    } else {
-      setIsError(false)
-    }
+    
 
     if (props.type === "add") {
       addData(
-        `../../../data/materials/othermaterials/add`,
+        `../../../data/outsourcing/add`,
         formData,
         "Failed to add new material");
     }
@@ -147,7 +96,7 @@ export default function OtherMaterialForm(props) {
     if (props.type === "edit") {
       console.log(formData.projectId)
       editData(
-        `../../../data/materials/othermaterials/edit`,
+        `../../../data/outsourcing/edit`,
         formData,
         "Failed to edit material");
     }
@@ -155,8 +104,6 @@ export default function OtherMaterialForm(props) {
     props.refreshPage();
     return
   }
-
-  
 
   function resetRemark() {
     // copy remark text and save it in "clipboard" state
@@ -184,66 +131,47 @@ export default function OtherMaterialForm(props) {
     <div>
       {isError && <FormError errorMessage={errorMessage} />}
       {fetchError && <FormError errorMessage={fetchError.message} />}
-      <form className='form--2xfr'>
+      <form className='form--3xfr'>
 
         <div className='input-label__container--row--3-3'>
-          <label htmlFor='otherMaterialName'> 
+          <label htmlFor='outsourcingName'> 
             Name:
           </label>
           <input
             type="text"
             placeholder={"Name"}
-            name="otherMaterialName"
-            id="otherMaterialName"
+            name="outsourcingName"
+            id="outsourcingName"
             onChange={handleChange} 
-            value={formData.otherMaterialName}
+            value={formData.outsourcingName}
+          />
+        </div>
+
+        <div className='input-label__container--row--2-3'>
+          <label htmlFor='contractorName'>
+            Contractor:
+          </label>
+          <input
+            type="text"
+            placeholder="Contractor name"
+            name="contractorName"
+            id="contractorName"
+            onChange={handleChange} 
+            value={formData.contractorName}
           />
         </div>
 
         <div className='input-label__container'>
-          <label htmlFor='quantity'>
-            Quantity
+          <label htmlFor='outsourcingValue'>
+            Price [PLN]:
           </label>
           <input
             type="number"
-            placeholder="Quantity"
-            name="quantity"
-            id="quantity"
+            placeholder="Price"
+            name="outsourcingValue"
+            id="outsourcingValue"
             onChange={handleChange} 
-            value={formData.quantity}
-          />
-        </div>
-
-        <div className='input-label__container'>
-          <label htmlFor='unitName' >
-            Unit:
-          </label>
-          <select
-            value={formData.unitName}
-            onChange={handleChange}
-            name="unitName"
-            id="unitName"
-          >
-            <option 
-              value={0}
-            >
-            ------
-            </option>
-            {unitsArr}
-          </select>
-        </div>
-
-        <div className='input-label__container'>
-          <label htmlFor='pricePerUnit'>
-            Price per unit [PLN]
-          </label>
-          <input
-            type="number"
-            placeholder="Price per unit"
-            name="pricePerUnit"
-            id="pricePerUnit"
-            onChange={handleChange} 
-            value={formData.pricePerUnit}
+            value={formData.outsourcingValue}
           />
         </div>
 
