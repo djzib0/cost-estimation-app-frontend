@@ -10,6 +10,7 @@ import SummaryPlateMaterialsItem from './SummaryPlateMaterialsItem';
 import SummaryRoundbarItem from './SummaryRoundbarItem';
 import SummaryOtherItem from './SummaryOtherItem';
 import SummaryResultItem from './SummaryResultItem';
+import SummaryOutsourcingItem from './SummaryOutsourcingItem';
 // context imports
 import { useParams } from 'react-router-dom';
 import { DefaultSettingsContext } from '../../App';
@@ -24,8 +25,8 @@ import {
   summarizeRoundbarMaterials,
   summarizeOtherMaterials,
   formatValueToCurrency,
+  summarizeOutsourcing
 } from '../../utils/utils';
-import OtherMaterialItem from '../otherMaterial/OtherMaterialItem';
 
 export default function SummaryContainer(props) {
 
@@ -144,6 +145,9 @@ export default function SummaryContainer(props) {
   // other materials summary
   let otherMaterialsTotalValue = projectData && summarizeOtherMaterials(projectData.otherMaterials)
 
+  // outsourcing summary
+  let outsourcingTotalValue = projectData && summarizeOutsourcing(projectData.outsourcing);
+
 
   return (
     <div>
@@ -231,6 +235,42 @@ export default function SummaryContainer(props) {
             />
           </div>
 
+        </MainSectionContainer>
+      </MainContentContainer>
+
+      <MainContentContainer>
+        <MainSectionContainer themeMode={themeMode}>
+          <div className='data__container'>
+            <MainContentContainerTitle title={"Outsourcing"} />
+            <MainContentHeaderContainer>
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
+              <MainContentHeaderContainerItem variant='regular' title={"Name"} />
+              <MainContentHeaderContainerItem variant='regular' title={"Price [PLN]"} />
+            </MainContentHeaderContainer>
+            <div className='rows__container'>
+                <SummaryOutsourcingItem
+                  position={1}
+                  name={"outsourcing"}
+                  outsourcingTotalValue={outsourcingTotalValue}
+                 />
+            </div>
+            <SummaryResultItem
+              title={"Total value:"}
+              value={formatValueToCurrency(outsourcingTotalValue)}
+              suffix={",-"}
+              isTop={true}
+             />
+            <SummaryResultItem
+              title={"Material margin:"}
+              value={projectData.outsourcingMargin}
+              suffix={"%"}
+            />
+            <SummaryResultItem
+              title={"Total value with margin:"}
+              value={formatValueToCurrency(outsourcingTotalValue * (1 + projectData.materialMargin / 100))}
+              suffix={",-"}
+            />
+          </div>
         </MainSectionContainer>
       </MainContentContainer>
 

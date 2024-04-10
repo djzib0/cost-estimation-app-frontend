@@ -25,6 +25,7 @@ export default function ProjectDetailItem(props) {
     projectNumber,
     projectClientNumber,
     title,
+    projectType,
     netWeight,
   } = props.item;
 
@@ -34,7 +35,7 @@ export default function ProjectDetailItem(props) {
         <div className='cell__container'>{projectNumber}</div>
         <div className='cell__container'>{projectClientNumber}</div>
         <div className='cell__container'>{title}</div>
-        <div className='cell__container'>{title}</div>
+        <div className='cell__container'>{projectType.typeName}</div>
         <div className='cell__container--narrow'>{netWeight}</div>
 
         <div className='cell-cta__container'>

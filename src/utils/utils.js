@@ -156,8 +156,19 @@ function summarizeOtherMaterials(data) {
     return totalValue;
 }
 
+function summarizeOutsourcing(data) {
+    let totalValue = 0;
+    if (data) {
+        for (let item of data) {
+            totalValue += item.outsourcingValue
+        }
+    };
+    return totalValue;
+}
+
 export {
     capitalFirstLetter, getLocalStorageTheme, isEmpty, isEqualZero,
     formatValueToCurrency, summarizeOperationsCost, summarizePlateMaterials,
-    summarizeRoundbarMaterials, summarizeOtherMaterials
+    summarizeRoundbarMaterials, summarizeOtherMaterials,
+    summarizeOutsourcing
 }
