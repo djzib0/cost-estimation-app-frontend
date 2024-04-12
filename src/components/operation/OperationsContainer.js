@@ -5,6 +5,7 @@ import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
+import MainContentHeaderCtaContainer from '../mainContentContainer/MainContentHeaderCtaContainer';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
 // params import
@@ -48,7 +49,14 @@ export default function OperationsContainer(props) {
 
   // state variables
   const [operationsData, setOperationsData] = useState();
-  const [refreshedPage, setRefreshedPage] = useState(false);  
+  const [refreshedPage, setRefreshedPage] = useState(false); 
+  const [filterData, setFilterData] = useState(
+    {
+      title: "",
+      type: "",
+      remark: "",
+    }
+  ) 
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
@@ -121,7 +129,14 @@ export default function OperationsContainer(props) {
       toggleModalOn();
   }
 
-  const operationsArr = fetchedData && fetchedData.map((item, index = 1) => {    
+  const operationsArr = fetchedData && fetchedData.filter(item => {
+    return (
+      item.operationTitle.toString().includes(filterData.title.toString()) 
+      && item.operationHourTypeName.toString().includes(filterData.type.toString())
+      && item.remark.toString().includes(filterData.remark.toString())
+    )
+  })
+  .map((item, index = 1) => {    
     const position = index + 1;
     return (
       <OperationItem
@@ -139,7 +154,17 @@ export default function OperationsContainer(props) {
       />
     )
   })
-  
+
+  function handleChange(e) {
+    const {name, value, type, checked} = e.target
+    setFilterData(prevFormData => {
+      return {
+        ...prevFormData,
+        [name]: type === "checkbox" ? checked : value,
+      }
+    })
+  }
+
   return (
     <div>
       <MainContentContainer>
@@ -156,13 +181,39 @@ export default function OperationsContainer(props) {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
-              <MainContentHeaderContainerItem variant='wide' title={"Title"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Quantity [hrs]"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} isFilterTitle />
+              <MainContentHeaderContainerItem 
+                variant='wide' 
+                title={"Title"}
+                type='text'
+                inputName='title'
+                handleChange={handleChange}
+                value={filterData.title}
+                showInputField
+              />
+              <MainContentHeaderContainerItem variant='narrower' title={"Quantity [hrs]"}
+              />
               <MainContentHeaderContainerItem variant='narrower' title={"Price/hr [PLN]"} />
               <MainContentHeaderContainerItem variant='narrower' title={"Total value [PLN]"} />
-              <MainContentHeaderContainerItem variant='narrower' title={"Type"} />
-              <MainContentHeaderContainerItem variant='wide' title={"Remark"} />
+              <MainContentHeaderContainerItem 
+                variant='narrower' 
+                title={"Type"}
+                type='text'
+                inputName='type'
+                handleChange={handleChange}
+                value={filterData.type}
+                showInputField
+                 />
+              <MainContentHeaderContainerItem
+                variant='wide' 
+                title={"Remark"} 
+                type='text'
+                inputName='remark'
+                handleChange={handleChange}
+                value={filterData.remark}
+                showInputField
+                />
+              <MainContentHeaderCtaContainer />
             </MainContentHeaderContainer>
             <div className='rows__container'>
                 {operationsArr}

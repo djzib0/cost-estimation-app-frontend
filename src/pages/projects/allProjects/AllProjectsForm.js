@@ -193,7 +193,6 @@ export default function AllProjectsForm(props) {
         [name]: type === "checkbox" ? checked : value,
       }
     })
-    
   }
 
   return (
