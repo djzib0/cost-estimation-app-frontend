@@ -117,7 +117,6 @@ export default function RoundbarsContainer(props) {
   }
 
   function setDeleteModal(item) {
-    console.log(item, "item")
     setModalData(prevData => {
       //open new modal with new properties
       return {

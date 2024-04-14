@@ -131,9 +131,9 @@ export default function OperationsContainer(props) {
 
   const operationsArr = fetchedData && fetchedData.filter(item => {
     return (
-      item.operationTitle.toString().includes(filterData.title.toString()) 
-      && item.operationHourTypeName.toString().includes(filterData.type.toString())
-      && item.remark.toString().includes(filterData.remark.toString())
+      item.operationTitle.toString().toLowerCase().includes(filterData.title.toString().toLowerCase()) 
+      && item.operationHourTypeName.toString().toLowerCase().includes(filterData.type.toString().toLowerCase())
+      && item.remark.toString().toLowerCase().includes(filterData.remark.toString().toLowerCase())
     )
   })
   .map((item, index = 1) => {    
@@ -196,7 +196,7 @@ export default function OperationsContainer(props) {
               <MainContentHeaderContainerItem variant='narrower' title={"Price/hr [PLN]"} />
               <MainContentHeaderContainerItem variant='narrower' title={"Total value [PLN]"} />
               <MainContentHeaderContainerItem 
-                variant='narrower' 
+                variant='regular' 
                 title={"Type"}
                 type='text'
                 inputName='type'

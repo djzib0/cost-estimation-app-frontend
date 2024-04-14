@@ -94,7 +94,6 @@ export default function OutsourcingForm(props) {
     }
 
     if (props.type === "edit") {
-      console.log(formData.projectId)
       editData(
         `../../../data/outsourcing/edit`,
         formData,

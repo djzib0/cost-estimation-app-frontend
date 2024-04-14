@@ -142,7 +142,6 @@ export default function RoundbarMaterialForm(props) {
       setIsError(false)
     }
 
-    console.log(formData.materialGradeId, "grade id ")
     if (Number(formData.materialGradeId) === 0) {
       setErrorMessage("Please choose the material grade.")
       setIsError(true);
@@ -159,14 +158,12 @@ export default function RoundbarMaterialForm(props) {
     }
 
     if (props.type === "edit") {
-      console.log(formData.materialGradeId)
       editData(
         `../../../data/materials/roundbar/edit?materialGradeId=${Number(formData.materialGradeId)}`,
         formData,
         "Failed to edit new plate.");
     }
 
-    console.log("submitting")
     props.refreshPage();
   }
 

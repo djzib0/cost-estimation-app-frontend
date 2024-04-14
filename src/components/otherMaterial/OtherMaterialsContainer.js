@@ -5,6 +5,7 @@ import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
+import MainContentHeaderCtaContainer from '../mainContentContainer/MainContentHeaderCtaContainer';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
 import OtherMaterialItem from './OtherMaterialItem';
@@ -47,6 +48,12 @@ export default function OtherMaterialsContainer(props) {
   // state variables
   const [otherMaterialsData, setOtherMaterialsData] = useState([]);
   const [refreshedPage, setRefreshedPage] = useState(false);
+  const [filterData, setFilterData] = useState(
+    {
+      otherMaterialName: "",
+      unitName: ""
+    }
+  )
 
 
   // if modal is on when the first render occurs,
@@ -118,8 +125,14 @@ export default function OtherMaterialsContainer(props) {
       }})
       toggleModalOn();
   }
-
-  const otherMaterialsArr = otherMaterialsData && fetchedData.map((item, index) => {
+  
+  const otherMaterialsArr = fetchedData && fetchedData.filter(item => {
+    return (
+      item.otherMaterialName.toString().toLowerCase().includes((filterData.otherMaterialName).toString().toLowerCase())
+      && item.unitName.toString().toLowerCase().includes((filterData.unitName).toString().toLowerCase())
+    )
+  })
+  .map((item, index) => {
     return (
       <OtherMaterialItem 
         key={item.otherMaterialId}
@@ -130,6 +143,16 @@ export default function OtherMaterialsContainer(props) {
       />
     )
   })
+
+  function handleChange(e) {
+    const {name, value, type, checked} = e.target
+    setFilterData(prevFormData => {
+      return {
+        ...prevFormData,
+        [name]: type === "checkbox" ? checked : value,
+      }
+    })
+  }
 
   return (
     <div>
@@ -147,13 +170,30 @@ export default function OtherMaterialsContainer(props) {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
-              <MainContentHeaderContainerItem variant='regular' title={"Name"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} isFilterTitle/>
+              <MainContentHeaderContainerItem
+                variant='regular' 
+                title={"Name"}
+                type={"text"}
+                inputName='otherMaterialName'
+                handleChange={handleChange}
+                value={filterData.otherMaterialName}
+                showInputField
+              />
               <MainContentHeaderContainerItem variant='regular' title={"Quantity"} />
-              <MainContentHeaderContainerItem variant='regular' title={"Unit"} />
+              <MainContentHeaderContainerItem
+                variant='regular'
+                title={"Unit"}
+                type={"text"}
+                inputName='unitName'
+                handleChange={handleChange}
+                value={filterData.unitName}
+                showInputField
+              />
               <MainContentHeaderContainerItem variant='regular' title={"Price/unit"} />
               <MainContentHeaderContainerItem variant='regular' title={"Total value"} />
               <MainContentHeaderContainerItem variant='regular' title={"Remark"} />
+              <MainContentHeaderCtaContainer />
             </MainContentHeaderContainer>
               <div className='rows__container'>
                 {otherMaterialsArr}

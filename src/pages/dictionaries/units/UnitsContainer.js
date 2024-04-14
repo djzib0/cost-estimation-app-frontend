@@ -53,7 +53,6 @@ export default function UnitsContainer() {
 
   useEffect(() => {
     getData(`/data/units`)
-    console.log("using effect")
     if (fetchedData) {
       setUnitsData(fetchedData)
     }

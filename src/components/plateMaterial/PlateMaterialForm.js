@@ -47,9 +47,6 @@ export default function PlateMaterialForm(props) {
     }
   )
 
-  console.log(formData.dimensionA)
-  console.log(formData.dimensionB, "inner")
-
   // utilize useApi custom hook
   const {
     getData,
@@ -137,8 +134,6 @@ export default function PlateMaterialForm(props) {
       setIsError(false)
     }
 
-    console.log("dimensionsB", formData.dimensionB)
-    console.log(formData.dimensionB > formData.dimensionA)
     if (formData.isRing && Number(formData.dimensionB) > Number(formData.dimensionA)) {
       setErrorMessage("Inner diameter cannot be bigger than outer diameter.")
       setIsError(true);

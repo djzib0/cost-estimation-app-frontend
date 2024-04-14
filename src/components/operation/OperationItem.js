@@ -44,19 +44,13 @@ export default function OperationItem(props) {
     nextItemId,
     previousItemId
   } = props
-  
-  // console.log(props.previousItemPosition, "prev")
-  // console.log(props.nextItemPosition, " next")
-  // console.log(props.operationsArrLength, " length")
 
   function increasePosition() {
-    console.log("increasing position")
     changeEntryPosition(`../../../data/operation/changeposition?editedOperationId=${projectOperationId}&switchedOperationId=${nextItemId}`)
     props.refreshPage();
   }
 
   function decreasePosition() {
-    console.log("decreasing position")
     changeEntryPosition(`../../../data/operation/changeposition?editedOperationId=${projectOperationId}&switchedOperationId=${previousItemId}`)
     props.refreshPage();
   }
@@ -69,7 +63,7 @@ export default function OperationItem(props) {
         <div className='cell__container--narrower'>{quantity}</div>
         <div className='cell__container--narrower'>{operationPricePerHour}</div>
         <div className='cell__container--narrower'>{totalValue}</div>
-        <div className='cell__container--narrower'>{operationHourTypeName && capitalFirstLetter(operationHourTypeName)}</div>
+        <div className='cell__container'>{operationHourTypeName && capitalFirstLetter(operationHourTypeName)}</div>
         <div className='cell__container--wide'>
           <Remark text={remark} />
         </div>

@@ -54,7 +54,6 @@ export default function AllProjects() {
 
   function refreshPage() {
     setRefreshedPage(prevState => !prevState)
-    console.log("refreshing AllProjects.js")
   }
 
 

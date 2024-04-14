@@ -5,6 +5,7 @@ import MainSectionContainer from '../mainContentContainer/MainSectionContainer';
 import MainContentContainerTitle from '../mainContentContainer/MainContentContainerTitle';
 import MainContentHeaderContainer from '../mainContentContainer/MainContentHeaderContainer';
 import MainContentHeaderContainerItem from '../mainContentContainer/MainContentHeaderContainerItem';
+import MainContentHeaderCtaContainer from '../mainContentContainer/MainContentHeaderCtaContainer';
 import Modal from '../modal/Modal';
 import CtaButton from '../buttons/CtaButton';
 import OutsourcingItem from './OutsourcingItem';
@@ -47,6 +48,12 @@ export default function OutsourcingContainer(props) {
   // state variables
   const [outsourcingData, setOutsourcingData] = useState([]);
   const [refreshedPage, setRefreshedPage] = useState(false);
+  const [filterData, setFilterData] = useState(
+    {
+      outsourcingName: "",
+      contractorName: "",
+    }
+  )
 
   // if modal is on when the first render occurs,
   // close modal if any is opened
@@ -118,8 +125,13 @@ export default function OutsourcingContainer(props) {
       toggleModalOn();
   }
 
-  console.log(fetchedData, )
-  const outsourcingArr = fetchedData && fetchedData.map((item, index) => {
+  const outsourcingArr = fetchedData && fetchedData.filter(item => {
+    return (
+      item.outsourcingName.toString().toLowerCase().includes(filterData.outsourcingName.toString().toLowerCase())
+      && item.contractorName.toString().toLowerCase().includes(filterData.contractorName.toString().toLowerCase())
+    )
+  })
+  .map((item, index) => {
     return (
       <OutsourcingItem 
         key={item.outsourcingId}
@@ -131,12 +143,23 @@ export default function OutsourcingContainer(props) {
     )
   })
 
+  function handleChange(e) {
+    const {name, value, type, checked} = e.target
+    setFilterData(prevFormData => {
+      return {
+        ...prevFormData,
+        [name]: type === "checkbox" ? checked : value,
+      }
+    })
+  }
+
+
   return (
     <div>
       <MainContentContainer>
         <MainSectionContainer themeMode={themeMode}>
           <div className='data__container'>
-            <MainContentContainerTitle title={"Other materials"} />
+            <MainContentContainerTitle title={"Outsourcing"} />
             <div>
             <CtaButton 
                   title="Add new outsourcing"
@@ -147,9 +170,25 @@ export default function OutsourcingContainer(props) {
             /> 
             </div>
             <MainContentHeaderContainer>
-              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} />
-              <MainContentHeaderContainerItem variant='regular' title={"Name"} />
-              <MainContentHeaderContainerItem variant='regular' title={"Contractor"} />
+              <MainContentHeaderContainerItem variant='narrower' title={"Pos."} isFilterTitle/>
+              <MainContentHeaderContainerItem
+                variant='regular'
+                title={"Name"}
+                type='text'
+                inputName='outsourcingName'
+                handleChange={handleChange}
+                value={filterData.outsourcingName}
+                showInputField
+              />
+              <MainContentHeaderContainerItem
+                variant='regular'
+                title={"Contractor"}
+                type='text'
+                inputName='contractorName'
+                handleChange={handleChange}
+                value={filterData.contractorName}
+                showInputField
+              />
               <MainContentHeaderContainerItem variant='regular' title={"Price [PLN]"} />
               <MainContentHeaderContainerItem variant='regular' title={"Remark"} />
             </MainContentHeaderContainer>

@@ -145,7 +145,6 @@ export default function OtherMaterialForm(props) {
     }
 
     if (props.type === "edit") {
-      console.log(formData.projectId)
       editData(
         `../../../data/materials/othermaterials/edit`,
         formData,
